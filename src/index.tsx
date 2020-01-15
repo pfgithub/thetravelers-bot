@@ -312,10 +312,10 @@ type GameData = DataBase &
             // send({ action: "setDir", dir: nxtdir, autowalk: false });
             log("sendrecv", "I< getGameObject:\n" + JSON.stringify(jsonv));
 
-            let skilldata = gamedata.data.skills;
-            Object.assign(gamedata.data, jsonv);
-            Object.assign(gamedata.data.skills, skilldata);
-            jsonv.skills && Object.assign(gamedata.data.skills, jsonv.skills);
+            let skilldata = { ...gamedata.data.skills };
+            gamedata.data = { ...gamedata.data, ...jsonv };
+            if (jsonv.skills)
+                gamedata.data.skills = { ...skilldata, ...jsonv.skills };
             let json = gamedata.data;
 
             log("gamestate", JSON.stringify(json, null, "    "));
@@ -331,6 +331,7 @@ Next Level XP: ${json.skills.next_level_xp}
 Skill Points: ${json.skills.skill_points}
 Carry: ${json.skills.carry}/${json.skills.max_carry}
 Crafting: ${util.inspect(json.craft_queue, false, null, true)}
+Stamina: ${json.skills.sp}
 ----------------`,
             );
 
@@ -481,6 +482,10 @@ Crafting: ${util.inspect(json.craft_queue, false, null, true)}
                 console.log("Walking", fdir, "to", target);
                 console.log("Time remaining: " + target.dist + "s");
                 send({ action: "setDir", dir: fdir, autowalk: false });
+                if (Math.abs(dx) + Math.abs(dy) > 2 && json.skills.sp > 10) {
+                    console.log("doublestep available");
+                    send({ action: "doublestep", option: "add" });
+                }
                 return;
             }
             console.log("Uh oh! State is " + json.state);
@@ -503,7 +508,8 @@ Crafting: ${util.inspect(json.craft_queue, false, null, true)}
                   action: "loot_change";
                   option: "change";
                   changes: LootContainer;
-              },
+              }
+            | { action: "doublestep"; option: "add" },
     ) {
         log("sendrecv", "i> \n" + JSON.stringify(msg));
         console.log("(sent)");
