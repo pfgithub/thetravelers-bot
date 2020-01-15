@@ -2,6 +2,9 @@ import * as fs from "fs";
 import * as path from "path";
 import * as util from "util";
 
+import * as React from "react";
+import { render, Box, useInput, Color } from "ink";
+
 declare global {
     namespace NodeJS {
         interface Global {
@@ -164,35 +167,58 @@ function hashCode(str: string) {
     return hash.toString(36).replace("-", "N");
 }
 
-let eventChoices: { [key: string]: string | undefined } = {
-    "Nqiyaxk -> ": "check the back",
-    "Nqiyaxk -> Njlha1w -> ": "a plastic container",
-    "Npxhk2u -> ": "the kitchen",
-    "Npxhk2u -> 4tv44d -> ": "an old note",
-    "Npxhk2u -> 4tv44d -> gdmovk -> ": "the top floor",
-    "Npxhk2u -> 4tv44d -> gdmovk -> oo15x8 -> ": "search",
-    "Nkx66dg -> ": "enter",
-    "Nkx66dg -> Ndng1cc -> ": "the back room",
-    "Nkx66dg -> Ndng1cc -> ri4pqo -> ": "the closet",
-    "Nkx66dg -> Ndng1cc -> ri4pqo -> N29f16l -> ": "search",
-    "Nwbfckh -> ": "the highway",
-    "Nwbfckh -> lxsdpw -> ": "the skyscraper",
-    "Nwbfckh -> lxsdpw -> Nwvszfr -> ": "the corner",
-    "Nwbfckh -> lxsdpw -> Nwvszfr -> bumptf -> ": "the body",
-    // the desk requires some thing
-    "Nwbfckh -> lxsdpw -> Nwvszfr -> bumptf -> [looting] -> bumptf -> ":
-        "go back",
-    "Nwbfckh -> lxsdpw -> Nwvszfr -> bumptf -> [looting] -> bumptf -> lxsdpw -> ":
-        "the tent",
-    // "Nwbfckh -> lxsdpw -> Nwvszfr -> bumptf -> [looting] -> bumptf -> lxsdpw -> [looting] -> lxsdpw -> ":
-    //     "leave", // going to try pull lever, run
-    "Nrokoq0 -> ": "enter",
-    "Nrokoq0 -> h14h96 -> ": "the bedroom",
-    "Nrokoq0 -> h14h96 -> 9u7myh -> ": "leave", // maybe it isn't worth it to do this one
-    "N51ipt6 -> ": "leave",
-};
+type EventChoices = { [key: string]: string | undefined };
+function getEventChoices(): EventChoices {
+    return JSON.parse(
+        fs.readFileSync(path.join(__dirname, "eventchoices.json"), "utf-8") ||
+            "{}",
+    );
+}
+function setEventChoices(nec: EventChoices) {
+    fs.writeFileSync(
+        path.join(__dirname, "eventchoices.json"),
+        JSON.stringify(nec, null, "\t"),
+        "utf-8",
+    );
+}
 
 let nxtdir = "nw";
+
+function ChoicePicker(props: {
+    visitPath: string;
+    choices: Buttons;
+    onSelect: (choice: string) => void;
+}) {
+    let choiceList = Object.entries(props.choices).sort((a, b) =>
+        a[1].text > b[1].text ? 1 : a[1].text < b[1].text ? -1 : 0,
+    );
+    let [selection, setSelection] = React.useState(0);
+    useInput((input, key) => {
+        if (key.return) {
+            props.onSelect(choiceList[selection][1].text);
+        }
+        if (key.downArrow) {
+            setSelection(Math.min(selection + 1, choiceList.length - 1));
+        }
+        if (key.upArrow) {
+            setSelection(Math.max(selection - 1, 0));
+        }
+    });
+    return (
+        <Box flexDirection="column">
+            <Box>Path: {props.visitPath}</Box>
+            {choiceList.map(([id, value], index) => {
+                let sel = index === selection;
+                return (
+                    <Color white={!sel} whiteBright={sel} key={id}>
+                        {sel ? "> " : "  "}
+                        {value.text}
+                    </Color>
+                );
+            })}
+        </Box>
+    );
+}
 
 function estimateTime(px: number, py: number, lx: number, ly: number) {
     let straightTimeH = Math.abs(lx - px);
@@ -224,6 +250,7 @@ type DataBase = {
     y: number;
     supplies: LootContainer;
 };
+type Buttons = { [key: string]: { text: string } };
 
 type GameEventData = {
     state: "event";
@@ -233,7 +260,7 @@ type GameEventData = {
             title: string;
             desc: string;
             visited: string; // desc for visited
-            btns: { [key: string]: { text: string } };
+            btns: Buttons;
         };
     };
 };
@@ -261,7 +288,7 @@ type GameData = DataBase &
 
     let eventIgnore = false;
 
-    conn.client.getGameObject = (jsonv: GameData) => {
+    conn.client.getGameObject = async (jsonv: GameData) => {
         if (eventIgnore) {
             return;
         }
@@ -358,13 +385,27 @@ Game State: ${json.state}
                 console.log("========================");
 
                 log("detail", evd);
-                let choice = eventChoices[getCurrentVisitPath()];
+                let choicemaker = getEventChoices();
+                let choice = choicemaker[getCurrentVisitPath()];
                 if (!choice) {
                     console.log("Not sure what to do!");
                     eventIgnore = true;
-                    process.exit(1);
-                    eventIgnore = false;
-                    throw "never";
+                    let waiting: ((choice: string) => unknown)[] = [];
+                    let app = render(
+                        <ChoicePicker
+                            visitPath={getCurrentVisitPath()}
+                            choices={sd.btns}
+                            onSelect={choice => {
+                                eventIgnore = false;
+                                waiting.forEach(w => w(choice));
+                            }}
+                        />,
+                    );
+                    choice = await new Promise<string>(r =>
+                        waiting.push(v => r(v)),
+                    );
+                    choicemaker[getCurrentVisitPath()] = choice;
+                    setEventChoices(choicemaker);
                 }
                 let choiceID = choices[choice];
                 if (!choiceID) {
