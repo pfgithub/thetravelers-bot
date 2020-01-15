@@ -1,14 +1,25 @@
 import * as fs from "fs";
 import * as path from "path";
 
+declare global {
+    namespace NodeJS {
+        interface Global {
+            window: DOMWindow & {
+                jQuery?: JQueryStatic;
+                $?: JQueryStatic;
+            };
+        }
+    }
+}
+
 // jsdom setup
-const { JSDOM, CookieJar } = require("jsdom");
-const { Cookie } = require("tough-cookie");
+import { JSDOM, CookieJar, DOMWindow } from "jsdom";
+import { Cookie } from "tough-cookie";
 const cookieJar = new CookieJar();
 
 const header = Cookie.parse(
     "T=pz8P3+S6fK1sbHehMjnLRw==; darkmode=false; hover=true; autowalkpast=true; autowalkpasttime=29; notifAny=true; notifTraveler=false; notifCity=true; notifHouse=true; notifLevelup=false; supplyView=icon; __cfduid=dd8d66499b46ddffdd9c961d331521ae31578549703",
-);
+)!;
 
 cookieJar.setCookie(header, "https://thetravelers.online/", (...a) =>
     console.log(...a),
@@ -31,18 +42,20 @@ Object.assign(global.window, {
 
 //console.log(Object.keys(global.window).sort().join(", "));
 
-const jQuery = require("jquery");
-window.jQuery = jQuery;
-window.$ = jQuery;
-const signalr = require("signalr");
-const generateWorldTile = require("./worldgen");
-const makeBoard = require("./board");
+import * as jQuery from "jquery";
+global.window.jQuery = jQuery;
+global.window.$ = jQuery;
+import "signalr";
+// @ts-ignore
+import * as generateWorldTile from "./worldgen";
+// @ts-ignore
+import * as makeBoard from "./board";
 
-const hubs = require("../data/hubs"); // or fetch and eval but that seems scary
+require("../data/hubs");
+// or fetch and eval but that seems scary
 
-let cookietext = `T=pz8P3+S6fK1sbHehMjnLRw==; darkmode=false; hover=true; autowalkpast=true; autowalkpasttime=29; notifAny=true; notifTraveler=false; notifCity=true; notifHouse=true; notifLevelup=false; supplyView=icon; __cfduid=dd8d66499b46ddffdd9c961d331521ae31578549703`;
-
-async function request(url, args = {}) {
+async function request(url: string, args: any = {}): Promise<string> {
+    // @ts-ignore
     let request = new window.XMLHttpRequest();
     request.open("POST", url, true);
     request.setRequestHeader("Content-Type", "application/json");
@@ -59,17 +72,6 @@ async function request(url, args = {}) {
             }
         };
     });
-
-    let fetcher = await window.fetch("https://thetravelers.online" + url, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            Cookie: cookietext,
-        },
-        body: JSON.stringify(args),
-    });
-
-    return await fetcher.json();
 }
 
 function getCurrentVisitPath() {
@@ -78,7 +80,7 @@ function getCurrentVisitPath() {
         "utf-8",
     );
 }
-function setCurrentVisitPath(newPath) {
+function setCurrentVisitPath(newPath: string) {
     fs.writeFileSync(
         path.join(__dirname, "../data/currentvisit"),
         newPath,
@@ -94,7 +96,7 @@ function getVisitedHouses() {
         ),
     );
 }
-function setVisitedHouses(nvh) {
+function setVisitedHouses(nvh: string) {
     fs.writeFileSync(
         path.join(__dirname, "../data/visitedhouses.json"),
         JSON.stringify(nvh, null, "\t"),
@@ -102,12 +104,12 @@ function setVisitedHouses(nvh) {
     );
 }
 
-let knownHouses = {};
+let knownHouses: { [key: string]: { x: number; y: number; tile: string } } = {};
 let gameBoard = makeBoard("#");
 
 console.log("gwt", generateWorldTile);
 
-function searchForHouse(sx, sy) {
+function searchForHouse(sx: number, sy: number) {
     gameBoard.clear();
     let size = 100;
 
@@ -124,26 +126,26 @@ function searchForHouse(sx, sy) {
     }
 }
 
-let gamedata;
+let gamedata: { data: GameData };
 
-function dist(ax, ay, bx, by) {
-    return Math.sqrt((ax - bx) ** 2 + (ay - by) ** 2);
-}
+// function dist(ax: number, ay: number, bx: number, by: number) {
+//     return Math.sqrt((ax - bx) ** 2 + (ay - by) ** 2);
+// }
 
-String.prototype.hashCode = function() {
+function hashCode(str: string) {
     var hash = 0,
         i,
         chr;
-    if (this.length === 0) return hash;
-    for (i = 0; i < this.length; i++) {
-        chr = this.charCodeAt(i);
+    if (str.length === 0) return hash;
+    for (i = 0; i < str.length; i++) {
+        chr = str.charCodeAt(i);
         hash = (hash << 5) - hash + chr;
         hash |= 0; // Convert to 32bit integer
     }
     return hash.toString(36).replace("-", "N");
-};
+}
 
-let eventChoices = {
+let eventChoices: { [key: string]: string | undefined } = {
     "Nqiyaxk -> ": "check the back",
     "Nqiyaxk -> Njlha1w -> ": "a plastic container",
     "Npxhk2u -> ": "the kitchen",
@@ -156,11 +158,9 @@ let eventChoices = {
     "Nkx66dg -> Ndng1cc -> ri4pqo -> N29f16l -> ": "search",
 };
 
-let currentVisitPath = "Nqiyaxk -> ";
-
 let nxtdir = "nw";
 
-function estimateTime(px, py, lx, ly) {
+function estimateTime(px: number, py: number, lx: number, ly: number) {
     let straightTimeH = Math.abs(lx - px);
     let straightTimeV = Math.abs(ly - py);
     let diagonalTime = Math.min(straightTimeV, straightTimeH);
@@ -169,12 +169,48 @@ function estimateTime(px, py, lx, ly) {
     return (diagonalTime + straightTimeH + straightTimeV) * 3;
 }
 
-function markVisited(x, y) {
+function markVisited(x: number, y: number) {
     let vh = getVisitedHouses();
     vh[x + "|" + y] = true;
     setVisitedHouses(vh);
     console.log("Marked", x, y, "as visited");
 }
+
+function appendCurrentVisitPath(pv: string) {
+    let cvpath = getCurrentVisitPath();
+    if (!cvpath.endsWith(pv)) cvpath += pv;
+    setCurrentVisitPath(cvpath);
+}
+
+type LootItem = { count: number; data: { name: string } };
+type LootContainer = { [key: string]: LootItem };
+type DataBase = {
+    username: string;
+    x: number;
+    y: number;
+    supplies: LootContainer;
+};
+
+type GameEventData = {
+    state: "event";
+    event_data: {
+        visited: boolean;
+        stage_data: {
+            title: string;
+            desc: string;
+            visited: string; // desc for visited
+            btns: { [key: string]: { text: string } };
+        };
+    };
+};
+type GameLootingData = {
+    state: "looting";
+    loot: {
+        items: LootContainer;
+    };
+};
+type GameTravelData = { state: "travel" };
+type GameData = DataBase & (GameLootingData | GameTravelData | GameEventData);
 
 (async () => {
     let reqres = await request("/default.aspx/GetAutoLog");
@@ -182,12 +218,13 @@ function markVisited(x, y) {
     console.log("Game started.");
     //console.log(JSON.stringify(gamedata, null, "\t"));
 
+    // @ts-ignore
     const $ = window.$;
     let conn = $.connection.logHub;
     let hub = $.connection.hub;
-    //console.log(conn, hub);
+    // console.log(conn, hub);
 
-    conn.client.getGameObject = jsonv => {
+    conn.client.getGameObject = (jsonv: GameData) => {
         try {
             // nxtdir = nxtdir === "nw" ? "se" : "nw";
             // send({ action: "setDir", dir: nxtdir, autowalk: false });
@@ -200,6 +237,7 @@ function markVisited(x, y) {
             //process.stdout.write("\u001b[0;0H");
 
             if (json.state === "looting") {
+                appendCurrentVisitPath("[looting] -> ");
                 /*
           {
 	"action": "loot_change",
@@ -251,12 +289,10 @@ function markVisited(x, y) {
                 let evd = json.event_data;
                 // if(evd.visited) do something
                 let sd = evd.stage_data;
-                let code = "" + sd.desc.hashCode();
+                let code = "" + hashCode(sd.desc);
                 let addedVisitPath = code + " -> ";
-                let cvpath = getCurrentVisitPath();
-                if (!cvpath.endsWith(addedVisitPath)) cvpath += addedVisitPath;
-                setCurrentVisitPath(cvpath);
-                let choices = {};
+                appendCurrentVisitPath(addedVisitPath);
+                let choices: { [key: string]: string } = {};
                 Object.entries(sd.btns).forEach(([id, value]) => {
                     choices[value.text] = id;
                 });
@@ -274,11 +310,13 @@ function markVisited(x, y) {
                 if (!choice) {
                     console.log("Not sure what to do!");
                     process.exit(1);
+                    throw "never";
                 }
                 let choiceID = choices[choice];
                 if (!choiceID) {
                     console.log("Choice does not exist here");
                     process.exit(1);
+                    throw "never";
                 }
 
                 console.log("Making choice", choiceID, " (", choice, ")");
@@ -297,13 +335,15 @@ function markVisited(x, y) {
 
             let vh = getVisitedHouses();
 
-            let houses = Object.entries(knownHouses)
-                .map(([, house]) => {
-                    if (vh[house.x + "|" + house.y]) return undefined;
-                    house.dist = estimateTime(house.x, house.y, px, py);
-                    return house;
-                })
-                .filter(a => a);
+            let houses = Object.entries(knownHouses).flatMap(([, house]) => {
+                if (vh[house.x + "|" + house.y]) return [];
+                return [
+                    {
+                        ...house,
+                        dist: estimateTime(house.x, house.y, px, py),
+                    },
+                ];
+            });
             houses = houses.sort((a, b) => a.dist - b.dist);
             console.log("nearest houses;", houses);
             if (!houses[0]) {
@@ -325,10 +365,20 @@ function markVisited(x, y) {
             process.exit(1);
         }
     };
-    conn.client.getGameObjectNoCountdown = json => console.log("ggonc", json);
-    conn.client.raw = js => console.log("RAW", js);
+    conn.client.getGameObjectNoCountdown = (json: any) =>
+        console.log("ggonc", json);
+    conn.client.raw = (js: any) => console.log("RAW", js);
 
-    function send(msg) {
+    function send(
+        msg:
+            | { action: "setDir"; dir: string; autowalk: boolean }
+            | { action: "event_choice"; option: string }
+            | {
+                  action: "loot_change";
+                  option: "change";
+                  changes: LootContainer;
+              },
+    ) {
         console.log("SEND", JSON.stringify(msg));
         conn.server.fromClient(msg);
     }
@@ -336,34 +386,6 @@ function markVisited(x, y) {
     await new Promise(r => hub.start().done(r));
 
     send({ action: "setDir", dir: nxtdir, autowalk: false });
-
-    /*
-const client = new signalR.HubConnectionBuilder()
-	.withUrl("https://thetravelers.online/signalr")
-	.build();
-
-client.on("send", d => console.log("send", d));
-
-	await client.start();
-
-	client.invoke("send", "Test");
-	*/
-
-    /*
-const client = new signalR.client(
-	"wss://thetravelers.online/signalr",
-	["hub", "logHub"],
-	undefined,
-	undefined,
-	{Cookie: cookietext}
-);
-console.log("client");
-
-client.on("logHub", "getGameObject", (data) => console.log("getGameObject", data));
-client.on("logHub", "getGameObjectNoCountdown", (data) => console.log("getGameObjectNoCountdown", data));
-client.on("logHub", "raw", (data) => console.log("raw", data));
-client.serviceHandlers.onError = (e) => console.log("signalr error", e);
-*/
 })();
 
 setTimeout(() => process.exit(0), 1000 * 60 * 60); // every 1h

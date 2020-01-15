@@ -7,6 +7,12 @@
         "websocket": "^1.0.31"
     },
     "devDependencies": {
-        "@types/node": "^13.1.6"
+        "@types/jquery": "^3.3.31",
+        "@types/jsdom": "^12.2.4",
+        "@types/node": "^13.1.6",
+        "@types/signalr": "^2.2.35",
+        "@types/tough-cookie": "^2.3.6",
+        "ts-node": "^8.6.2",
+        "typescript": "^3.7.4"
     }
 }
