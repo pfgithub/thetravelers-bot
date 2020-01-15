@@ -261,6 +261,7 @@ type DataBase = {
         max_carry: number;
         carry: number;
         skill_points: number;
+        xp: number;
     };
     craft_queue?: { [key: string]: { item_id: string; remaining: number } };
 };
@@ -328,9 +329,20 @@ Username: ${json.username}
 Current Location: ${json.x} x, ${json.y} y
 Game State: ${json.state}
 Level: ${json.skills.level}
-Next Level XP: ${json.skills.next_level_xp}
+Next Level XP: ${json.skills.xp}/${json.skills.next_level_xp} (${(
+                    json.skills.xp / json.skills.next_level_xp
+                ).toLocaleString("en-US", {
+                    style: "percent",
+                    minimumFractionDigits: 2,
+                })}) (in ~${(json.skills.next_level_xp - json.skills.xp) *
+                    3}s) (current xp is estimated)
 Skill Points: ${json.skills.skill_points}
-Carry: ${json.skills.carry}/${json.skills.max_carry}
+Carry: ${json.skills.carry}/${json.skills.max_carry} (${(
+                    json.skills.carry / json.skills.max_carry
+                ).toLocaleString("en-US", {
+                    style: "percent",
+                    minimumFractionDigits: 2,
+                })})
 Crafting: ${util.inspect(json.craft_queue, false, null, true)}
 Stamina: ${json.skills.sp}
 ----------------`,
@@ -457,6 +469,7 @@ Stamina: ${json.skills.sp}
                         dir: afkWalkDir,
                         autowalk: false,
                     });
+                    json.skills.xp++;
                     return;
                 }
                 if (afkWalkDir) afkWalkDir = undefined;
@@ -498,6 +511,7 @@ Stamina: ${json.skills.sp}
                 console.log("Walking", fdir, "to", target);
                 console.log("Time remaining: " + target.dist + "s");
                 send({ action: "setDir", dir: fdir, autowalk: false });
+                json.skills.xp++;
                 if (Math.abs(dx) + Math.abs(dy) > 2 && json.skills.sp > 10) {
                     console.log("doublestep available");
                     send({ action: "doublestep", option: "add" });
