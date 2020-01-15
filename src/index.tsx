@@ -189,11 +189,12 @@ function ChoicePicker(props: {
     choices: Buttons;
     onSelect: (choice: string) => void;
 }) {
+    // https://github.com/vadimdemedes/ink-select-input
     let choiceList = Object.entries(props.choices).sort((a, b) =>
         a[1].text > b[1].text ? 1 : a[1].text < b[1].text ? -1 : 0,
     );
     let [selection, setSelection] = React.useState(0);
-    useInput((input, key) => {
+    useInput((_input, key) => {
         if (key.return) {
             props.onSelect(choiceList[selection][1].text);
         }
@@ -249,6 +250,19 @@ type DataBase = {
     x: number;
     y: number;
     supplies: LootContainer;
+    skills: {
+        sp: number;
+        level: number;
+        next_level_xp: number;
+        hp: number;
+        max_hp: number;
+        max_sp: number;
+        dmg: number;
+        max_carry: number;
+        carry: number;
+        skill_points: number;
+    };
+    craft_queue?: { [key: string]: { item_id: string; remaining: number } };
 };
 type Buttons = { [key: string]: { text: string } };
 
@@ -298,7 +312,10 @@ type GameData = DataBase &
             // send({ action: "setDir", dir: nxtdir, autowalk: false });
             log("sendrecv", "I< getGameObject:\n" + JSON.stringify(jsonv));
 
+            let skilldata = gamedata.data.skills;
             Object.assign(gamedata.data, jsonv);
+            Object.assign(gamedata.data.skills, skilldata);
+            jsonv.skills && Object.assign(gamedata.data.skills, jsonv.skills);
             let json = gamedata.data;
 
             log("gamestate", JSON.stringify(json, null, "    "));
@@ -309,6 +326,11 @@ type GameData = DataBase &
 Username: ${json.username}
 Current Location: ${json.x} x, ${json.y} y
 Game State: ${json.state}
+Level: ${json.skills.level}
+Next Level XP: ${json.skills.next_level_xp}
+Skill Points: ${json.skills.skill_points}
+Carry: ${json.skills.carry}/${json.skills.max_carry}
+Crafting: ${util.inspect(json.craft_queue, false, null, true)}
 ----------------`,
             );
 
@@ -331,7 +353,6 @@ Game State: ${json.state}
                 let csupl = JSON.parse(JSON.stringify(json.supplies));
                 log("detail", "FULL LOOT:", json.loot);
                 log("detail", "CURRENT LOOT:", csupl);
-                console.log("========== GOT =======");
                 for (let [lname, lvalue] of loot) {
                     if (!csupl[lname]) {
                         console.log(
@@ -404,6 +425,7 @@ Game State: ${json.state}
                     choice = await new Promise<string>(r =>
                         waiting.push(v => r(v)),
                     );
+                    app.unmount();
                     choicemaker[getCurrentVisitPath()] = choice;
                     setEventChoices(choicemaker);
                 }
