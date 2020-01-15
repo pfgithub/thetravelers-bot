@@ -133,9 +133,11 @@ let gameBoard = makeBoard("#");
 
 function searchForHouse(sx: number, sy: number) {
     gameBoard.clear();
-    let size = 100;
+    let size = 200;
 
     // spiral instead of this
+    console.log("Searching...");
+    let start = new Date().getTime();
     for (let x = sx - size; x <= sx + size; x++) {
         for (let y = sy - size; y <= sy + size; y++) {
             if (gameBoard.get(x, -y) !== "#") continue;
@@ -146,6 +148,8 @@ function searchForHouse(sx: number, sy: number) {
             }
         }
     }
+    let end = new Date().getTime();
+    console.log("Completed search in " + (end - start) + "ms");
 }
 
 let gamedata: { data: GameData };
@@ -433,16 +437,15 @@ Stamina: ${json.skills.sp}
                                 "rusty_knife",
                             ].indexOf(lname) > -1
                         ) {
-                            csupl[lname].count = Math.min(
-                                csupl[lname].count,
-                                1,
-                            );
-                            console.log(
-                                "Dropping down to " +
-                                    lvalue.count +
-                                    " " +
-                                    lname,
-                            );
+                            if (csupl[lname].count > 1) {
+                                csupl[lname].count = 1;
+                                console.log(
+                                    "Dropping down to " +
+                                        lvalue.count +
+                                        " " +
+                                        lname,
+                                );
+                            }
                         }
                     }
                 } else if (choice === "leave") {
