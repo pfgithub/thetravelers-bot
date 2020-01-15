@@ -389,6 +389,9 @@ Stamina: ${json.skills.sp}
                 log("detail", "CURRENT LOOT:", csupl);
                 if (!choice) {
                     console.log("========== Not sure what to do =======");
+                    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    choice = "loot";
+                    /*
                     eventIgnore = true;
                     let waiting: ((choice: string) => unknown)[] = [];
                     let app = render(
@@ -405,6 +408,7 @@ Stamina: ${json.skills.sp}
                         waiting.push(v => r(v)),
                     );
                     app.unmount();
+                    */
                     exptActions[getCurrentVisitPath()] = choice;
                     setEventChoices(exptActions);
                 }
