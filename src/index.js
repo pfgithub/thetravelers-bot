@@ -1,4 +1,5 @@
 const fs = require("fs");
+const path = require("path");
 
 // jsdom setup
 const { JSDOM, CookieJar } = require("jsdom");
@@ -71,7 +72,30 @@ async function request(url, args = {}) {
   return await fetcher.json();
 }
 
-let visitedHouses = {};
+function getCurrentVisitPath() {
+  return fs.readFileSync(path.join(__dirname, "../data/currentvisit"));
+}
+function setCurrentVisitPath(newPath) {
+  fs.writeFileSync(
+    path.join(__dirname, "../data/currentvisit"),
+    newPath,
+    "utf-8"
+  );
+}
+
+function getVisitedHouses() {
+  return JSON.parse(
+    fs.readFileSync(path.join(__dirname, "../data/visitedhouses.json"))
+  );
+}
+function setVisitedHouses(nvh) {
+  fs.writeFileSync(
+    path.join(__dirname, "../data/visitedhouses.json"),
+    JSON.stringify(nvh, null, "\t"),
+    "utf-8"
+  );
+}
+
 let knownHouses = {};
 let gameBoard = makeBoard("#");
 
@@ -114,13 +138,33 @@ String.prototype.hashCode = function() {
 };
 
 let eventChoices = {
-  "Nqiyaxk -> ": "check the back", // Ez1DP0S
-  "Nqiyaxk -> Njlha1w -> ": "a plastic container" // 6U3PxAR
+  "Nqiyaxk -> ": "check the back",
+  "Nqiyaxk -> Njlha1w -> ": "a plastic container",
+  "Npxhk2u -> ": "the kitchen",
+  "Npxhk2u -> 4tv44d -> ": "an old note",
+  "Npxhk2u -> 4tv44d -> gdmovk -> ": "the top floor",
+  "Npxhk2u -> 4tv44d -> gdmovk -> oo15x8 -> ": "search"
 };
 
 let currentVisitPath = "Nqiyaxk -> ";
 
 let nxtdir = "nw";
+
+function estimateTime(px, py, lx, ly) {
+  let straightTimeH = Math.abs(lx - px);
+  let straightTimeV = Math.abs(ly - py);
+  let diagonalTime = Math.min(straightTimeV, straightTimeH);
+  straightTimeH -= diagonalTime;
+  straightTimeV -= diagonalTime;
+  return (diagonalTime + straightTimeH + straightTimeV) * 3;
+}
+
+function markVisited(x, y) {
+  let vh = getVisitedHouses();
+  vh[x + "|" + y] = true;
+  setVisitedHouses(vh);
+  console.log("Marked", x, y, "as visited");
+}
 
 (async () => {
   let reqres = await request("/default.aspx/GetAutoLog");
@@ -135,8 +179,8 @@ let nxtdir = "nw";
 
   conn.client.getGameObject = jsonv => {
     try {
-      nxtdir = nxtdir === "nw" ? "se" : "nw";
-      send({ action: "setDir", dir: nxtdir, autowalk: false });
+      // nxtdir = nxtdir === "nw" ? "se" : "nw";
+      // send({ action: "setDir", dir: nxtdir, autowalk: false });
       console.log(JSON.stringify(jsonv));
 
       Object.assign(gamedata.data, jsonv);
@@ -145,17 +189,52 @@ let nxtdir = "nw";
       //process.stdout.write("\u001b[2J\u001b[0;0H")
       //process.stdout.write("\u001b[0;0H");
 
-      if (json.state === "event") {
-        send({ action: "event_choice", option: "__leave__" });
-        json.state = "";
-        return; //// !!!!!!!!!!!!!!!!!!!!!!!!
+      if (json.state === "looting") {
+        /*
+          {
+	"action": "loot_change",
+	"option": "change",
+	"changes": {
+		...: {
+			"count": add here,
+			"data": {...
+          */
+        console.log("========== LOOT CHANGE =======");
+        let loot = Object.entries(json.loot.items);
+        let csupl = JSON.parse(JSON.stringify(json.supplies));
+        console.log("FULL LOOT:", json.loot);
+        console.log("CURRENT LOOT:", csupl);
+        console.log("========== GOT =======");
+        for (let [lname, lvalue] of loot) {
+          if (!csupl[lname]) {
+            console.log("+ NEW! " + lvalue.count + " " + lvalue.data.name);
+            csupl[lname] = lvalue;
+          } else {
+            console.log("+ " + lvalue.count + " " + lvalue.data.name);
+            csupl[lname].count += lvalue.count;
+          }
+        }
+        console.log("==========================");
+        send({ action: "loot_change", option: "change", changes: csupl });
+        return;
+      }
 
-        process.stdout.write("\u001b[2J\u001b[0;0H");
+      if (json.state === "event") {
+        markVisited(json.x, json.y);
+        if (json.event_data.visited) {
+          console.log("Got to location but it was visited");
+          send({ action: "event_choice", option: "__leave__" });
+          return;
+        }
+        // json.state = "";
+        // return; //// !!!!!!!!!!!!!!!!!!!!!!!!
+
+        // process.stdout.write("\u001b[2J\u001b[0;0H");
         let evd = json.event_data;
         // if(evd.visited) do something
         let sd = evd.stage_data;
         let code = "" + sd.desc.hashCode();
-        currentVisitPath += code + " -> ";
+        setCurrentVisitPath(getCurrentVisitPath() + code + " -> ");
         let choices = {};
         Object.entries(sd.btns).forEach(([id, value]) => {
           choices[value.text] = id;
@@ -165,12 +244,12 @@ let nxtdir = "nw";
         console.log("= Description:", sd.desc);
         console.log("= VisitedDescription:", sd.visited);
         console.log("= HashCode:", code);
-        console.log("= VisitPath:", currentVisitPath);
+        console.log("= VisitPath:", getCurrentVisitPath());
         console.log("= Choices:", choices);
         console.log("========================");
 
         console.log(evd);
-        let choice = eventChoices[currentVisitPath];
+        let choice = eventChoices[getCurrentVisitPath()];
         if (!choice) {
           console.log("Not sure what to do!");
           process.exit(1);
@@ -186,8 +265,7 @@ let nxtdir = "nw";
 
         return;
       }
-      currentVisitPath = "";
-      return; // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      setCurrentVisitPath("");
 
       let [px, py] = [json.x, json.y];
       searchForHouse(px, py);
@@ -196,10 +274,12 @@ let nxtdir = "nw";
 
       console.log(json);
 
+      let vh = getVisitedHouses();
+
       let houses = Object.entries(knownHouses)
         .map(([, house]) => {
-          if (visitedHouses[house.x + "|" + house.y]) return undefined;
-          house.dist = dist(house.x, house.y, px, py);
+          if (vh[house.x + "|" + house.y]) return undefined;
+          house.dist = estimateTime(house.x, house.y, px, py);
           return house;
         })
         .filter(a => a);
