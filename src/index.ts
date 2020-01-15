@@ -184,11 +184,12 @@ let eventChoices: { [key: string]: string | undefined } = {
         "go back",
     "Nwbfckh -> lxsdpw -> Nwvszfr -> bumptf -> [looting] -> bumptf -> lxsdpw -> ":
         "the tent",
-    "Nwbfckh -> lxsdpw -> Nwvszfr -> bumptf -> [looting] -> bumptf -> lxsdpw -> [looting] -> lxsdpw -> ":
-        "leave",
+    // "Nwbfckh -> lxsdpw -> Nwvszfr -> bumptf -> [looting] -> bumptf -> lxsdpw -> [looting] -> lxsdpw -> ":
+    //     "leave", // going to try pull lever, run
     "Nrokoq0 -> ": "enter",
     "Nrokoq0 -> h14h96 -> ": "the bedroom",
     "Nrokoq0 -> h14h96 -> 9u7myh -> ": "leave", // maybe it isn't worth it to do this one
+    "N51ipt6 -> ": "leave",
 };
 
 let nxtdir = "nw";
@@ -243,7 +244,8 @@ type GameLootingData = {
     };
 };
 type GameTravelData = { state: "travel" };
-type GameData = DataBase & (GameLootingData | GameTravelData | GameEventData);
+type GameData = DataBase &
+    (GameLootingData | GameTravelData | GameEventData | { state: "???" });
 
 (async () => {
     let reqres = await request("/default.aspx/GetAutoLog");
@@ -257,7 +259,13 @@ type GameData = DataBase & (GameLootingData | GameTravelData | GameEventData);
     let hub = $.connection.hub;
     // console.log(conn, hub);
 
+    let eventIgnore = false;
+
     conn.client.getGameObject = (jsonv: GameData) => {
+        if (eventIgnore) {
+            return;
+        }
+        process.stdout.write("\u001b[2J\u001b[0;0H");
         try {
             // nxtdir = nxtdir === "nw" ? "se" : "nw";
             // send({ action: "setDir", dir: nxtdir, autowalk: false });
@@ -266,7 +274,16 @@ type GameData = DataBase & (GameLootingData | GameTravelData | GameEventData);
             Object.assign(gamedata.data, jsonv);
             let json = gamedata.data;
 
-            log("gamestate", JSON.stringify(json));
+            log("gamestate", JSON.stringify(json, null, "    "));
+
+            console.log(
+                `TheTravelers Bot
+----------------
+Username: ${json.username}
+Current Location: ${json.x} x, ${json.y} y
+Game State: ${json.state}
+----------------`,
+            );
 
             //process.stdout.write("\u001b[2J\u001b[0;0H")
             //process.stdout.write("\u001b[0;0H");
@@ -344,7 +361,9 @@ type GameData = DataBase & (GameLootingData | GameTravelData | GameEventData);
                 let choice = eventChoices[getCurrentVisitPath()];
                 if (!choice) {
                     console.log("Not sure what to do!");
+                    eventIgnore = true;
                     process.exit(1);
+                    eventIgnore = false;
                     throw "never";
                 }
                 let choiceID = choices[choice];
@@ -359,43 +378,50 @@ type GameData = DataBase & (GameLootingData | GameTravelData | GameEventData);
 
                 return;
             }
-            setCurrentVisitPath("");
+            if (json.state === "travel") {
+                setCurrentVisitPath("");
 
-            let [px, py] = [json.x, json.y];
-            searchForHouse(px, py);
-            //gameBoard.print();
-            process.stdout.write("\u001b[J");
+                let [px, py] = [json.x, json.y];
+                searchForHouse(px, py);
+                //gameBoard.print();
+                process.stdout.write("\u001b[J");
 
-            // console.log(json);
+                // console.log(json);
 
-            let vh = getVisitedHouses();
+                let vh = getVisitedHouses();
 
-            let houses = Object.entries(knownHouses).flatMap(([, house]) => {
-                if (vh[house.x + "|" + house.y]) return [];
-                return [
-                    {
-                        ...house,
-                        dist: estimateTime(house.x, house.y, px, py),
+                let houses = Object.entries(knownHouses).flatMap(
+                    ([, house]) => {
+                        if (vh[house.x + "|" + house.y]) return [];
+                        return [
+                            {
+                                ...house,
+                                dist: estimateTime(house.x, house.y, px, py),
+                            },
+                        ];
                     },
-                ];
-            });
-            houses = houses.sort((a, b) => a.dist - b.dist);
-            log("detail", "nearest houses;", houses);
-            if (!houses[0]) {
-                console.log("no houses");
-                process.exit(0);
+                );
+                houses = houses.sort((a, b) => a.dist - b.dist);
+                log("detail", "nearest houses;", houses);
+                if (!houses[0]) {
+                    console.log("no houses");
+                    process.exit(0);
+                }
+                let target = houses[0];
+                //if(!target) target = houses[0];
+                let [tx, ty] = [target.x, target.y];
+                let [dx, dy] = [tx - px, ty - py];
+                let [sx, sy] = [dx, dy].map(n => Math.sign(n));
+                let dirns = sy === 1 ? "n" : sy === -1 ? "s" : "";
+                let direw = sx === 1 ? "e" : sx === -1 ? "w" : "";
+                let fdir = dirns + direw;
+                console.log("Walking", fdir, "to", target);
+                console.log("Time remaining: " + target.dist + "s");
+                send({ action: "setDir", dir: fdir, autowalk: false });
+                return;
             }
-            let target = houses[0];
-            //if(!target) target = houses[0];
-            let [tx, ty] = [target.x, target.y];
-            let [dx, dy] = [tx - px, ty - py];
-            let [sx, sy] = [dx, dy].map(n => Math.sign(n));
-            let dirns = sy === 1 ? "n" : sy === -1 ? "s" : "";
-            let direw = sx === 1 ? "e" : sx === -1 ? "w" : "";
-            let fdir = dirns + direw;
-            console.log("Walking", fdir, "to", target);
-            console.log("Time remaining: " + target.dist + "s");
-            send({ action: "setDir", dir: fdir, autowalk: false });
+            console.log("Uh oh! State is " + json.state);
+            throw process.exit(1);
         } catch (e) {
             console.log(e);
             process.exit(1);
@@ -417,6 +443,7 @@ type GameData = DataBase & (GameLootingData | GameTravelData | GameEventData);
               },
     ) {
         log("sendrecv", "i> \n" + JSON.stringify(msg));
+        console.log("(sent)");
         conn.server.fromClient(msg);
     }
 
