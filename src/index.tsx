@@ -348,6 +348,16 @@ Stamina: ${json.skills.sp}
 ----------------`,
             );
 
+            if (json.skills.skill_points > 0) {
+                send({
+                    action: "skill_upgrade",
+                    carry: 1,
+                    dmg: 0,
+                    hp: 0,
+                    sp: 0,
+                });
+            }
+
             //process.stdout.write("\u001b[2J\u001b[0;0H")
             //process.stdout.write("\u001b[0;0H");
 
@@ -458,7 +468,7 @@ Stamina: ${json.skills.sp}
             if (json.state === "travel") {
                 setCurrentVisitPath("");
 
-                if (json.skills.max_carry - json.skills.carry < 30) {
+                if (json.skills.max_carry - json.skills.carry < 25) {
                     if (afkWalkDir) afkWalkDir = afkWalkDir === "n" ? "s" : "n";
                     if (!afkWalkDir) afkWalkDir = "nw";
                     console.log(
@@ -539,7 +549,14 @@ Stamina: ${json.skills.sp}
                   option: "change";
                   changes: LootContainer;
               }
-            | { action: "doublestep"; option: "add" },
+            | { action: "doublestep"; option: "add" }
+            | {
+                  action: "skill_upgrade";
+                  carry: number;
+                  dmg: number;
+                  hp: number;
+                  sp: number;
+              },
     ) {
         log("sendrecv", "i> \n" + JSON.stringify(msg));
         console.log("(sent)");
