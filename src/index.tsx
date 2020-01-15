@@ -186,13 +186,15 @@ let nxtdir = "nw";
 
 function ChoicePicker(props: {
     visitPath: string;
-    choices: Buttons;
+    choices: Buttons | { text: string }[];
     onSelect: (choice: string) => void;
 }) {
     // https://github.com/vadimdemedes/ink-select-input
-    let choiceList = Object.entries(props.choices).sort((a, b) =>
-        a[1].text > b[1].text ? 1 : a[1].text < b[1].text ? -1 : 0,
-    );
+    let choiceList = Array.isArray(props.choices)
+        ? props.choices.sort().map((it, i) => ["" + i, it] as const)
+        : Object.entries(props.choices).sort((a, b) =>
+              a[1].text > b[1].text ? 1 : a[1].text < b[1].text ? -1 : 0,
+          );
     let [selection, setSelection] = React.useState(0);
     useInput((_input, key) => {
         if (key.return) {
@@ -283,6 +285,10 @@ type GameLootingData = {
     state: "looting";
     loot: {
         items: LootContainer;
+        title: string;
+        desc: string;
+        visitdesc: string;
+        visited: boolean;
     };
 };
 type GameTravelData = { state: "travel" };
@@ -362,33 +368,91 @@ Stamina: ${json.skills.sp}
             //process.stdout.write("\u001b[0;0H");
 
             if (json.state === "looting") {
-                appendCurrentVisitPath("[looting] -> ");
-                /*
-          {
-	"action": "loot_change",
-	"option": "change",
-	"changes": {
-		...: {
-			"count": add here,
-			"data": {...
-          */
-                console.log("========== LOOT CHANGE =======");
+                appendCurrentVisitPath(
+                    "[" +
+                        hashCode(json.loot.title + " " + json.loot.desc) +
+                        "] -> ",
+                );
+                let exptActions = getEventChoices();
+                let choice = exptActions[getCurrentVisitPath()];
+                console.log("=== LOOT ===");
+                console.log(json.loot);
                 let loot = Object.entries(json.loot.items);
-                let csupl = JSON.parse(JSON.stringify(json.supplies));
+                let csupl = JSON.parse(
+                    JSON.stringify(json.supplies),
+                ) as LootContainer;
                 log("detail", "FULL LOOT:", json.loot);
                 log("detail", "CURRENT LOOT:", csupl);
-                for (let [lname, lvalue] of loot) {
-                    if (!csupl[lname]) {
-                        console.log(
-                            "+ NEW! " + lvalue.count + " " + lvalue.data.name,
-                        );
-                        csupl[lname] = lvalue;
-                    } else {
-                        console.log(
-                            "+ " + lvalue.count + " " + lvalue.data.name,
-                        );
-                        csupl[lname].count += lvalue.count;
+                if (!choice) {
+                    console.log("========== Not sure what to do =======");
+                    eventIgnore = true;
+                    let waiting: ((choice: string) => unknown)[] = [];
+                    let app = render(
+                        <ChoicePicker
+                            visitPath={getCurrentVisitPath()}
+                            choices={[{ text: "loot" }, { text: "leave" }]}
+                            onSelect={choice => {
+                                eventIgnore = false;
+                                waiting.forEach(w => w(choice));
+                            }}
+                        />,
+                    );
+                    choice = await new Promise<string>(r =>
+                        waiting.push(v => r(v)),
+                    );
+                    app.unmount();
+                    exptActions[getCurrentVisitPath()] = choice;
+                    setEventChoices(exptActions);
+                }
+                if (choice === "loot") {
+                    console.log("========== LOOT CHANGE =======");
+                    for (let [lname, lvalue] of loot) {
+                        if (!csupl[lname]) {
+                            console.log(
+                                "+ NEW! " +
+                                    lvalue.count +
+                                    " " +
+                                    lvalue.data.name,
+                            );
+                            csupl[lname] = lvalue;
+                        } else {
+                            console.log(
+                                "+ " + lvalue.count + " " + lvalue.data.name,
+                            );
+                            csupl[lname].count += lvalue.count;
+                        }
                     }
+                    console.log("========== DROPPING UNNEEDED ITEMS =======");
+                    for (let [lname, lvalue] of Object.entries(csupl)) {
+                        if (
+                            [
+                                "bp_metal_detector",
+                                "keycard_a",
+                                "shovel",
+                                "shovel_head",
+                                "rusty_knife",
+                            ].indexOf(lname) > -1
+                        ) {
+                            csupl[lname].count = Math.min(
+                                csupl[lname].count,
+                                1,
+                            );
+                            console.log(
+                                "Dropping down to " +
+                                    lvalue.count +
+                                    " " +
+                                    lname,
+                            );
+                        }
+                    }
+                } else if (choice === "leave") {
+                    send({ action: "loot_change", option: "leave" });
+                    return;
+                } else {
+                    console.log(
+                        "========== Invalid Choice: " + choice + " =======",
+                    );
+                    process.exit(0);
                 }
                 console.log("==========================");
                 send({
@@ -457,7 +521,6 @@ Stamina: ${json.skills.sp}
                 if (!choiceID) {
                     console.log("Choice does not exist here");
                     process.exit(1);
-                    throw "never";
                 }
 
                 console.log("Making choice", choiceID, " (", choice, ")");
@@ -549,6 +612,7 @@ Stamina: ${json.skills.sp}
                   option: "change";
                   changes: LootContainer;
               }
+            | { action: "loot_change"; option: "leave" }
             | { action: "doublestep"; option: "add" }
             | {
                   action: "skill_upgrade";
