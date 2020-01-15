@@ -73,7 +73,7 @@ async function request(url, args = {}) {
 }
 
 function getCurrentVisitPath() {
-  return fs.readFileSync(path.join(__dirname, "../data/currentvisit"));
+  return fs.readFileSync(path.join(__dirname, "../data/currentvisit"), "utf-8");
 }
 function setCurrentVisitPath(newPath) {
   fs.writeFileSync(
@@ -85,7 +85,7 @@ function setCurrentVisitPath(newPath) {
 
 function getVisitedHouses() {
   return JSON.parse(
-    fs.readFileSync(path.join(__dirname, "../data/visitedhouses.json"))
+    fs.readFileSync(path.join(__dirname, "../data/visitedhouses.json"), "utf-8")
   );
 }
 function setVisitedHouses(nvh) {
@@ -143,7 +143,11 @@ let eventChoices = {
   "Npxhk2u -> ": "the kitchen",
   "Npxhk2u -> 4tv44d -> ": "an old note",
   "Npxhk2u -> 4tv44d -> gdmovk -> ": "the top floor",
-  "Npxhk2u -> 4tv44d -> gdmovk -> oo15x8 -> ": "search"
+  "Npxhk2u -> 4tv44d -> gdmovk -> oo15x8 -> ": "search",
+  "Nkx66dg -> ": "enter",
+  "Nkx66dg -> Ndng1cc -> ": "the back room",
+  "Nkx66dg -> Ndng1cc -> ri4pqo -> ": "the closet",
+  "Nkx66dg -> Ndng1cc -> ri4pqo -> N29f16l -> ": "search"
 };
 
 let currentVisitPath = "Nqiyaxk -> ";
@@ -234,7 +238,10 @@ function markVisited(x, y) {
         // if(evd.visited) do something
         let sd = evd.stage_data;
         let code = "" + sd.desc.hashCode();
-        setCurrentVisitPath(getCurrentVisitPath() + code + " -> ");
+        let addedVisitPath = code + " -> ";
+        let cvpath = getCurrentVisitPath();
+        if (!cvpath.endsWith(addedVisitPath)) cvpath += addedVisitPath;
+        setCurrentVisitPath(cvpath);
         let choices = {};
         Object.entries(sd.btns).forEach(([id, value]) => {
           choices[value.text] = id;
