@@ -1,5 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
+import * as util from "util";
 
 declare global {
     namespace NodeJS {
@@ -93,7 +94,7 @@ function getVisitedHouses() {
         fs.readFileSync(
             path.join(__dirname, "../data/visitedhouses.json"),
             "utf-8",
-        ),
+        ) || "{}",
     );
 }
 function setVisitedHouses(nvh: string) {
@@ -104,10 +105,28 @@ function setVisitedHouses(nvh: string) {
     );
 }
 
+type Logfiles = "general" | "gamestate" | "detail" | "sendrecv" | "recvunknown";
+function log(logfile: Logfiles, ...message: any[]) {
+    fs.appendFileSync(
+        path.join("__dirname", "../logs", logfile + ".log"),
+        new Date().toString() +
+            " (" +
+            new Date().getTime() +
+            ") ================\n\n" +
+            message
+                .map(msg =>
+                    typeof msg === "string"
+                        ? msg
+                        : util.inspect(msg, false, null, false),
+                )
+                .join(" ") +
+            "\n\n=================== ",
+        "utf-8",
+    );
+}
+
 let knownHouses: { [key: string]: { x: number; y: number; tile: string } } = {};
 let gameBoard = makeBoard("#");
-
-console.log("gwt", generateWorldTile);
 
 function searchForHouse(sx: number, sy: number) {
     gameBoard.clear();
@@ -167,6 +186,9 @@ let eventChoices: { [key: string]: string | undefined } = {
         "the tent",
     "Nwbfckh -> lxsdpw -> Nwvszfr -> bumptf -> [looting] -> bumptf -> lxsdpw -> [looting] -> lxsdpw -> ":
         "leave",
+    "Nrokoq0 -> ": "enter",
+    "Nrokoq0 -> h14h96 -> ": "the bedroom",
+    "Nrokoq0 -> h14h96 -> 9u7myh -> ": "leave", // maybe it isn't worth it to do this one
 };
 
 let nxtdir = "nw";
@@ -184,7 +206,7 @@ function markVisited(x: number, y: number) {
     let vh = getVisitedHouses();
     vh[x + "|" + y] = true;
     setVisitedHouses(vh);
-    console.log("Marked", x, y, "as visited");
+    log("general", "Marked", x, y, "as visited");
 }
 
 function appendCurrentVisitPath(pv: string) {
@@ -226,7 +248,7 @@ type GameData = DataBase & (GameLootingData | GameTravelData | GameEventData);
 (async () => {
     let reqres = await request("/default.aspx/GetAutoLog");
     gamedata = JSON.parse(reqres);
-    console.log("Game started.");
+    log("general", "Game started.");
     //console.log(JSON.stringify(gamedata, null, "\t"));
 
     // @ts-ignore
@@ -239,10 +261,12 @@ type GameData = DataBase & (GameLootingData | GameTravelData | GameEventData);
         try {
             // nxtdir = nxtdir === "nw" ? "se" : "nw";
             // send({ action: "setDir", dir: nxtdir, autowalk: false });
-            console.log(JSON.stringify(jsonv));
+            log("sendrecv", "I< getGameObject:\n" + JSON.stringify(jsonv));
 
             Object.assign(gamedata.data, jsonv);
             let json = gamedata.data;
+
+            log("gamestate", JSON.stringify(json));
 
             //process.stdout.write("\u001b[2J\u001b[0;0H")
             //process.stdout.write("\u001b[0;0H");
@@ -261,8 +285,8 @@ type GameData = DataBase & (GameLootingData | GameTravelData | GameEventData);
                 console.log("========== LOOT CHANGE =======");
                 let loot = Object.entries(json.loot.items);
                 let csupl = JSON.parse(JSON.stringify(json.supplies));
-                console.log("FULL LOOT:", json.loot);
-                console.log("CURRENT LOOT:", csupl);
+                log("detail", "FULL LOOT:", json.loot);
+                log("detail", "CURRENT LOOT:", csupl);
                 console.log("========== GOT =======");
                 for (let [lname, lvalue] of loot) {
                     if (!csupl[lname]) {
@@ -289,7 +313,7 @@ type GameData = DataBase & (GameLootingData | GameTravelData | GameEventData);
             if (json.state === "event") {
                 markVisited(json.x, json.y);
                 if (json.event_data.visited) {
-                    console.log("Got to location but it was visited");
+                    log("general", "Got to location but it was visited");
                     send({ action: "event_choice", option: "__leave__" });
                     return;
                 }
@@ -316,7 +340,7 @@ type GameData = DataBase & (GameLootingData | GameTravelData | GameEventData);
                 console.log("= Choices:", choices);
                 console.log("========================");
 
-                console.log(evd);
+                log("detail", evd);
                 let choice = eventChoices[getCurrentVisitPath()];
                 if (!choice) {
                     console.log("Not sure what to do!");
@@ -342,7 +366,7 @@ type GameData = DataBase & (GameLootingData | GameTravelData | GameEventData);
             //gameBoard.print();
             process.stdout.write("\u001b[J");
 
-            console.log(json);
+            // console.log(json);
 
             let vh = getVisitedHouses();
 
@@ -356,7 +380,7 @@ type GameData = DataBase & (GameLootingData | GameTravelData | GameEventData);
                 ];
             });
             houses = houses.sort((a, b) => a.dist - b.dist);
-            console.log("nearest houses;", houses);
+            log("detail", "nearest houses;", houses);
             if (!houses[0]) {
                 console.log("no houses");
                 process.exit(0);
@@ -370,6 +394,7 @@ type GameData = DataBase & (GameLootingData | GameTravelData | GameEventData);
             let direw = sx === 1 ? "e" : sx === -1 ? "w" : "";
             let fdir = dirns + direw;
             console.log("Walking", fdir, "to", target);
+            console.log("Time remaining: " + target.dist + "s");
             send({ action: "setDir", dir: fdir, autowalk: false });
         } catch (e) {
             console.log(e);
@@ -377,8 +402,9 @@ type GameData = DataBase & (GameLootingData | GameTravelData | GameEventData);
         }
     };
     conn.client.getGameObjectNoCountdown = (json: any) =>
-        console.log("ggonc", json);
-    conn.client.raw = (js: any) => console.log("RAW", js);
+        log("recvunknown", "ggonc", JSON.stringify(json));
+    conn.client.raw = (js: any) =>
+        log("recvunknown", "RAW", JSON.stringify(js));
 
     function send(
         msg:
@@ -390,7 +416,7 @@ type GameData = DataBase & (GameLootingData | GameTravelData | GameEventData);
                   changes: LootContainer;
               },
     ) {
-        console.log("SEND", JSON.stringify(msg));
+        log("sendrecv", "i> \n" + JSON.stringify(msg));
         conn.server.fromClient(msg);
     }
 
