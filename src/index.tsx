@@ -301,6 +301,7 @@ type GameData = DataBase &
     // console.log(conn, hub);
 
     let eventIgnore = false;
+    let afkWalkDir: "n" | "s" | "nw" | undefined = undefined;
 
     conn.client.getGameObject = async (jsonv: GameData) => {
         if (eventIgnore) {
@@ -444,6 +445,21 @@ Stamina: ${json.skills.sp}
             }
             if (json.state === "travel") {
                 setCurrentVisitPath("");
+
+                if (json.skills.max_carry - json.skills.carry < 30) {
+                    if (afkWalkDir) afkWalkDir = afkWalkDir === "n" ? "s" : "n";
+                    if (!afkWalkDir) afkWalkDir = "nw";
+                    console.log(
+                        "Almost out of carry space. AFK walking: " + afkWalkDir,
+                    );
+                    send({
+                        action: "setDir",
+                        dir: afkWalkDir,
+                        autowalk: false,
+                    });
+                    return;
+                }
+                if (afkWalkDir) afkWalkDir = undefined;
 
                 let [px, py] = [json.x, json.y];
                 searchForHouse(px, py);
