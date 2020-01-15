@@ -156,6 +156,17 @@ let eventChoices: { [key: string]: string | undefined } = {
     "Nkx66dg -> Ndng1cc -> ": "the back room",
     "Nkx66dg -> Ndng1cc -> ri4pqo -> ": "the closet",
     "Nkx66dg -> Ndng1cc -> ri4pqo -> N29f16l -> ": "search",
+    "Nwbfckh -> ": "the highway",
+    "Nwbfckh -> lxsdpw -> ": "the skyscraper",
+    "Nwbfckh -> lxsdpw -> Nwvszfr -> ": "the corner",
+    "Nwbfckh -> lxsdpw -> Nwvszfr -> bumptf -> ": "the body",
+    // the desk requires some thing
+    "Nwbfckh -> lxsdpw -> Nwvszfr -> bumptf -> [looting] -> bumptf -> ":
+        "go back",
+    "Nwbfckh -> lxsdpw -> Nwvszfr -> bumptf -> [looting] -> bumptf -> lxsdpw -> ":
+        "the tent",
+    "Nwbfckh -> lxsdpw -> Nwvszfr -> bumptf -> [looting] -> bumptf -> lxsdpw -> [looting] -> lxsdpw -> ":
+        "leave",
 };
 
 let nxtdir = "nw";
