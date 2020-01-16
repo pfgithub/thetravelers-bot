@@ -172,15 +172,25 @@ function hashCode(str: string) {
 }
 
 type EventChoices = { [key: string]: string | undefined };
+
+let eventChoicesFile = path.join(__dirname, "eventchoices.loot.json");
 function getEventChoices(): EventChoices {
-    return JSON.parse(
-        fs.readFileSync(path.join(__dirname, "eventchoices.json"), "utf-8") ||
-            "{}",
-    );
+    return JSON.parse(fs.readFileSync(eventChoicesFile, "utf-8") || "{}");
 }
 function setEventChoices(nec: EventChoices) {
     fs.writeFileSync(
-        path.join(__dirname, "eventchoices.json"),
+        eventChoicesFile,
+        JSON.stringify(nec, null, "\t"),
+        "utf-8",
+    );
+}
+let eventNoLootChoicesFile = path.join(__dirname, "eventchoices.noloot.json");
+function getEventNoLootChoices(): EventChoices {
+    return JSON.parse(fs.readFileSync(eventNoLootChoicesFile, "utf-8") || "{}");
+}
+function setEventNoLootChoices(nec: EventChoices) {
+    fs.writeFileSync(
+        eventNoLootChoicesFile,
         JSON.stringify(nec, null, "\t"),
         "utf-8",
     );
@@ -332,6 +342,9 @@ type GameData = DataBase &
 
             log("gamestate", JSON.stringify(json, null, "    "));
 
+            let shouldAttemptLoot =
+                json.skills.max_carry - json.skills.carry >= 25;
+
             console.log(
                 `TheTravelers Bot
 ----------------
@@ -355,6 +368,7 @@ Carry: ${json.skills.carry}/${json.skills.max_carry} (${(
                 })})
 Crafting: ${util.inspect(json.craft_queue, false, null, true)}
 Stamina: ${json.skills.sp}
+Looting: ${shouldAttemptLoot}
 ----------------`,
             );
 
@@ -477,6 +491,7 @@ Stamina: ${json.skills.sp}
                     send({ action: "event_choice", option: "__leave__" });
                     return;
                 }
+                json.skills.xp += 15;
                 // json.state = "";
                 // return; //// !!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -491,18 +506,28 @@ Stamina: ${json.skills.sp}
                 Object.entries(sd.btns).forEach(([id, value]) => {
                     choices[value.text] = id;
                 });
+                let visitPath = getCurrentVisitPath();
                 console.log("=========EVENT==========");
                 console.log("= Title:", sd.title);
                 console.log("= Description:", sd.desc);
                 console.log("= VisitedDescription:", sd.visited);
                 console.log("= HashCode:", code);
-                console.log("= VisitPath:", getCurrentVisitPath());
+                console.log("= VisitPath:", visitPath);
                 console.log("= Choices:", choices);
                 console.log("========================");
 
                 log("detail", evd);
                 let choicemaker = getEventChoices();
-                let choice = choicemaker[getCurrentVisitPath()];
+                let choice = choicemaker[visitPath];
+                if (!shouldAttemptLoot) {
+                    let noloot = getEventNoLootChoices();
+                    if (noloot[visitPath]) {
+                        choice = noloot[visitPath];
+                        console.log("Taking no loot path");
+                    } else {
+                        console.log("No no-looting path available");
+                    }
+                }
                 if (!choice) {
                     console.log("Not sure what to do!");
                     eventIgnore = true;
@@ -538,7 +563,7 @@ Stamina: ${json.skills.sp}
             if (json.state === "travel") {
                 setCurrentVisitPath("");
 
-                if (json.skills.max_carry - json.skills.carry < 25) {
+                if (!shouldAttemptLoot && (false as true)) {
                     if (afkWalkDir) afkWalkDir = afkWalkDir === "n" ? "s" : "n";
                     if (!afkWalkDir) afkWalkDir = "nw";
                     console.log(
