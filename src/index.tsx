@@ -4,7 +4,7 @@ import * as util from "util";
 import * as humanizeDuration from "humanize-duration";
 
 import * as React from "react";
-import { render, Box, useInput, Color } from "ink";
+import { render, Box, useInput, Color, Instance, Text } from "ink";
 
 declare global {
     namespace NodeJS {
@@ -143,7 +143,7 @@ function searchForHouse(sx: number, sy: number, searchRadius: number) {
     let size = searchRadius;
 
     // spiral instead of this
-    console.log("Searching...");
+    // console.log("Searching...");
     let start = new Date().getTime();
     for (let x = sx - size; x <= sx + size; x++) {
         for (let y = sy - size; y <= sy + size; y++) {
@@ -158,7 +158,7 @@ function searchForHouse(sx: number, sy: number, searchRadius: number) {
         }
     }
     let end = new Date().getTime();
-    console.log("Completed search in " + (end - start) + "ms");
+    // console.log("Completed search in " + (end - start) + "ms");
 }
 
 let gamedata: { data: GameData };
@@ -335,12 +335,129 @@ type GameData = DataBase &
     let afkWalkDir: "n" | "s" | "nw" | undefined = undefined;
 
     let searchRadius = 100;
+    let shouldAttemptLoot: boolean = true;
+    let timeSinceLevelStart = 0;
+
+    let logdata: string[] = [];
+    let renderInfo = () => {
+        let json = gamedata.data;
+        let lv100sec = (634000 - json.skills.xp) * 3;
+        return (
+            <Box flexDirection="column">
+                <Box>
+                    {"\u001b[2J\u001b[0;0H"}
+                    <Text bold={true}>TheTravelers Bot</Text>
+                </Box>
+                <Box>======================</Box>
+                <Box>
+                    <Color blueBright>Username:</Color> {json.username}
+                </Box>
+                <Box>
+                    <Color blueBright>Current Location:</Color> {json.x} x,{" "}
+                    {json.y} y
+                </Box>
+                <Box>
+                    <Color blueBright>Game State:</Color> {json.state}
+                </Box>
+                <Box>
+                    <Color blueBright>Level:</Color> {json.skills.level + 1}{" "}
+                    (raw: {json.skills.level})
+                </Box>
+                <Box>
+                    <Color blueBright>Next Level XP:</Color> {json.skills.xp}/
+                    {json.skills.next_level_xp} (next level in ~
+                    {humanizeDuration(
+                        ((json.skills.next_level_xp - json.skills.xp) * 3 -
+                            timeSinceLevelStart) *
+                            1000,
+                    )}
+                    ) (current xp is estimated)
+                </Box>
+                <Box>
+                    <Color blueBright>Skill Points:</Color>{" "}
+                    {json.skills.skill_points}
+                </Box>
+                <Box>
+                    <Color blueBright>Carry:</Color> {json.skills.carry}/
+                    {json.skills.max_carry}
+                </Box>
+                <Box>
+                    <Color blueBright>Crafting:</Color>{" "}
+                    {util.inspect(json.craft_queue, false, null, true)}
+                </Box>
+                <Box>
+                    <Color blueBright>Stamina:</Color> {json.skills.sp}
+                </Box>
+                <Box>
+                    <Color blueBright>Looting:</Color> {shouldAttemptLoot}
+                </Box>
+                <Box>
+                    <Color blueBright>Search Radius:</Color> {searchRadius}
+                </Box>
+                <Box>
+                    <Color blueBright>Level 100:</Color> {lv100sec}{" "}
+                    {lv100sec - timeSinceLevelStart}{" "}
+                    {humanizeDuration((lv100sec - timeSinceLevelStart) * 1000)}{" "}
+                    (
+                    {(json.skills.xp / 634000).toLocaleString("en-US", {
+                        style: "percent",
+                        minimumFractionDigits: 2,
+                    })}
+                    )
+                </Box>
+                <Box>
+                    <Color blueBright>Time since level start:</Color>{" "}
+                    {timeSinceLevelStart}
+                </Box>
+                <Box>======================</Box>
+                <Box marginLeft={2} flexDirection="column">
+                    {logdata.map(ld => (
+                        <Box>
+                            {ld.replace(/{{Seconds\|(.+?)}}/g, (_, a) =>
+                                humanizeDuration(
+                                    (+a - timeSinceLevelStart) * 1000,
+                                ),
+                            )}
+                        </Box>
+                    ))}
+                </Box>
+            </Box>
+        );
+    };
+
+    let rend = render(renderInfo());
+
+    function rerender() {
+        rend.rerender(renderInfo());
+    }
+
+    function startCountdown() {
+        let upd = () => {
+            timeSinceLevelStart++;
+            rerender();
+        };
+        setTimeout(upd, 1000);
+        setTimeout(upd, 2000);
+    }
+
+    let printlog = (...message: any[]) => {
+        logdata.push(
+            message
+                .map(msg =>
+                    typeof msg === "string"
+                        ? msg
+                        : util.inspect(msg, false, null, true),
+                )
+                .join(" "),
+        );
+        rerender(); // nextTick()?
+    };
 
     conn.client.getGameObject = async (jsonv: GameData) => {
         if (eventIgnore) {
             return;
         }
-        process.stdout.write("\u001b[2J\u001b[0;0H");
+        // process.stdout.write("\u001b[2J\u001b[0;0H");
         try {
             // nxtdir = nxtdir === "nw" ? "se" : "nw";
             // send({ action: "setDir", dir: nxtdir, autowalk: false });
@@ -355,42 +472,12 @@ type GameData = DataBase &
 
             log("gamestate", JSON.stringify(json, null, "    "));
 
-            let shouldAttemptLoot =
-                json.skills.max_carry - json.skills.carry >= 25;
+            shouldAttemptLoot = json.skills.max_carry - json.skills.carry >= 25;
 
-            let lv100sec = (634000 - json.skills.xp) * 3;
-
-            console.log(
-                `TheTravelers Bot
-----------------
-Username: ${json.username}
-Current Location: ${json.x} x, ${json.y} y
-Game State: ${json.state}
-Level: ${json.skills.level}
-Next Level XP: ${json.skills.xp}/${
-                    json.skills.next_level_xp
-                } (next level in ~${(json.skills.next_level_xp -
-                    json.skills.xp) *
-                    3}s) (current xp is estimated)
-Skill Points: ${json.skills.skill_points}
-Carry: ${json.skills.carry}/${json.skills.max_carry} (${(
-                    json.skills.carry / json.skills.max_carry
-                ).toLocaleString("en-US", {
-                    style: "percent",
-                    minimumFractionDigits: 2,
-                })})
-Crafting: ${util.inspect(json.craft_queue, false, null, true)}
-Stamina: ${json.skills.sp}
-Looting: ${shouldAttemptLoot}
-Search Radius: ${searchRadius}
-Level 100: ${humanizeDuration(lv100sec * 1000)} (${(
-                    json.skills.xp / 634000
-                ).toLocaleString("en-US", {
-                    style: "percent",
-                    minimumFractionDigits: 2,
-                })})
-----------------`,
-            );
+            logdata = [];
+            timeSinceLevelStart = 0;
+            startCountdown();
+            rerender();
 
             if (json.proximity) {
                 let unusual = json.proximity.objs.some(
@@ -422,8 +509,8 @@ Level 100: ${humanizeDuration(lv100sec * 1000)} (${(
                 );
                 let exptActions = getEventChoices();
                 let choice = exptActions[getCurrentVisitPath()];
-                console.log("=== LOOT ===");
-                console.log(json.loot);
+                printlog("=== LOOT ===");
+                printlog(json.loot);
                 let loot = Object.entries(json.loot.items);
                 let csupl = JSON.parse(
                     JSON.stringify(json.supplies),
@@ -431,7 +518,7 @@ Level 100: ${humanizeDuration(lv100sec * 1000)} (${(
                 log("detail", "FULL LOOT:", json.loot);
                 log("detail", "CURRENT LOOT:", csupl);
                 if (!choice) {
-                    console.log("========== Not sure what to do =======");
+                    printlog("========== Not sure what to do =======");
                     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                     choice = "loot";
                     /*
@@ -456,10 +543,10 @@ Level 100: ${humanizeDuration(lv100sec * 1000)} (${(
                     setEventChoices(exptActions);
                 }
                 if (choice === "loot") {
-                    console.log("========== LOOT CHANGE =======");
+                    printlog("========== LOOT CHANGE =======");
                     for (let [lname, lvalue] of loot) {
                         if (!csupl[lname]) {
-                            console.log(
+                            printlog(
                                 "+ NEW! " +
                                     lvalue.count +
                                     " " +
@@ -467,13 +554,13 @@ Level 100: ${humanizeDuration(lv100sec * 1000)} (${(
                             );
                             csupl[lname] = lvalue;
                         } else {
-                            console.log(
+                            printlog(
                                 "+ " + lvalue.count + " " + lvalue.data.name,
                             );
                             csupl[lname].count += lvalue.count;
                         }
                     }
-                    console.log("========== DROPPING UNNEEDED ITEMS =======");
+                    printlog("========== DROPPING UNNEEDED ITEMS =======");
                     for (let [lname, lvalue] of Object.entries(csupl)) {
                         if (
                             [
@@ -486,7 +573,7 @@ Level 100: ${humanizeDuration(lv100sec * 1000)} (${(
                         ) {
                             if (csupl[lname].count > 1) {
                                 csupl[lname].count = 1;
-                                console.log(
+                                printlog(
                                     "Dropping down to " +
                                         lvalue.count +
                                         " " +
@@ -499,12 +586,12 @@ Level 100: ${humanizeDuration(lv100sec * 1000)} (${(
                     send({ action: "loot_change", option: "leave" });
                     return;
                 } else {
-                    console.log(
+                    printlog(
                         "========== Invalid Choice: " + choice + " =======",
                     );
                     process.exit(0);
                 }
-                console.log("==========================");
+                printlog("==========================");
                 send({
                     action: "loot_change",
                     option: "change",
@@ -537,14 +624,14 @@ Level 100: ${humanizeDuration(lv100sec * 1000)} (${(
                     choices[value.text] = id;
                 });
                 let visitPath = getCurrentVisitPath();
-                console.log("=========EVENT==========");
-                console.log("= Title:", sd.title);
-                console.log("= Description:", sd.desc);
-                console.log("= VisitedDescription:", sd.visited);
-                console.log("= HashCode:", code);
-                console.log("= VisitPath:", visitPath);
-                console.log("= Choices:", choices);
-                console.log("========================");
+                printlog("=========EVENT==========");
+                printlog("= Title:", sd.title);
+                printlog("= Description:", sd.desc);
+                printlog("= VisitedDescription:", sd.visited);
+                printlog("= HashCode:", code);
+                printlog("= VisitPath:", visitPath);
+                printlog("= Choices:", choices);
+                printlog("========================");
 
                 log("detail", evd);
                 let choicemaker = getEventChoices();
@@ -553,13 +640,13 @@ Level 100: ${humanizeDuration(lv100sec * 1000)} (${(
                     let noloot = getEventNoLootChoices();
                     if (noloot[visitPath]) {
                         choice = noloot[visitPath];
-                        console.log("Taking no loot path");
+                        printlog("Taking no loot path");
                     } else {
-                        console.log("No no-looting path available");
+                        printlog("No no-looting path available");
                     }
                 }
                 if (!choice) {
-                    console.log("Not sure what to do!");
+                    printlog("Not sure what to do!");
                     eventIgnore = true;
                     let waiting: ((choice: string) => unknown)[] = [];
                     let app = render(
@@ -581,22 +668,23 @@ Level 100: ${humanizeDuration(lv100sec * 1000)} (${(
                 }
                 let choiceID = choices[choice];
                 if (!choiceID) {
-                    console.log("Choice does not exist here");
+                    printlog("Choice does not exist here");
                     process.exit(1);
                 }
 
-                console.log("Making choice", choiceID, " (", choice, ")");
+                printlog("Making choice", choiceID, " (", choice, ")");
                 send({ action: "event_choice", option: choiceID });
 
                 return;
             }
             if (json.state === "travel") {
                 setCurrentVisitPath("");
+                json.skills.xp++;
 
                 if (!shouldAttemptLoot && (false as true)) {
                     if (afkWalkDir) afkWalkDir = afkWalkDir === "n" ? "s" : "n";
                     if (!afkWalkDir) afkWalkDir = "nw";
-                    console.log(
+                    printlog(
                         "Almost out of carry space. AFK walking: " + afkWalkDir,
                     );
                     send({
@@ -614,7 +702,7 @@ Level 100: ${humanizeDuration(lv100sec * 1000)} (${(
                 //gameBoard.print();
                 process.stdout.write("\u001b[J");
 
-                // console.log(json);
+                // printlog(json);
 
                 let houses = Object.entries(knownHouses).map(([, house]) => ({
                     ...house,
@@ -626,7 +714,7 @@ Level 100: ${humanizeDuration(lv100sec * 1000)} (${(
 
                 log("detail", "nearest houses;", houses);
                 if (!houses[0]) {
-                    console.log("no houses");
+                    printlog("no houses");
                     send({
                         action: "setDir",
                         dir: "nw",
@@ -637,7 +725,7 @@ Level 100: ${humanizeDuration(lv100sec * 1000)} (${(
                 }
                 let target = houses[0];
                 if (target.dist === 0) {
-                    console.log("standing on house. moving off.");
+                    printlog("standing on house. moving off.");
                     send({
                         action: "setDir",
                         dir: "nw",
@@ -653,17 +741,16 @@ Level 100: ${humanizeDuration(lv100sec * 1000)} (${(
                 let dirns = sy === 1 ? "n" : sy === -1 ? "s" : "";
                 let direw = sx === 1 ? "e" : sx === -1 ? "w" : "";
                 let fdir = dirns + direw;
-                console.log("Walking", fdir, "to", target);
-                console.log("Time remaining: " + target.dist + "s");
+                printlog("Walking", fdir, "to", target);
+                printlog("Time remaining: {{Seconds|" + target.dist + "}}");
                 send({ action: "setDir", dir: fdir, autowalk: false });
-                json.skills.xp++;
                 if (Math.abs(dx) + Math.abs(dy) > 2 && json.skills.sp > 10) {
-                    console.log("doublestep available");
+                    printlog("doublestep available");
                     send({ action: "doublestep", option: "add" });
                 }
                 return;
             }
-            console.log("Uh oh! State is " + json.state);
+            printlog("Uh oh! State is " + json.state);
             throw process.exit(1);
         } catch (e) {
             console.log(e);
@@ -695,7 +782,7 @@ Level 100: ${humanizeDuration(lv100sec * 1000)} (${(
               },
     ) {
         log("sendrecv", "i> \n" + JSON.stringify(msg));
-        console.log("(sent)");
+        printlog("(sent)");
         conn.server.fromClient(msg);
     }
 
