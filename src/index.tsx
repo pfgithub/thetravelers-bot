@@ -338,10 +338,13 @@ type GameData = DataBase &
     let shouldAttemptLoot: boolean = true;
     let timeSinceLevelStart = 0;
 
+    let xpEstimate = gamedata.data.skills.xp;
+    let lastXpUpdate = new Date().getTime();
+
     let logdata: string[] = [];
     let renderInfo = () => {
         let json = gamedata.data;
-        let lv100sec = (634000 - json.skills.xp) * 3;
+        let lv100sec = (634000 - xpEstimate) * 3;
         return (
             <Box flexDirection="column">
                 <Box>
@@ -364,10 +367,10 @@ type GameData = DataBase &
                     (raw: {json.skills.level})
                 </Box>
                 <Box>
-                    <Color blueBright>Next Level XP:</Color> {json.skills.xp}/
+                    <Color blueBright>Next Level XP:</Color> {xpEstimate}/
                     {json.skills.next_level_xp} (next level in ~
                     {humanizeDuration(
-                        ((json.skills.next_level_xp - json.skills.xp) * 3 -
+                        ((json.skills.next_level_xp - xpEstimate) * 3 -
                             timeSinceLevelStart) *
                             1000,
                     )}
@@ -399,11 +402,16 @@ type GameData = DataBase &
                     {lv100sec - timeSinceLevelStart}{" "}
                     {humanizeDuration((lv100sec - timeSinceLevelStart) * 1000)}{" "}
                     (
-                    {(json.skills.xp / 634000).toLocaleString("en-US", {
+                    {(xpEstimate / 634000).toLocaleString("en-US", {
                         style: "percent",
                         minimumFractionDigits: 2,
                     })}
                     )
+                </Box>
+                <Box>
+                    <Color blueBright>Real XP:</Color> {json.skills.xp} (Last
+                    updated:{" "}
+                    {humanizeDuration(lastXpUpdate - new Date().getTime())} ago)
                 </Box>
                 <Box>
                     <Color blueBright>Time since level start:</Color>{" "}
@@ -467,6 +475,10 @@ type GameData = DataBase &
             gamedata.data = { ...gamedata.data, ...jsonv };
             if (jsonv.skills)
                 gamedata.data.skills = { ...skilldata, ...jsonv.skills };
+            if (jsonv.skills && jsonv.skills.xp) {
+                xpEstimate = jsonv.skills.xp;
+                lastXpUpdate = new Date().getTime();
+            }
             gamedata.data.proximity = jsonv.proximity;
             let json = gamedata.data;
 
@@ -608,7 +620,7 @@ type GameData = DataBase &
                     send({ action: "event_choice", option: "__leave__" });
                     return;
                 }
-                json.skills.xp += 15;
+                xpEstimate += 15;
                 // json.state = "";
                 // return; //// !!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -679,7 +691,7 @@ type GameData = DataBase &
             }
             if (json.state === "travel") {
                 setCurrentVisitPath("");
-                json.skills.xp++;
+                xpEstimate++;
 
                 if (!shouldAttemptLoot && (false as true)) {
                     if (afkWalkDir) afkWalkDir = afkWalkDir === "n" ? "s" : "n";
@@ -692,7 +704,6 @@ type GameData = DataBase &
                         dir: afkWalkDir,
                         autowalk: false,
                     });
-                    json.skills.xp++;
                     return;
                 }
                 if (afkWalkDir) afkWalkDir = undefined;
