@@ -133,14 +133,16 @@ let gameBoard = makeBoard("#");
 
 function searchForHouse(sx: number, sy: number) {
     gameBoard.clear();
-    let size = 200;
+    let size = 100;
 
     // spiral instead of this
     console.log("Searching...");
     let start = new Date().getTime();
     for (let x = sx - size; x <= sx + size; x++) {
         for (let y = sy - size; y <= sy + size; y++) {
-            if (gameBoard.get(x, -y) !== "#") continue;
+if(Math.abs(x) - 20000 + 10 > 0) continue;            
+if(Math.abs(y) - 20000 + 10 > 0) continue;            
+if (gameBoard.get(x, -y) !== "#") continue;
             let tile = generateWorldTile(x, y);
             gameBoard.set(x, -y, tile);
             if (tile === "H" || tile === "C") {
@@ -563,7 +565,7 @@ Looting: ${shouldAttemptLoot}
             if (json.state === "travel") {
                 setCurrentVisitPath("");
 
-                if (!shouldAttemptLoot && (false as true)) {
+                if (!shouldAttemptLoot || (!false as true)) {
                     if (afkWalkDir) afkWalkDir = afkWalkDir === "n" ? "s" : "n";
                     if (!afkWalkDir) afkWalkDir = "nw";
                     console.log(
