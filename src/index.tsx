@@ -591,7 +591,7 @@ Search Radius: ${searchRadius}
             if (json.state === "travel") {
                 setCurrentVisitPath("");
 
-                if (!shouldAttemptLoot || (false as true)) {
+                if (!shouldAttemptLoot && (false as true)) {
                     if (afkWalkDir) afkWalkDir = afkWalkDir === "n" ? "s" : "n";
                     if (!afkWalkDir) afkWalkDir = "nw";
                     console.log(
