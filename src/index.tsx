@@ -108,7 +108,13 @@ function setVisitedHouses(nvh: string) {
     );
 }
 
-type Logfiles = "general" | "gamestate" | "detail" | "sendrecv" | "recvunknown";
+type Logfiles =
+    | "general"
+    | "gamestate"
+    | "detail"
+    | "sendrecv"
+    | "recvunknown"
+    | "unusualproximity";
 function log(logfile: Logfiles, ...message: any[]) {
     fs.appendFileSync(
         path.join("__dirname", "../logs", logfile + ".log"),
@@ -285,6 +291,7 @@ type DataBase = {
         xp: number;
     };
     craft_queue?: { [key: string]: { item_id: string; remaining: number } };
+    proximity?: { objs: { char: string; x: number; y: number }[] };
 };
 type Buttons = { [key: string]: { text: string } };
 
@@ -345,6 +352,7 @@ type GameData = DataBase &
             gamedata.data = { ...gamedata.data, ...jsonv };
             if (jsonv.skills)
                 gamedata.data.skills = { ...skilldata, ...jsonv.skills };
+            gamedata.data.proximity = jsonv.proximity;
             let json = gamedata.data;
 
             log("gamestate", JSON.stringify(json, null, "    "));
@@ -381,6 +389,15 @@ Looting: ${shouldAttemptLoot}
 Search Radius: ${searchRadius}
 ----------------`,
             );
+
+            if (json.proximity) {
+                let unusual = json.proximity.objs.some(
+                    p => p.char !== "H" && p.char !== "C",
+                );
+                if (unusual) {
+                    log("unusualproximity", json.proximity);
+                }
+            }
 
             if (json.skills.skill_points > 0) {
                 send({
