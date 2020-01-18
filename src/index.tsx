@@ -398,8 +398,7 @@ type GameData = DataBase &
                     <Color blueBright>Search Radius:</Color> {searchRadius}
                 </Box>
                 <Box>
-                    <Color blueBright>Level 100:</Color> {lv100sec}{" "}
-                    {lv100sec - timeSinceLevelStart}{" "}
+                    <Color blueBright>Level 100:</Color>{" "}
                     {humanizeDuration((lv100sec - timeSinceLevelStart) * 1000)}{" "}
                     (
                     {(xpEstimate / 634000).toLocaleString("en-US", {
