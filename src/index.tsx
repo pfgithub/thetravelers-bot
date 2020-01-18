@@ -131,21 +131,24 @@ function log(logfile: Logfiles, ...message: any[]) {
 let knownHouses: { [key: string]: { x: number; y: number; tile: string } } = {};
 let gameBoard = makeBoard("#");
 
-function searchForHouse(sx: number, sy: number) {
+function searchForHouse(sx: number, sy: number, searchRadius: number) {
+    let vh = getVisitedHouses();
+
     gameBoard.clear();
-    let size = 100;
+    let size = searchRadius;
 
     // spiral instead of this
     console.log("Searching...");
     let start = new Date().getTime();
     for (let x = sx - size; x <= sx + size; x++) {
         for (let y = sy - size; y <= sy + size; y++) {
-if(Math.abs(x) - 20000 + 10 > 0) continue;            
-if(Math.abs(y) - 20000 + 10 > 0) continue;            
-if (gameBoard.get(x, -y) !== "#") continue;
+            if (Math.abs(x) - 20000 + 10 > 0) continue;
+            if (Math.abs(y) - 20000 + 10 > 0) continue;
+            if (gameBoard.get(x, -y) !== "#") continue;
             let tile = generateWorldTile(x, y);
             gameBoard.set(x, -y, tile);
             if (tile === "H" || tile === "C") {
+                if (vh[x + "|" + y]) continue;
                 knownHouses[x + "|" + y] = { x, y, tile };
             }
         }
@@ -326,6 +329,8 @@ type GameData = DataBase &
     let eventIgnore = false;
     let afkWalkDir: "n" | "s" | "nw" | undefined = undefined;
 
+    let searchRadius = 100;
+
     conn.client.getGameObject = async (jsonv: GameData) => {
         if (eventIgnore) {
             return;
@@ -355,11 +360,13 @@ Current Location: ${json.x} x, ${json.y} y
 Game State: ${json.state}
 Level: ${json.skills.level}
 Next Level XP: ${json.skills.xp}/${json.skills.next_level_xp} (${(
-                    json.skills.xp / json.skills.next_level_xp
+                    json.skills.xp / 634000
                 ).toLocaleString("en-US", {
                     style: "percent",
                     minimumFractionDigits: 2,
-                })}) (in ~${(json.skills.next_level_xp - json.skills.xp) *
+                })}) (next level in ~${(json.skills.next_level_xp -
+                    json.skills.xp) *
+                    3}s) (lv100 in ~${(634000 - json.skills.xp) *
                     3}s) (current xp is estimated)
 Skill Points: ${json.skills.skill_points}
 Carry: ${json.skills.carry}/${json.skills.max_carry} (${(
@@ -371,6 +378,7 @@ Carry: ${json.skills.carry}/${json.skills.max_carry} (${(
 Crafting: ${util.inspect(json.craft_queue, false, null, true)}
 Stamina: ${json.skills.sp}
 Looting: ${shouldAttemptLoot}
+Search Radius: ${searchRadius}
 ----------------`,
             );
 
@@ -487,6 +495,7 @@ Looting: ${shouldAttemptLoot}
             }
 
             if (json.state === "event") {
+                searchRadius = 100;
                 markVisited(json.x, json.y);
                 if (json.event_data.visited) {
                     log("general", "Got to location but it was visited");
@@ -565,7 +574,7 @@ Looting: ${shouldAttemptLoot}
             if (json.state === "travel") {
                 setCurrentVisitPath("");
 
-                if (!shouldAttemptLoot || (!false as true)) {
+                if (!shouldAttemptLoot || (false as true)) {
                     if (afkWalkDir) afkWalkDir = afkWalkDir === "n" ? "s" : "n";
                     if (!afkWalkDir) afkWalkDir = "nw";
                     console.log(
@@ -582,32 +591,31 @@ Looting: ${shouldAttemptLoot}
                 if (afkWalkDir) afkWalkDir = undefined;
 
                 let [px, py] = [json.x, json.y];
-                searchForHouse(px, py);
+                searchForHouse(px, py, searchRadius);
                 //gameBoard.print();
                 process.stdout.write("\u001b[J");
 
                 // console.log(json);
 
-                let vh = getVisitedHouses();
-
-                let houses = Object.entries(knownHouses).flatMap(
-                    ([, house]) => {
-                        if (vh[house.x + "|" + house.y]) return [];
-                        return [
-                            {
-                                ...house,
-                                dist: estimateTime(house.x, house.y, px, py),
-                            },
-                        ];
-                    },
-                );
+                let houses = Object.entries(knownHouses).map(([, house]) => ({
+                    ...house,
+                    dist: estimateTime(house.x, house.y, px, py),
+                }));
                 houses = houses.sort((a, b) => a.dist - b.dist);
+
                 log("detail", "nearest houses;", houses);
                 if (!houses[0]) {
                     console.log("no houses");
-                    process.exit(0);
+                    send({
+                        action: "setDir",
+                        dir: "nw",
+                        autowalk: false,
+                    });
+                    searchRadius *= 2;
+                    return;
                 }
                 let target = houses[0];
+                searchRadius = 100;
                 //if(!target) target = houses[0];
                 let [tx, ty] = [target.x, target.y];
                 let [dx, dy] = [tx - px, ty - py];
