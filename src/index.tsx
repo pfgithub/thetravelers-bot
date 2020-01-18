@@ -138,8 +138,6 @@ let knownHouses: { [key: string]: { x: number; y: number; tile: string } } = {};
 let gameBoard = makeBoard("#");
 
 function searchForHouse(sx: number, sy: number, searchRadius: number) {
-    let vh = getVisitedHouses();
-
     gameBoard.clear();
     let size = searchRadius;
 
@@ -154,7 +152,6 @@ function searchForHouse(sx: number, sy: number, searchRadius: number) {
             let tile = generateWorldTile(x, y);
             gameBoard.set(x, -y, tile);
             if (tile === "H" || tile === "C") {
-                if (vh[x + "|" + y]) continue;
                 knownHouses[x + "|" + y] = { x, y, tile };
             }
         }
@@ -591,7 +588,7 @@ Search Radius: ${searchRadius}
             if (json.state === "travel") {
                 setCurrentVisitPath("");
 
-                if (!shouldAttemptLoot && (!false as true)) {
+                if (!shouldAttemptLoot && (false as true)) {
                     if (afkWalkDir) afkWalkDir = afkWalkDir === "n" ? "s" : "n";
                     if (!afkWalkDir) afkWalkDir = "nw";
                     console.log(
@@ -618,6 +615,8 @@ Search Radius: ${searchRadius}
                     ...house,
                     dist: estimateTime(house.x, house.y, px, py),
                 }));
+                let vh = getVisitedHouses();
+                houses = houses.filter(h => !vh[h.x + "|" + h.y]);
                 houses = houses.sort((a, b) => a.dist - b.dist);
 
                 log("detail", "nearest houses;", houses);
@@ -632,6 +631,15 @@ Search Radius: ${searchRadius}
                     return;
                 }
                 let target = houses[0];
+                if (target.dist === 0) {
+                    console.log("standing on house. moving off.");
+                    send({
+                        action: "setDir",
+                        dir: "nw",
+                        autowalk: false,
+                    });
+                    return;
+                }
                 searchRadius = 100;
                 //if(!target) target = houses[0];
                 let [tx, ty] = [target.x, target.y];
