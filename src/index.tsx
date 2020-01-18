@@ -1,6 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as util from "util";
+import * as humanizeDuration from "humanize-duration";
 
 import * as React from "react";
 import { render, Box, useInput, Color } from "ink";
@@ -357,6 +358,8 @@ type GameData = DataBase &
             let shouldAttemptLoot =
                 json.skills.max_carry - json.skills.carry >= 25;
 
+            let lv100sec = (634000 - json.skills.xp) * 3;
+
             console.log(
                 `TheTravelers Bot
 ----------------
@@ -364,14 +367,10 @@ Username: ${json.username}
 Current Location: ${json.x} x, ${json.y} y
 Game State: ${json.state}
 Level: ${json.skills.level}
-Next Level XP: ${json.skills.xp}/${json.skills.next_level_xp} (${(
-                    json.skills.xp / 634000
-                ).toLocaleString("en-US", {
-                    style: "percent",
-                    minimumFractionDigits: 2,
-                })}) (next level in ~${(json.skills.next_level_xp -
+Next Level XP: ${json.skills.xp}/${
+                    json.skills.next_level_xp
+                } (next level in ~${(json.skills.next_level_xp -
                     json.skills.xp) *
-                    3}s) (lv100 in ~${(634000 - json.skills.xp) *
                     3}s) (current xp is estimated)
 Skill Points: ${json.skills.skill_points}
 Carry: ${json.skills.carry}/${json.skills.max_carry} (${(
@@ -384,6 +383,12 @@ Crafting: ${util.inspect(json.craft_queue, false, null, true)}
 Stamina: ${json.skills.sp}
 Looting: ${shouldAttemptLoot}
 Search Radius: ${searchRadius}
+Level 100: ${humanizeDuration(lv100sec * 1000)} (${(
+                    json.skills.xp / 634000
+                ).toLocaleString("en-US", {
+                    style: "percent",
+                    minimumFractionDigits: 2,
+                })})
 ----------------`,
             );
 

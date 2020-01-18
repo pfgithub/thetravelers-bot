@@ -1,5 +1,6 @@
 {
     "dependencies": {
+        "humanize-duration": "^3.21.0",
         "ink": "^2.6.0",
         "jquery": "^3.4.1",
         "jsdom": "^15.2.1",
@@ -9,6 +10,7 @@
         "websocket": "^1.0.31"
     },
     "devDependencies": {
+        "@types/humanize-duration": "^3.18.0",
         "@types/jquery": "^3.3.31",
         "@types/jsdom": "^12.2.4",
         "@types/node": "^13.1.6",
