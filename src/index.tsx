@@ -460,6 +460,10 @@ type GameData = DataBase &
         rerender(); // nextTick()?
     };
 
+    let lastXY = "";
+    let currentXY = "";
+    let walkOnly = false;
+
     conn.client.getGameObject = async (jsonv: GameData) => {
         if (eventIgnore) {
             return;
@@ -480,6 +484,8 @@ type GameData = DataBase &
             }
             gamedata.data.proximity = jsonv.proximity;
             let json = gamedata.data;
+            lastXY = currentXY;
+            currentXY = json.x + "|" + json.y;
 
             log("gamestate", JSON.stringify(json, null, "    "));
 
@@ -692,12 +698,12 @@ type GameData = DataBase &
                 setCurrentVisitPath("");
                 xpEstimate++;
 
-                if (!shouldAttemptLoot && (false as true)) {
+                if (lastXY === currentXY || walkOnly) {
+                    printlog("Went nowhere. In walkOnly mode");
+                    walkOnly = true;
                     if (afkWalkDir) afkWalkDir = afkWalkDir === "n" ? "s" : "n";
                     if (!afkWalkDir) afkWalkDir = "nw";
-                    printlog(
-                        "Almost out of carry space. AFK walking: " + afkWalkDir,
-                    );
+                    printlog("AFK walking: " + afkWalkDir);
                     send({
                         action: "setDir",
                         dir: afkWalkDir,
