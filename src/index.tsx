@@ -23,7 +23,7 @@ import { Cookie } from "tough-cookie";
 const cookieJar = new CookieJar();
 
 const header = Cookie.parse(
-    "T=pz8P3+S6fK1sbHehMjnLRw==; darkmode=false; hover=true; autowalkpast=true; autowalkpasttime=29; notifAny=true; notifTraveler=false; notifCity=true; notifHouse=true; notifLevelup=false; supplyView=icon; __cfduid=dd8d66499b46ddffdd9c961d331521ae31578549703",
+    fs.readFileSync(path.join(__dirname, "../data/cookie.txt"), "utf-8"),
 )!;
 
 cookieJar.setCookie(header, "https://thetravelers.online/", (...a) =>
