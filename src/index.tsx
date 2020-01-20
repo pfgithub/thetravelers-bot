@@ -117,7 +117,8 @@ type Logfiles =
     | "detail"
     | "sendrecv"
     | "recvunknown"
-    | "unusualproximity";
+    | "unusualproximity"
+    | "xperror";
 function log(logfile: Logfiles, ...message: any[]) {
     fs.appendFileSync(
         path.join("__dirname", "../logs", logfile + ".log"),
@@ -481,6 +482,13 @@ type GameData = DataBase &
             if (jsonv.skills)
                 gamedata.data.skills = { ...skilldata, ...jsonv.skills };
             if (jsonv.skills && jsonv.skills.xp) {
+                log(
+                    "xperror",
+                    "actual: ",
+                    jsonv.skills.xp,
+                    "expected: ",
+                    xpEstimate,
+                );
                 xpEstimate = jsonv.skills.xp;
                 lastXpUpdate = new Date().getTime();
             }
