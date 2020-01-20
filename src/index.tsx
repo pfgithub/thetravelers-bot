@@ -395,7 +395,8 @@ type GameData = DataBase &
                     <Color blueBright>Stamina:</Color> {json.skills.sp}
                 </Box>
                 <Box>
-                    <Color blueBright>Looting:</Color> {shouldAttemptLoot}
+                    <Color blueBright>Looting:</Color>{" "}
+                    {util.format(shouldAttemptLoot, false, null, true)}
                 </Box>
                 <Box>
                     <Color blueBright>Search Radius:</Color> {searchRadius}
@@ -750,7 +751,7 @@ type GameData = DataBase &
                 let vh = getVisitedHouses();
                 houses = houses.filter(h => {
                     let visitState = vh[h.x + "|" + h.y];
-                    if (!shouldAttemptLoot) return !!visitState;
+                    if (!shouldAttemptLoot) return !visitState;
                     return !visitState || visitState === "visited";
                 });
                 houses = houses.sort((a, b) => a.dist - b.dist);
