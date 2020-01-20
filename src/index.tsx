@@ -93,15 +93,17 @@ function setCurrentVisitPath(newPath: string) {
     );
 }
 
+type HouseVisitState = "cannot_reach" | "visited" | "looted" | true;
+
 function getVisitedHouses() {
     return JSON.parse(
         fs.readFileSync(
             path.join(__dirname, "../data/visitedhouses.json"),
             "utf-8",
         ) || "{}",
-    );
+    ) as { [key: string]: HouseVisitState };
 }
-function setVisitedHouses(nvh: string) {
+function setVisitedHouses(nvh: { [key: string]: HouseVisitState }) {
     fs.writeFileSync(
         path.join(__dirname, "../data/visitedhouses.json"),
         JSON.stringify(nvh, null, "\t"),
@@ -255,11 +257,11 @@ function estimateTime(px: number, py: number, lx: number, ly: number) {
     return (diagonalTime + straightTimeH + straightTimeV) * 3;
 }
 
-function markVisited(x: number, y: number) {
+function markVisited(x: number, y: number, visitReason: HouseVisitState) {
     let vh = getVisitedHouses();
-    vh[x + "|" + y] = true;
+    vh[x + "|" + y] = visitReason;
     setVisitedHouses(vh);
-    log("general", "Marked", x, y, "as visited");
+    log("general", "Marked", x, y, "as visited with reason " + visitReason);
 }
 
 function appendCurrentVisitPath(pv: string) {
@@ -619,12 +621,16 @@ type GameData = DataBase &
 
             if (json.state === "event") {
                 searchRadius = 100;
-                markVisited(json.x, json.y);
-                if (json.event_data.visited) {
-                    log("general", "Got to location but it was visited");
-                    send({ action: "event_choice", option: "__leave__" });
-                    return;
-                }
+                markVisited(
+                    json.x,
+                    json.y,
+                    shouldAttemptLoot ? "looted" : "visited",
+                );
+                // if (json.event_data.visited) {
+                //     log("general", "Got to location but it was visited");
+                //     send({ action: "event_choice", option: "__leave__" });
+                //     return;
+                // }
                 xpEstimate += 15;
                 // json.state = "";
                 // return; //// !!!!!!!!!!!!!!!!!!!!!!!!
@@ -698,7 +704,7 @@ type GameData = DataBase &
                 setCurrentVisitPath("");
                 xpEstimate++;
 
-                if (lastXY === currentXY || walkOnly) {
+                /*if (lastXY === currentXY || walkOnly) {
                     printlog("Went nowhere. In walkOnly mode");
                     walkOnly = true;
                     if (afkWalkDir) afkWalkDir = afkWalkDir === "n" ? "s" : "n";
@@ -710,7 +716,7 @@ type GameData = DataBase &
                         autowalk: false,
                     });
                     return;
-                }
+                }*/
                 if (afkWalkDir) afkWalkDir = undefined;
 
                 let [px, py] = [json.x, json.y];
@@ -725,7 +731,11 @@ type GameData = DataBase &
                     dist: estimateTime(house.x, house.y, px, py),
                 }));
                 let vh = getVisitedHouses();
-                houses = houses.filter(h => !vh[h.x + "|" + h.y]);
+                houses = houses.filter(h => {
+                    let visitState = vh[h.x + "|" + h.y];
+                    if (!shouldAttemptLoot) return !!visitState;
+                    return !visitState || visitState === "visited";
+                });
                 houses = houses.sort((a, b) => a.dist - b.dist);
 
                 log("detail", "nearest houses;", houses);
@@ -750,6 +760,18 @@ type GameData = DataBase &
                     return;
                 }
                 searchRadius = 100;
+
+                if (lastXY === currentXY) {
+                    markVisited(target.x, target.y, "cannot_reach");
+                    printlog(
+                        "Could not reach " +
+                            target.x +
+                            ", " +
+                            target.y +
+                            ". Marking as visited.",
+                    );
+                }
+
                 //if(!target) target = houses[0];
                 let [tx, ty] = [target.x, target.y];
                 let [dx, dy] = [tx - px, ty - py];
