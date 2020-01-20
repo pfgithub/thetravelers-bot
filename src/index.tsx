@@ -631,7 +631,9 @@ type GameData = DataBase &
                 //     send({ action: "event_choice", option: "__leave__" });
                 //     return;
                 // }
-                xpEstimate += 15;
+                if (!json.event_data.visited) {
+                    xpEstimate += 15;
+                }
                 // json.state = "";
                 // return; //// !!!!!!!!!!!!!!!!!!!!!!!!
 
