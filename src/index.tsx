@@ -466,6 +466,7 @@ type GameData = DataBase &
     let lastXY = "";
     let currentXY = "";
     let walkOnly = false;
+    let walkFailedCount = 0;
 
     conn.client.getGameObject = async (jsonv: GameData) => {
         if (eventIgnore) {
@@ -730,7 +731,13 @@ type GameData = DataBase &
                 if (afkWalkDir) afkWalkDir = undefined;
 
                 let [px, py] = [json.x, json.y];
+                printlog("Search started...");
+                let startTime = new Date().getTime();
                 searchForHouse(px, py, searchRadius);
+                printlog(
+                    "Search completed in " +
+                        humanizeDuration(new Date().getTime() - startTime),
+                );
                 //gameBoard.print();
                 process.stdout.write("\u001b[J");
 
@@ -772,6 +779,14 @@ type GameData = DataBase &
                 searchRadius = 100;
 
                 if (lastXY === currentXY) {
+                    walkFailedCount++;
+                }
+                if (walkFailedCount > 3) {
+                    walkFailedCount = 0;
+                    log(
+                        "general",
+                        "Walk failed more than 3 times, marking as unreachable",
+                    );
                     markVisited(target.x, target.y, "cannot_reach");
                     printlog(
                         "Could not reach " +
