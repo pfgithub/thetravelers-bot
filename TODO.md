@@ -1,5 +1,1 @@
-cities are clientside
-...
-uuh
-
-so we need to reimplement the perlin noise implementation and auto find houses and cities
+-   fix memory leak (house list constantly increases). only storing the target house will likely also bring xp/hour improvements. one of the memory leaks can't be fixed afaik (visitedhouses only growing) unless a database is used or something, but neither of the memory leaks use nearly enough memory to actually matter.
