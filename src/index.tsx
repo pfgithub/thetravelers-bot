@@ -121,7 +121,7 @@ type Logfiles =
     | "xperror";
 function log(logfile: Logfiles, ...message: any[]) {
     fs.appendFileSync(
-        path.join("__dirname", "../logs", logfile + ".log"),
+        path.join(__dirname, "../logs", logfile + ".log"),
         new Date().toString() +
             " (" +
             new Date().getTime() +
@@ -344,6 +344,8 @@ type GameData = DataBase &
     let xpEstimate = gamedata.data.skills.xp;
     let lastXpUpdate = new Date().getTime();
 
+    let plusoneEstimate = gamedata.data.skills.xp;
+
     let logdata: string[] = [];
     let renderInfo = () => {
         let json = gamedata.data;
@@ -420,6 +422,9 @@ type GameData = DataBase &
                     <Color blueBright>Time since level start:</Color>{" "}
                     {timeSinceLevelStart}
                 </Box>
+                <Box>
+                    <Color blueBright>plusoneEstimate:</Color> {plusoneEstimate}
+                </Box>
                 <Box>======================</Box>
                 <Box marginLeft={2} flexDirection="column">
                     {logdata.map(ld => (
@@ -483,6 +488,7 @@ type GameData = DataBase &
             gamedata.data = { ...gamedata.data, ...jsonv };
             if (jsonv.skills)
                 gamedata.data.skills = { ...skilldata, ...jsonv.skills };
+            plusoneEstimate++;
             if (jsonv.skills && jsonv.skills.xp) {
                 log(
                     "xperror",
@@ -490,6 +496,18 @@ type GameData = DataBase &
                     jsonv.skills.xp,
                     "expected: ",
                     xpEstimate,
+                );
+                fs.appendFileSync(
+                    path.join(__dirname, "../logs/xp.csv"),
+                    new Date().getTime() +
+                        "," +
+                        jsonv.skills.xp +
+                        "," +
+                        xpEstimate +
+                        "," +
+                        plusoneEstimate +
+                        "\n",
+                    "utf-8",
                 );
                 xpEstimate = jsonv.skills.xp;
                 lastXpUpdate = new Date().getTime();
