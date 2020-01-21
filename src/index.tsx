@@ -350,6 +350,7 @@ type GameData = DataBase &
     let renderInfo = () => {
         let json = gamedata.data;
         let lv100sec = (634000 - xpEstimate) * 3;
+        let lv100sec15 = (634000 - xpEstimate) * 3 * (1/1.5); // 1.5xp/3s, linear estimate counting xp given from visiting houses and cities
         return (
             <Box flexDirection="column">
                 <Box>
@@ -404,8 +405,18 @@ type GameData = DataBase &
                     <Color blueBright>Search Radius:</Color> {searchRadius}
                 </Box>
                 <Box>
-                    <Color blueBright>Level 100:</Color>{" "}
+                    <Color blueBright>Level 100: (1xp/3s)</Color>{" "}
                     {humanizeDuration((lv100sec - timeSinceLevelStart) * 1000)}{" "}
+                    (
+                    {(xpEstimate / 634000).toLocaleString("en-US", {
+                        style: "percent",
+                        minimumFractionDigits: 2,
+                    })}
+                    )
+                </Box>
+                <Box>
+                    <Color blueBright>Level 100 (1.5xp/3s):</Color>{" "}
+                    {humanizeDuration((lv100sec15 - timeSinceLevelStart) * 1000)}{" "}
                     (
                     {(xpEstimate / 634000).toLocaleString("en-US", {
                         style: "percent",
@@ -421,9 +432,6 @@ type GameData = DataBase &
                 <Box>
                     <Color blueBright>Time since level start:</Color>{" "}
                     {timeSinceLevelStart}
-                </Box>
-                <Box>
-                    <Color blueBright>plusoneEstimate:</Color> {plusoneEstimate}
                 </Box>
                 <Box>======================</Box>
                 <Box marginLeft={2} flexDirection="column">
