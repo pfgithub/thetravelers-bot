@@ -161,6 +161,7 @@ function searchForHouse(sx: number, sy: number, searchRadius: number) {
         }
     }
     let end = new Date().getTime();
+    gameBoard.set(sx, -sy, "&");
     // console.log("Completed search in " + (end - start) + "ms");
 }
 
@@ -348,9 +349,10 @@ type GameData = DataBase &
 
     let logdata: string[] = [];
     let renderInfo = () => {
+	// return <Box></Box>;
         let json = gamedata.data;
         let lv100sec = (634000 - xpEstimate) * 3;
-        let lv100sec15 = (634000 - xpEstimate) * 3 * (1/1.5); // 1.5xp/3s, linear estimate counting xp given from visiting houses and cities
+        let lv100sec15 = (634000 - xpEstimate) * 3 * (1 / 1.5); // 1.5xp/3s, linear estimate counting xp given from visiting houses and cities
         return (
             <Box flexDirection="column">
                 <Box>
@@ -416,7 +418,9 @@ type GameData = DataBase &
                 </Box>
                 <Box>
                     <Color blueBright>Level 100 (1.5xp/3s):</Color>{" "}
-                    {humanizeDuration((lv100sec15 - timeSinceLevelStart) * 1000)}{" "}
+                    {humanizeDuration(
+                        (lv100sec15 - timeSinceLevelStart) * 1000,
+                    )}{" "}
                     (
                     {(xpEstimate / 634000).toLocaleString("en-US", {
                         style: "percent",
@@ -534,7 +538,7 @@ type GameData = DataBase &
             startCountdown();
             rerender();
 
-            if (json.proximity) {
+            if (json.proximity && json.proximity.objs) {
                 let unusual = json.proximity.objs.some(
                     p => p.char !== "H" && p.char !== "C",
                 );
@@ -575,8 +579,9 @@ type GameData = DataBase &
                 if (!choice) {
                     printlog("========== Not sure what to do =======");
                     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    choice = "loot";
-                    /*
+                    //choice = "loot";
+                    
+			
                     eventIgnore = true;
                     let waiting: ((choice: string) => unknown)[] = [];
                     let app = render(
@@ -593,7 +598,8 @@ type GameData = DataBase &
                         waiting.push(v => r(v)),
                     );
                     app.unmount();
-                    */
+                    
+
                     exptActions[getCurrentVisitPath()] = choice;
                     setEventChoices(exptActions);
                 }
@@ -641,10 +647,10 @@ type GameData = DataBase &
                     send({ action: "loot_change", option: "leave" });
                     return;
                 } else {
-                    printlog(
+                    console.log(
                         "========== Invalid Choice: " + choice + " =======",
                     );
-                    process.exit(0);
+                    process.exit(1);
                 }
                 printlog("==========================");
                 send({
@@ -729,7 +735,7 @@ type GameData = DataBase &
                 }
                 let choiceID = choices[choice];
                 if (!choiceID) {
-                    printlog("Choice does not exist here");
+                    console.log("Choice does not exist here");
                     process.exit(1);
                 }
 
@@ -761,6 +767,8 @@ type GameData = DataBase &
                 printlog("Search started...");
                 let startTime = new Date().getTime();
                 searchForHouse(px, py, searchRadius);
+                searchForHouse(px, py, 20);
+                fs.writeFileSync(path.join(__dirname, "../logs/map.txt"), gameBoard.print((c: string) => c + " "), "utf-8");
                 printlog(
                     "Search completed in " +
                         humanizeDuration(new Date().getTime() - startTime),
@@ -808,7 +816,7 @@ type GameData = DataBase &
                 if (lastXY === currentXY) {
                     walkFailedCount++;
                 }
-                if (walkFailedCount > 3) {
+                if (walkFailedCount > 2) {
                     walkFailedCount = 0;
                     log(
                         "general",
@@ -840,7 +848,7 @@ type GameData = DataBase &
                 }
                 return;
             }
-            printlog("Uh oh! State is " + json.state);
+            console.log("Uh oh! State is " + json.state);
             throw process.exit(1);
         } catch (e) {
             console.log(e);

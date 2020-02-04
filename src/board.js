@@ -1,4 +1,6 @@
 "use strict";
+const fs = require("fs");
+
 function makeBoard(fill) {
     // it would be useful if board could center at 0,0 and expand infinitely
     let board = [];
@@ -61,27 +63,29 @@ function makeBoard(fill) {
         },
         print: (printer = v => v) => {
             // ratelimit print
+            let resst = "";
             if (!limits)
-                return console.log("*no board to print*");
+                return ("*no board to print*");
             let ylength = 0;
             for (let y = limits.ymin - 1; y <= limits.ymax + 1; y++) {
                 ylength = Math.max(y.toString().length, ylength);
             }
-            console.log(" ".repeat(ylength) +
+            resst += (" ".repeat(ylength) +
                 " .-" +
                 "-".repeat(limits.xmax - limits.xmin + 3) +
-                "-.");
+                "-.") + "\n";
             for (let y = limits.ymin - 1; y <= limits.ymax + 1; y++) {
                 let line = "";
                 for (let x = limits.xmin - 1; x <= limits.xmax + 1; x++) {
                     line += printer(reso.get(x, y), x, y);
                 }
-                console.log(y.toString().padStart(ylength, " ") + " | " + line + " |");
+                resst += (y.toString().padStart(ylength, " ") + " | " + line + " |") + "\n";
             }
-            console.log(" ".repeat(ylength) +
+            resst += (" ".repeat(ylength) +
                 " '-" +
                 "-".repeat(limits.xmax - limits.xmin + 3) +
-                "-'");
+                "-'") + "\n";
+	    return resst
         },
     };
     return reso;
