@@ -894,6 +894,10 @@ type GameData = DataBase &
                   dmg: number;
                   hp: number;
                   sp: number;
+              }
+            | {
+                  action: "equipment";
+                  option: "find_all";
               },
     ) {
         log("sendrecv", "i> \n" + JSON.stringify(msg));
@@ -903,7 +907,9 @@ type GameData = DataBase &
 
     await new Promise(r => hub.start().done(r));
 
-    send({ action: "setDir", dir: nxtdir, autowalk: false });
+    // send({ action: "setDir", dir: nxtdir, autowalk: false });
+
+    send({ action: "equipment", option: "find_all" });
 })();
 
 setTimeout(() => process.exit(0), 1000 * 60 * 60); // every 1h
