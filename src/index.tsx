@@ -151,7 +151,7 @@ function searchForHouse(sx: number, sy: number, searchRadius: number) {
             if (gameBoard.get(x, -y) !== "#") continue;
             let tile = generateWorldTile(x, y);
             gameBoard.set(x, -y, tile);
-            if (/*tile === "H" || */ tile === "C") {
+            if (tile === "H" || tile === "C") {
                 knownHouses[x + "|" + y] = { x, y, tile };
             }
         }
