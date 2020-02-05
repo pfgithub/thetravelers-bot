@@ -347,9 +347,9 @@ type GameData = DataBase &
 
     let plusoneEstimate = gamedata.data.skills.xp;
 
-    let logdata: string[] = [];
+    let logdata: (string | React.ReactElement<unknown>)[] = [];
     let renderInfo = () => {
-	// return <Box></Box>;
+        // return <Box></Box>;
         let json = gamedata.data;
         let lv100sec = (634000 - xpEstimate) * 3;
         let lv100sec15 = (634000 - xpEstimate) * 3 * (1 / 1.5); // 1.5xp/3s, linear estimate counting xp given from visiting houses and cities
@@ -441,11 +441,13 @@ type GameData = DataBase &
                 <Box marginLeft={2} flexDirection="column">
                     {logdata.map(ld => (
                         <Box>
-                            {ld.replace(/{{Seconds\|(.+?)}}/g, (_, a) =>
-                                humanizeDuration(
-                                    (+a - timeSinceLevelStart) * 1000,
-                                ),
-                            )}
+                            {typeof ld === "string"
+                                ? ld.replace(/{{Seconds\|(.+?)}}/g, (_, a) =>
+                                      humanizeDuration(
+                                          (+a - timeSinceLevelStart) * 1000,
+                                      ),
+                                  )
+                                : ld}
                         </Box>
                     ))}
                 </Box>
@@ -479,6 +481,15 @@ type GameData = DataBase &
                 .join(" "),
         );
         rerender(); // nextTick()?
+    };
+
+    let printComponent = (component: React.ReactElement<unknown>) => {
+        logdata.push(component);
+        rerender();
+        return () => {
+            logdata = logdata.filter(v => v !== component);
+            rerender();
+        };
     };
 
     let lastXY = "";
@@ -580,11 +591,10 @@ type GameData = DataBase &
                     printlog("========== Not sure what to do =======");
                     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                     //choice = "loot";
-                    
-			
+
                     eventIgnore = true;
                     let waiting: ((choice: string) => unknown)[] = [];
-                    let app = render(
+                    let appunmount = printComponent(
                         <ChoicePicker
                             visitPath={getCurrentVisitPath()}
                             choices={[{ text: "loot" }, { text: "leave" }]}
@@ -597,8 +607,7 @@ type GameData = DataBase &
                     choice = await new Promise<string>(r =>
                         waiting.push(v => r(v)),
                     );
-                    app.unmount();
-                    
+                    appunmount();
 
                     exptActions[getCurrentVisitPath()] = choice;
                     setEventChoices(exptActions);
@@ -716,7 +725,7 @@ type GameData = DataBase &
                     printlog("Not sure what to do!");
                     eventIgnore = true;
                     let waiting: ((choice: string) => unknown)[] = [];
-                    let app = render(
+                    let appunmount = printComponent(
                         <ChoicePicker
                             visitPath={getCurrentVisitPath()}
                             choices={sd.btns}
@@ -729,7 +738,7 @@ type GameData = DataBase &
                     choice = await new Promise<string>(r =>
                         waiting.push(v => r(v)),
                     );
-                    app.unmount();
+                    appunmount();
                     choicemaker[getCurrentVisitPath()] = choice;
                     setEventChoices(choicemaker);
                 }
@@ -768,7 +777,11 @@ type GameData = DataBase &
                 let startTime = new Date().getTime();
                 searchForHouse(px, py, searchRadius);
                 searchForHouse(px, py, 20);
-                fs.writeFileSync(path.join(__dirname, "../logs/map.txt"), gameBoard.print((c: string) => c + " "), "utf-8");
+                fs.writeFileSync(
+                    path.join(__dirname, "../logs/map.txt"),
+                    gameBoard.print((c: string) => c + " "),
+                    "utf-8",
+                );
                 printlog(
                     "Search completed in " +
                         humanizeDuration(new Date().getTime() - startTime),
