@@ -3,6 +3,9 @@ import * as path from "path";
 import * as util from "util";
 import * as humanizeDuration from "humanize-duration";
 
+if (!process.argv[2]) throw new Error("Account not provided.");
+let basedir = path.join(__dirname, "../accounts/", process.argv[2]);
+
 import * as React from "react";
 import { render, Box, useInput, Color, Instance, Text } from "ink";
 
@@ -23,7 +26,7 @@ import { Cookie } from "tough-cookie";
 const cookieJar = new CookieJar();
 
 const header = Cookie.parse(
-    fs.readFileSync(path.join(__dirname, "../data/cookie.txt"), "utf-8"),
+    fs.readFileSync(path.join(basedir, "data/cookie.txt"), "utf-8"),
 )!;
 
 cookieJar.setCookie(header, "https://thetravelers.online/", (...a) =>
@@ -80,17 +83,10 @@ async function request(url: string, args: any = {}): Promise<string> {
 }
 
 function getCurrentVisitPath() {
-    return fs.readFileSync(
-        path.join(__dirname, "../data/currentvisit"),
-        "utf-8",
-    );
+    return fs.readFileSync(path.join(basedir, "data/currentvisit"), "utf-8");
 }
 function setCurrentVisitPath(newPath: string) {
-    fs.writeFileSync(
-        path.join(__dirname, "../data/currentvisit"),
-        newPath,
-        "utf-8",
-    );
+    fs.writeFileSync(path.join(basedir, "data/currentvisit"), newPath, "utf-8");
 }
 
 type HouseVisitState = "cannot_reach" | "visited" | "looted" | true;
@@ -98,14 +94,14 @@ type HouseVisitState = "cannot_reach" | "visited" | "looted" | true;
 function getVisitedHouses() {
     return JSON.parse(
         fs.readFileSync(
-            path.join(__dirname, "../data/visitedhouses.json"),
+            path.join(basedir, "data/visitedhouses.json"),
             "utf-8",
         ) || "{}",
     ) as { [key: string]: HouseVisitState };
 }
 function setVisitedHouses(nvh: { [key: string]: HouseVisitState }) {
     fs.writeFileSync(
-        path.join(__dirname, "../data/visitedhouses.json"),
+        path.join(basedir, "data/visitedhouses.json"),
         JSON.stringify(nvh, null, "\t"),
         "utf-8",
     );
@@ -121,7 +117,7 @@ type Logfiles =
     | "xperror";
 function log(logfile: Logfiles, ...message: any[]) {
     fs.appendFileSync(
-        path.join(__dirname, "../logs", logfile + ".log"),
+        path.join(basedir, "logs", logfile + ".log"),
         new Date().toString() +
             " (" +
             new Date().getTime() +
@@ -155,7 +151,7 @@ function searchForHouse(sx: number, sy: number, searchRadius: number) {
             if (gameBoard.get(x, -y) !== "#") continue;
             let tile = generateWorldTile(x, y);
             gameBoard.set(x, -y, tile);
-            if (tile === "H" || tile === "C") {
+            if (/*tile === "H" || */ tile === "C") {
                 knownHouses[x + "|" + y] = { x, y, tile };
             }
         }
@@ -521,7 +517,7 @@ type GameData = DataBase &
                     xpEstimate,
                 );
                 fs.appendFileSync(
-                    path.join(__dirname, "../logs/xp.csv"),
+                    path.join(basedir, "logs/xp.csv"),
                     new Date().getTime() +
                         "," +
                         jsonv.skills.xp +
@@ -656,9 +652,11 @@ type GameData = DataBase &
                     send({ action: "loot_change", option: "leave" });
                     return;
                 } else {
-                    console.log(
+                    printlog("Error!");
+                    printlog(
                         "========== Invalid Choice: " + choice + " =======",
                     );
+                    printlog("Error!");
                     process.exit(1);
                 }
                 printlog("==========================");
@@ -744,7 +742,9 @@ type GameData = DataBase &
                 }
                 let choiceID = choices[choice];
                 if (!choiceID) {
-                    console.log("Choice does not exist here");
+                    printlog("Error!");
+                    printlog("Choice does not exist here");
+                    printlog("Error!");
                     process.exit(1);
                 }
 
@@ -778,7 +778,7 @@ type GameData = DataBase &
                 searchForHouse(px, py, searchRadius);
                 searchForHouse(px, py, 20);
                 fs.writeFileSync(
-                    path.join(__dirname, "../logs/map.txt"),
+                    path.join(basedir, "logs/map.txt"),
                     gameBoard.print((c: string) => c + " "),
                     "utf-8",
                 );
@@ -861,10 +861,14 @@ type GameData = DataBase &
                 }
                 return;
             }
-            console.log("Uh oh! State is " + json.state);
+            printlog("Error!");
+            printlog("Uh oh! State is " + json.state);
+            printlog("Error!");
             throw process.exit(1);
         } catch (e) {
-            console.log(e);
+            printlog("Error!");
+            printlog(e);
+            printlog("Error!");
             process.exit(1);
         }
     };
