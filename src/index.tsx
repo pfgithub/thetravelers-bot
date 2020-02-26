@@ -984,7 +984,10 @@ type GameData = DataBase &
 
     // send({ action: "setDir", dir: nxtdir, autowalk: false });
 
-    send({ action: "equipment", option: "find_all" });
+    send({
+        action: "equip",
+        item: "metal_detector",
+    });
 })();
 
 setTimeout(() => process.exit(0), 1000 * 60 * 60); // every 1h
