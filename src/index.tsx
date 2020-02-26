@@ -251,7 +251,7 @@ function estimateTime(px: number, py: number, lx: number, ly: number) {
     let diagonalTime = Math.min(straightTimeV, straightTimeH);
     straightTimeH -= diagonalTime;
     straightTimeV -= diagonalTime;
-    return (diagonalTime + straightTimeH + straightTimeV) ;
+    return diagonalTime + straightTimeH + straightTimeV;
 }
 
 function markVisited(x: number, y: number, visitReason: HouseVisitState) {
@@ -290,7 +290,13 @@ type DataBase = {
     craft_queue?: { [key: string]: { item_id: string; remaining: number } };
     proximity?: { objs: { char: string; x: number; y: number }[] };
 };
-type Buttons = { [key: string]: { text: string, req_met?: boolean, req_is_now_locked?: boolean } };
+type Buttons = {
+    [key: string]: {
+        text: string;
+        req_met?: boolean;
+        req_is_now_locked?: boolean;
+    };
+};
 
 type GameEventData = {
     state: "event";
@@ -315,11 +321,17 @@ type GameLootingData = {
     };
 };
 type GameIntData = {
-	state: "int";
+    state: "int";
 };
 type GameTravelData = { state: "travel" };
 type GameData = DataBase &
-    (GameLootingData | GameTravelData | GameEventData | { state: "???" } | GameIntData);
+    (
+        | GameLootingData
+        | GameTravelData
+        | GameEventData
+        | { state: "???" }
+        | GameIntData
+    );
 
 (async () => {
     let reqres = await request("/default.aspx/GetAutoLog");
@@ -349,10 +361,13 @@ type GameData = DataBase &
     let renderInfo = () => {
         // return <Box></Box>;
         let json = gamedata.data;
-	// ((m,l=m-1) => Math.ceil((2 * Math.pow(l, 2.75)) + (20 * l) + 20) * 3)(100)
-	let xpfl = ((m: number,l=m-2) => Math.ceil((2 * Math.pow(l, 2.75)) + (20 * l) + 20) * 3); 
-	// xp.js getNextLevelXP: function(l)
-	let xpGoal = [xpfl(100), xpfl(200), Infinity].find(m => m > xpEstimate) || Infinity;
+        // ((m,l=m-1) => Math.ceil((2 * Math.pow(l, 2.75)) + (20 * l) + 20) * 3)(100)
+        let xpfl = (m: number, l = m - 2) =>
+            Math.ceil(2 * Math.pow(l, 2.75) + 20 * l + 20) * 3;
+        // xp.js getNextLevelXP: function(l)
+        let xpGoal =
+            [xpfl(100), xpfl(200), Infinity].find(m => m > xpEstimate) ||
+            Infinity;
         let lv100sec = (xpGoal - xpEstimate) * 1;
         let lv100sec15 = Math.round((xpGoal - xpEstimate) * 1 * (1 / 1.5)); // 1.5xp/3s, linear estimate counting xp given from visiting houses and cities
         return (
@@ -380,7 +395,8 @@ type GameData = DataBase &
                     <Color blueBright>Next Level XP:</Color> {xpEstimate}/
                     {json.skills.next_level_xp} (next level in ~
                     {humanizeDuration(
-                        ((json.skills.next_level_xp - xpEstimate) -
+                        (json.skills.next_level_xp -
+                            xpEstimate -
                             timeSinceLevelStart) *
                             1000,
                     )}
@@ -463,8 +479,7 @@ type GameData = DataBase &
         rend.rerender(renderInfo());
     }
 
-    function startCountdown() {
-    }
+    function startCountdown() {}
 
     let printlog = (...message: any[]) => {
         logdata.push(
@@ -535,7 +550,6 @@ type GameData = DataBase &
             let json = gamedata.data;
             lastXY = currentXY;
             currentXY = json.x + "|" + json.y;
-
 
             shouldAttemptLoot = json.skills.max_carry - json.skills.carry >= 25;
 
@@ -746,7 +760,10 @@ type GameData = DataBase &
                     printlog("Error!");
                     process.exit(1);
                 }
-                if (sd.btns[choiceID].req_met === false || sd.btns[choiceID].req_is_now_locked === true) {
+                if (
+                    sd.btns[choiceID].req_met === false ||
+                    sd.btns[choiceID].req_is_now_locked === true
+                ) {
                     appendCurrentVisitPath("lockedout");
                 }
 
@@ -863,11 +880,11 @@ type GameData = DataBase &
                 }
                 return;
             }
-		if(json.state === "int"){
-printlog("in int");
-send({action: "leave_int"});	
-return;
-}
+            if (json.state === "int") {
+                printlog("in int");
+                send({ action: "leave_int" });
+                return;
+            }
             printlog("Error!");
             printlog("Uh oh! State is " + json.state);
             printlog("Error!");
@@ -906,7 +923,7 @@ return;
                   action: "equipment";
                   option: "find_all";
               }
-|{action: "leave_int"},
+            | { action: "leave_int" },
     ) {
         log("sendrecv", "i> \n" + JSON.stringify(msg));
         printlog("(sent)");
