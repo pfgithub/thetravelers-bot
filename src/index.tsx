@@ -113,7 +113,8 @@ type Logfiles =
     | "sendrecv"
     | "recvunknown"
     | "unusualproximity"
-    | "xperror";
+    | "xperror"
+    | "exejs";
 function log(logfile: Logfiles, ...message: any[]) {
     fs.appendFileSync(
         path.join(basedir, "logs", logfile + ".log"),
@@ -274,6 +275,7 @@ type DataBase = {
     x: number;
     y: number;
     supplies: LootContainer;
+    exe_js?: string;
     skills: {
         sp: number;
         level: number;
@@ -508,6 +510,10 @@ type GameData = DataBase &
     let walkOnly = false;
     let walkFailedCount = 0;
 
+    let metalDetectorPing:
+        | { x: number; y: number; stage: "equip" | "dig" | "reset" }
+        | undefined;
+
     conn.client.getGameObject = async (jsonv: GameData) => {
         if (eventIgnore) {
             return;
@@ -522,6 +528,15 @@ type GameData = DataBase &
             gamedata.data = { ...gamedata.data, ...jsonv };
             if (jsonv.skills)
                 gamedata.data.skills = { ...skilldata, ...jsonv.skills };
+            if (jsonv.exe_js) {
+                log("exejs", "I< exeJS:\n" + jsonv.exe_js);
+                let js = jsonv.exe_js;
+                let rgxresult = /detector pings. \((.+?), (.+?)\)/.exec(js);
+                if (rgxresult) {
+                    let [x, y] = [+rgxresult[1], +rgxresult[2]];
+                    metalDetectorPing = { x, y, stage: "equip" };
+                }
+            }
             plusoneEstimate++;
             if (jsonv.skills && jsonv.skills.xp) {
                 log(
@@ -776,6 +791,40 @@ type GameData = DataBase &
                 setCurrentVisitPath("");
                 xpEstimate++;
 
+                if (
+                    metalDetectorPing &&
+                    metalDetectorPing.x === json.x &&
+                    metalDetectorPing.y === json.y
+                ) {
+                    printlog("metal detector");
+                    if (metalDetectorPing.stage === "equip") {
+                        metalDetectorPing.stage = "dig";
+                        send({
+                            action: "equip",
+                            item: "shovel",
+                        });
+                        return;
+                    }
+                    if (metalDetectorPing.stage === "dig") {
+                        metalDetectorPing.stage = "reset";
+                        send({
+                            action: "equipment",
+                            option: "dig",
+                        });
+                        return;
+                    }
+                    if (metalDetectorPing.stage === "reset") {
+                        metalDetectorPing = undefined;
+                        send({
+                            action: "equip",
+                            item: "metal_detector",
+                        });
+                        return;
+                    }
+                    return;
+                }
+                send({ action: "equipment", option: "find_all" });
+
                 /*if (lastXY === currentXY || walkOnly) {
                     printlog("Went nowhere. In walkOnly mode");
                     walkOnly = true;
@@ -921,8 +970,9 @@ type GameData = DataBase &
               }
             | {
                   action: "equipment";
-                  option: "find_all";
+                  option: "find_all" | "dig";
               }
+            | { action: "equip"; item: "metal_detector" | "shovel" }
             | { action: "leave_int" },
     ) {
         log("sendrecv", "i> \n" + JSON.stringify(msg));
