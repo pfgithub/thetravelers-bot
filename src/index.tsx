@@ -109,7 +109,6 @@ function setVisitedHouses(nvh: { [key: string]: HouseVisitState }) {
 
 type Logfiles =
     | "general"
-    | "gamestate"
     | "detail"
     | "sendrecv"
     | "recvunknown"
@@ -252,7 +251,7 @@ function estimateTime(px: number, py: number, lx: number, ly: number) {
     let diagonalTime = Math.min(straightTimeV, straightTimeH);
     straightTimeH -= diagonalTime;
     straightTimeV -= diagonalTime;
-    return (diagonalTime + straightTimeH + straightTimeV) * 3;
+    return (diagonalTime + straightTimeH + straightTimeV) ;
 }
 
 function markVisited(x: number, y: number, visitReason: HouseVisitState) {
@@ -291,7 +290,7 @@ type DataBase = {
     craft_queue?: { [key: string]: { item_id: string; remaining: number } };
     proximity?: { objs: { char: string; x: number; y: number }[] };
 };
-type Buttons = { [key: string]: { text: string } };
+type Buttons = { [key: string]: { text: string, req_met?: boolean, req_is_now_locked?: boolean } };
 
 type GameEventData = {
     state: "event";
@@ -315,9 +314,12 @@ type GameLootingData = {
         visited: boolean;
     };
 };
+type GameIntData = {
+	state: "int";
+};
 type GameTravelData = { state: "travel" };
 type GameData = DataBase &
-    (GameLootingData | GameTravelData | GameEventData | { state: "???" });
+    (GameLootingData | GameTravelData | GameEventData | { state: "???" } | GameIntData);
 
 (async () => {
     let reqres = await request("/default.aspx/GetAutoLog");
@@ -347,8 +349,12 @@ type GameData = DataBase &
     let renderInfo = () => {
         // return <Box></Box>;
         let json = gamedata.data;
-        let lv100sec = (634000 - xpEstimate) * 3;
-        let lv100sec15 = (634000 - xpEstimate) * 3 * (1 / 1.5); // 1.5xp/3s, linear estimate counting xp given from visiting houses and cities
+	// ((m,l=m-1) => Math.ceil((2 * Math.pow(l, 2.75)) + (20 * l) + 20) * 3)(100)
+	let xpfl = ((m: number,l=m-2) => Math.ceil((2 * Math.pow(l, 2.75)) + (20 * l) + 20) * 3); 
+	// xp.js getNextLevelXP: function(l)
+	let xpGoal = [xpfl(100), xpfl(200), Infinity].find(m => m > xpEstimate) || Infinity;
+        let lv100sec = (xpGoal - xpEstimate) * 1;
+        let lv100sec15 = Math.round((xpGoal - xpEstimate) * 1 * (1 / 1.5)); // 1.5xp/3s, linear estimate counting xp given from visiting houses and cities
         return (
             <Box flexDirection="column">
                 <Box>
@@ -374,7 +380,7 @@ type GameData = DataBase &
                     <Color blueBright>Next Level XP:</Color> {xpEstimate}/
                     {json.skills.next_level_xp} (next level in ~
                     {humanizeDuration(
-                        ((json.skills.next_level_xp - xpEstimate) * 3 -
+                        ((json.skills.next_level_xp - xpEstimate) -
                             timeSinceLevelStart) *
                             1000,
                     )}
@@ -406,19 +412,19 @@ type GameData = DataBase &
                     <Color blueBright>Level 100: (1xp/3s)</Color>{" "}
                     {humanizeDuration((lv100sec - timeSinceLevelStart) * 1000)}{" "}
                     (
-                    {(xpEstimate / 634000).toLocaleString("en-US", {
+                    {(xpEstimate / xpGoal).toLocaleString("en-US", {
                         style: "percent",
                         minimumFractionDigits: 2,
                     })}
                     )
                 </Box>
                 <Box>
-                    <Color blueBright>Level 100 (1.5xp/3s):</Color>{" "}
+                    <Color blueBright>Goal {xpGoal} (1.5xp/3s):</Color>{" "}
                     {humanizeDuration(
                         (lv100sec15 - timeSinceLevelStart) * 1000,
                     )}{" "}
                     (
-                    {(xpEstimate / 634000).toLocaleString("en-US", {
+                    {(xpEstimate / xpGoal).toLocaleString("en-US", {
                         style: "percent",
                         minimumFractionDigits: 2,
                     })}
@@ -458,12 +464,6 @@ type GameData = DataBase &
     }
 
     function startCountdown() {
-        let upd = () => {
-            timeSinceLevelStart++;
-            rerender();
-        };
-        setTimeout(upd, 1000);
-        setTimeout(upd, 2000);
     }
 
     let printlog = (...message: any[]) => {
@@ -536,7 +536,6 @@ type GameData = DataBase &
             lastXY = currentXY;
             currentXY = json.x + "|" + json.y;
 
-            log("gamestate", JSON.stringify(json, null, "    "));
 
             shouldAttemptLoot = json.skills.max_carry - json.skills.carry >= 25;
 
@@ -704,7 +703,7 @@ type GameData = DataBase &
                 printlog("= VisitedDescription:", sd.visited);
                 printlog("= HashCode:", code);
                 printlog("= VisitPath:", visitPath);
-                printlog("= Choices:", choices);
+                printlog("= Choices:", sd.btns);
                 printlog("========================");
 
                 log("detail", evd);
@@ -746,6 +745,9 @@ type GameData = DataBase &
                     printlog("Choice does not exist here");
                     printlog("Error!");
                     process.exit(1);
+                }
+                if (sd.btns[choiceID].req_met === false || sd.btns[choiceID].req_is_now_locked === true) {
+                    appendCurrentVisitPath("lockedout");
                 }
 
                 printlog("Making choice", choiceID, " (", choice, ")");
@@ -861,6 +863,11 @@ type GameData = DataBase &
                 }
                 return;
             }
+		if(json.state === "int"){
+printlog("in int");
+send({action: "leave_int"});	
+return;
+}
             printlog("Error!");
             printlog("Uh oh! State is " + json.state);
             printlog("Error!");
@@ -898,7 +905,8 @@ type GameData = DataBase &
             | {
                   action: "equipment";
                   option: "find_all";
-              },
+              }
+|{action: "leave_int"},
     ) {
         log("sendrecv", "i> \n" + JSON.stringify(msg));
         printlog("(sent)");
