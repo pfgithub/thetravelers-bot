@@ -114,7 +114,8 @@ type Logfiles =
     | "recvunknown"
     | "unusualproximity"
     | "xperror"
-    | "exejs";
+    | "exejs"
+    | "gainxp";
 function log(logfile: Logfiles, ...message: any[]) {
     fs.appendFileSync(
         path.join(basedir, "logs", logfile + ".log"),
@@ -276,6 +277,7 @@ type DataBase = {
     y: number;
     supplies: LootContainer;
     exe_js?: string;
+    gained_xp?: number;
     skills: {
         sp: number;
         level: number;
@@ -529,13 +531,17 @@ type GameData = DataBase &
             if (jsonv.skills)
                 gamedata.data.skills = { ...skilldata, ...jsonv.skills };
             if (jsonv.exe_js) {
-                log("exejs", "I< exeJS:\n" + jsonv.exe_js);
                 let js = jsonv.exe_js;
                 let rgxresult = /detector pings. \((.+?), (.+?)\)/.exec(js);
                 if (rgxresult) {
                     let [x, y] = [+rgxresult[1], +rgxresult[2]];
                     metalDetectorPing = { x, y, stage: "equip" };
+                } else {
+                    log("exejs", "I< exeJS:\n" + jsonv.exe_js);
                 }
+            }
+            if (jsonv.gained_xp) {
+                log("gainxp", "" + jsonv.gained_xp);
             }
             plusoneEstimate++;
             if (jsonv.skills && jsonv.skills.xp) {
@@ -819,9 +825,8 @@ type GameData = DataBase &
                             action: "equip",
                             item: "metal_detector",
                         });
-                        return;
+                        // return; // third stage can pass through
                     }
-                    return;
                 }
                 send({ action: "equipment", option: "find_all" });
 
