@@ -579,7 +579,7 @@ type GameData = DataBase &
 
             if (json.proximity && json.proximity.objs) {
                 let unusual = json.proximity.objs.some(
-                    p => p.char !== "H" && p.char !== "C",
+                    p => p.char !== "H" && p.char !== "C" && p.char !== "o",
                 );
                 if (unusual) {
                     log("unusualproximity", json.proximity);
