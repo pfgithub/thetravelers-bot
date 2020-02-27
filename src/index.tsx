@@ -7,7 +7,7 @@ if (!process.argv[2]) throw new Error("Account not provided.");
 let basedir = path.join(__dirname, "../accounts/", process.argv[2]);
 
 import * as React from "react";
-import { render, Box, useInput, Color, Instance, Text } from "ink";
+import { render, Box, useInput, Color, Text } from "ink";
 
 declare global {
     namespace NodeJS {
@@ -144,7 +144,6 @@ function searchForHouse(sx: number, sy: number, searchRadius: number) {
 
     // spiral instead of this
     // console.log("Searching...");
-    let start = new Date().getTime();
     for (let x = sx - size; x <= sx + size; x++) {
         for (let y = sy - size; y <= sy + size; y++) {
             if (Math.abs(x) - 20000 + 10 > 0) continue;
@@ -157,7 +156,6 @@ function searchForHouse(sx: number, sy: number, searchRadius: number) {
             }
         }
     }
-    let end = new Date().getTime();
     gameBoard.set(sx, -sy, "&");
     // console.log("Completed search in " + (end - start) + "ms");
 }
