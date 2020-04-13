@@ -8,7 +8,8 @@
 		"visits": {
 			"travel": [
 				"travel",
-				"Nr8eiv1"
+				"Nr8eiv1",
+				"2d8gx5"
 			]
 		}
 	},
@@ -40,6 +41,510 @@
 		],
 		"visits": {
 			"loot": [
+				"travel"
+			]
+		}
+	},
+	"2d8gx5": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "a walled city",
+				"desc": "a majestic city enclosed in ancient stone rises out of the horizon, its innermost towers piercing the unending clouds. the portion of wall you've approached is dominating and unscathed, but a section a few kilometers to the east looks a little more weathered.",
+				"btns": {
+					"gjjgVUd": {
+						"text": "the eastern side"
+					},
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"the eastern side",
+			"leave"
+		],
+		"visits": {
+			"the eastern side": [
+				"Nrj1yat"
+			]
+		}
+	},
+	"Nrj1yat": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "the collapsed eastern wall",
+				"desc": "rubble is spread evenly, skewing far into the desert. whatever destroyed it must have come from inside. you can step delicately over the strewn cement and metal to get through. passing around the edge of the wall reveals the great city, its tall towers still relinquishing debris to the strong winds. the clouds are parted at the tip of the highest tower, revealing the slightest hint of blue sky. the ground lowers into a massive lake, the ashen waters covering the base of every tower. the closest structure to you appears to be an oil refinery, its maze of pipes surrounding the inner building.",
+				"btns": {
+					"ihJO1H3": {
+						"text": "swim to the refinery"
+					},
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"swim to the refinery",
+			"leave"
+		],
+		"visits": {
+			"swim to the refinery": [
+				"Ny87bbi"
+			]
+		}
+	},
+	"Ny87bbi": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "ashen waters",
+				"desc": "you descend into the water, submerging yourself almost entirely, and begin swimming toward the refinery. the water burns lightly, getting worse as you swim on. you can feel the stinging through your clothes, and just as you can feel your outer layer of skin begin withering, you arrive at the refinery. the wire fence that blocks it has mostly fallen, and after picking through it you find an exit from the building back here, chains and a warning sign blocking the way. there's probably another way in further around too.",
+				"req_met_desc": "you descend into the water, submerging yourself almost entirely, and begin swimming toward the refinery. the water burns lightly, getting worse as you swim on. you can feel the stinging through your clothes, and just as you can feel your outer layer of skin begin withering, you arrive at the refinery. the wire fence that blocks it has mostly fallen, and after picking through it you find an exit from the building back here. its chains have fallen to the ground, and the door swings loosely with the wind.",
+				"btns": {
+					"3huYTKt": {
+						"text": "circle the perimeter"
+					},
+					"0oeqYPU": {
+						"has_req": true,
+						"hide_req": false,
+						"req_for_all": false,
+						"req_met": false,
+						"req_has_lockout": false,
+						"req_is_now_locked": false,
+						"req_will_hide": false,
+						"req_now_hidden": false,
+						"req_items": {
+							"bolt_cutters": {
+								"count": 1,
+								"title": "bolt cutters"
+							}
+						},
+						"req_break_items": false,
+						"req_text": "break chains",
+						"text": "go inside"
+					},
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"circle the perimeter",
+			"go inside",
+			"leave"
+		],
+		"visits": {
+			"circle the perimeter": [
+				"m15wlz"
+			]
+		}
+	},
+	"m15wlz": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "the perimeter",
+				"desc": "it's clear why the wire fence was here; climbing over all the intersecting pipes and machinery proves to be more difficult than it seemed. after a while you arrive at a road, pipes still reaching overhead. one path leads left to an opening in the fence, toward the city. to the right is what appears to be the main entrance.",
+				"btns": {
+					"BMkJxXT": {
+						"text": "the main entrance"
+					},
+					"qkLAUjd": {
+						"text": "toward the city"
+					},
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"the main entrance",
+			"toward the city",
+			"leave"
+		],
+		"visits": {
+			"the main entrance": [
+				"Nat5qsg"
+			]
+		}
+	},
+	"Nat5qsg": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "the main area",
+				"desc": "you slide the glass entrance open, and are greeted by deep darkness, broken only by some dim light escaping through the ceiling in the distance. running your hands along the wall, you find a switch and activate it. the lights overhead flicker on, washing the room in an eerie green, and the refinery comes to life as an emergency generator kicks on in the distance, humming intensely. there's a rotten wood desk in front of a wall that looks like it once held a logo; despite seeming to be the main entrance, the area is not grand or well-presented. this was a place for work, not grand advertising gestures. there's two staircases to either side, but both have withered over time, making the upper levels inaccessible. across the room from the main desk is a maintenance closet, and a door labeled with a hazard symbol. there's also an opening that leads to an area with many pipes and different machines.",
+				"btns": {
+					"3sPaL8a": {
+						"has_req": true,
+						"hide_req": false,
+						"req_for_all": false,
+						"req_met": false,
+						"req_has_lockout": false,
+						"req_is_now_locked": false,
+						"req_will_hide": false,
+						"req_now_hidden": false,
+						"req_items": {
+							"maintenance_key": {
+								"count": 1,
+								"title": "maintenance key"
+							}
+						},
+						"req_break_items": true,
+						"req_text": "unlock maintenance closet",
+						"text": "open maintenance closet"
+					},
+					"jkzWfPP": {
+						"text": "the hazard door"
+					},
+					"ydiFrgc": {
+						"text": "the machinery room"
+					}
+				}
+			}
+		},
+		"options": [
+			"open maintenance closet",
+			"the hazard door",
+			"the machinery room"
+		],
+		"visits": {
+			"the machinery room": [
+				"kqozw3"
+			]
+		}
+	},
+	"kqozw3": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "the machinery room",
+				"desc": "without a city to deliver oil to, nothing in here is very useful. the pipes pump air and drops of forgotten liquids but otherwise stand by, ready for work that won't come. there's a catwalk leading to a door overhead, but its not accessible from down here. a hallway to the side is glowing red.",
+				"btns": {
+					"1oq9154": {
+						"text": "the red corridor"
+					},
+					"FCwd25q": {
+						"text": "the main area"
+					}
+				}
+			}
+		},
+		"options": [
+			"the red corridor",
+			"the main area"
+		],
+		"visits": {
+			"the main area": [
+				"Nfn7g21"
+			]
+		}
+	},
+	"Nfn7g21": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "the main area",
+				"desc": "the dusty tiles emit clouds as you step over them. there's a rotten wood desk in front of a wall that looks like it once held a logo; despite seeming to be the main entrance, the area is not grand or well-presented. this was a place for work, not grand advertising gestures. glass double doors leading out of the building let a little of the atmosphere's light in ahead. there's two staircases to either side, but both have withered over time, making the upper levels inaccessible. across the room from the main desk is a maintenance closet, and a door labeled with a hazard symbol.",
+				"btns": {
+					"3sPaL8a": {
+						"has_req": true,
+						"hide_req": false,
+						"req_for_all": false,
+						"req_met": false,
+						"req_has_lockout": false,
+						"req_is_now_locked": false,
+						"req_will_hide": false,
+						"req_now_hidden": false,
+						"req_items": {
+							"maintenance_key": {
+								"count": 1,
+								"title": "maintenance key"
+							}
+						},
+						"req_break_items": true,
+						"req_text": "unlock maintenance closet",
+						"text": "open maintenance closet"
+					},
+					"jkzWfPP": {
+						"text": "the hazard door"
+					},
+					"qkLAUjd": {
+						"text": "out the entrance"
+					}
+				}
+			}
+		},
+		"options": [
+			"open maintenance closet",
+			"the hazard door",
+			"out the entrance"
+		],
+		"visits": {
+			"the hazard door": [
+				"Nhv9ddj"
+			],
+			"out the entrance": [
+				"Nq6j0lu"
+			]
+		}
+	},
+	"Nhv9ddj": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "the hazard door",
+				"desc": "this door isn't locked, and creaks open to reveal a descending staircase. the metal steps ache as you go down, the light slowly being swallowed by the darkness. as you reach the bottom, the lights in this area flicker on as well, but these are a deep red. there's more intertwined pipes down here, most leaking black liquids onto the floor, pumping what little oil manages to run through them. the brick walls are shining with moisture, and to one side is a panel of machinery, its buttons lit and blinking. there's a door in the back corner, as well, labeled \"authorized personnel only\".",
+				"req_met_desc": "the metal steps ache as you go down, the light slowly being swallowed by the darkness. there's more intertwined pipes down here, most leaking black liquids onto the floor, pumping what little oil manages to run through them. in one corner is a gap in the wall, its bottom flooded with water. there's a door in the back corner, as well, labeled \"authorized personnel only\".",
+				"btns": {
+					"MZAmqSb": {
+						"has_req": true,
+						"hide_req": false,
+						"req_for_all": false,
+						"req_met": false,
+						"req_has_lockout": true,
+						"req_is_now_locked": false,
+						"req_will_hide": false,
+						"req_now_hidden": false,
+						"req_items": {},
+						"req_break_items": false,
+						"req_text": "the control panel",
+						"text": "the control panel"
+					},
+					"9NRXNeQ": {
+						"text": "the restricted access door"
+					},
+					"FCwd25q": {
+						"text": "back upstairs"
+					}
+				}
+			}
+		},
+		"options": [
+			"the control panel",
+			"the restricted access door",
+			"back upstairs"
+		],
+		"visits": {
+			"the control panel": [
+				"boam7i"
+			]
+		}
+	},
+	"boam7i": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "the control panel",
+				"desc": "you twist a few buttons and switch a few levers, and for a moment nothing happens, but suddenly the basement begins to rumble. a few of the pipes burst from the movement, and after a moment, the rumbling stops. you look around and notice that a section of the wall in the other corner of the room has slid away, revealing an area beyond.",
+				"btns": {
+					"9TQRaXq": {
+						"text": "the gap in the wall"
+					},
+					"9NRXNeQ": {
+						"text": "the restricted access door"
+					},
+					"FCwd25q": {
+						"text": "back upstairs"
+					}
+				}
+			}
+		},
+		"options": [
+			"the gap in the wall",
+			"the restricted access door",
+			"back upstairs"
+		],
+		"visits": {
+			"the gap in the wall": [
+				"gfpekc"
+			]
+		}
+	},
+	"gfpekc": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "the gap",
+				"desc": "you're greeted by another staircase, and you descend far deeper than before. the new area is expansive and dark, so much so that you can't see more than a few meters around. after walking forward for several seconds, you can just barely make out a large lever against the wall. at its base is a rotten wooden box, its lid closed.",
+				"btns": {
+					"bkWfsbL": {
+						"text": "pull the lever"
+					},
+					"6bl3saa": {
+						"text": "check wood box"
+					}
+				}
+			}
+		},
+		"options": [
+			"pull the lever",
+			"check wood box"
+		],
+		"visits": {
+			"check wood box": [
+				"kzyjbi"
+			]
+		}
+	},
+	"kzyjbi": {
+		"type": "loot",
+		"data": {
+			"title": "a rotten wood box",
+			"desc": "there's still a few things worth taking in here.",
+			"items": {
+				"scrap_metal": {
+					"count": 1,
+					"data": {
+						"name": "scrap_metal",
+						"title": "scrap metal",
+						"type": "misc",
+						"weight": 2,
+						"icon": "ð",
+						"desc": "a few shards of metal. probably can be bent into useful shapes."
+					}
+				},
+				"wood_stick": {
+					"count": 1,
+					"data": {
+						"name": "wood_stick",
+						"title": "wood plank",
+						"type": "misc",
+						"weight": 1,
+						"icon": "/",
+						"desc": "a plank of old wood. versatile and cheap."
+					}
+				}
+			},
+			"item_limit": 50,
+			"visited": false
+		},
+		"options": [
+			"loot",
+			"leave"
+		],
+		"visits": {
+			"loot": [
+				"cp85rn"
+			]
+		}
+	},
+	"cp85rn": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "the dark room",
+				"desc": "the lever protrudes from the wall unnaturally. it seems makeshift, like it wasn't designed with the rest of the building.",
+				"btns": {
+					"bkWfsbL": {
+						"text": "pull the lever"
+					}
+				}
+			}
+		},
+		"options": [
+			"pull the lever"
+		],
+		"visits": {
+			"pull the lever": [
+				"qfppym"
+			]
+		}
+	},
+	"qfppym": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "a flood of water",
+				"desc": "another secret door slides open in one side of the room, but your feet are suddenly soaked by a wash of cold water. it fills quickly, going past your knees in seconds.",
+				"btns": {
+					"r3LD1rC": {
+						"text": "escape up the stairs"
+					},
+					"2D1x9Ci": {
+						"text": "swim to secret door"
+					}
+				}
+			}
+		},
+		"options": [
+			"escape up the stairs",
+			"swim to secret door"
+		],
+		"visits": {
+			"escape up the stairs": [
+				"tj7qze"
+			]
+		}
+	},
+	"tj7qze": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "a flood of water",
+				"desc": "there's plenty of time to escape up the stairs, and you wade through the water until you are back in the higher basement. the red glow shines on the rising water, bubbling and surging until it reaches the top stair and finally stopping. after a moment it grows still.",
+				"btns": {
+					"9NRXNeQ": {
+						"text": "the restricted access door"
+					},
+					"FCwd25q": {
+						"text": "back upstairs"
+					}
+				}
+			}
+		},
+		"options": [
+			"the restricted access door",
+			"back upstairs"
+		],
+		"visits": {
+			"back upstairs": [
+				"Nfn7g21"
+			]
+		}
+	},
+	"Nq6j0lu": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "the asphalt trail",
+				"desc": "you walk along the small road toward the city, underneath the dancing pipes, and are eventually met by a wide, empty parking lot. just past it is a bridge.",
+				"btns": {
+					"ItGsH21": {
+						"text": "the bridge"
+					},
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"the bridge",
+			"leave"
+		],
+		"visits": {
+			"leave": [
 				"travel"
 			]
 		}
