@@ -170,7 +170,7 @@ function hashCode(str: string) {
     var hash = 0,
         i,
         chr;
-    if (str.length === 0) return hash;
+    if (str.length === 0) return "" + hash;
     for (i = 0; i < str.length; i++) {
         chr = str.charCodeAt(i);
         hash = (hash << 5) - hash + chr;
@@ -202,6 +202,44 @@ function setEventNoLootChoices(nec: EventChoices) {
         JSON.stringify(nec, null, "\t"),
         "utf-8",
     );
+}
+type EventMap = {
+    [key: string]: {
+        type: string;
+        data: any;
+        options: string[];
+        visits: { [key: string]: string }; // button name -> map key
+    };
+};
+
+let eventMapFile = path.join(__dirname, "eventmap.json");
+function getEventMap(): EventMap {
+    return JSON.parse(fs.readFileSync(eventMapFile, "utf-8") || "{}");
+}
+function setEventMap(nec: EventMap) {
+    fs.writeFileSync(eventMapFile, JSON.stringify(nec, null, "\t"), "utf-8");
+}
+
+let prevLocationHash: string | undefined = undefined;
+function saveDirection(
+    currentLocationHash: string,
+    choiceName: string,
+    type: string,
+    data: any,
+    options: string[],
+) {
+    let evmap = getEventMap();
+    if (prevLocationHash !== undefined)
+        evmap[prevLocationHash].visits[choiceName] = currentLocationHash;
+    if (!evmap[currentLocationHash]) {
+        evmap[currentLocationHash] = { type, data, options, visits: {} };
+    } else {
+        evmap[currentLocationHash].type = type;
+        evmap[currentLocationHash].data = data;
+        evmap[currentLocationHash].options = options;
+    }
+    prevLocationHash = currentLocationHash;
+    setEventMap(evmap);
 }
 
 let nxtdir = "nw";
@@ -600,11 +638,8 @@ type GameData = DataBase &
             //process.stdout.write("\u001b[0;0H");
 
             if (json.state === "looting") {
-                appendCurrentVisitPath(
-                    "[" +
-                        hashCode(json.loot.title + " " + json.loot.desc) +
-                        "] -> ",
-                );
+                let loothash = hashCode(json.loot.title + " " + json.loot.desc);
+                appendCurrentVisitPath("[" + loothash + "] -> ");
                 let exptActions = getEventChoices();
                 let choice = exptActions[getCurrentVisitPath()];
                 printlog("=== LOOT ===");
@@ -640,6 +675,10 @@ type GameData = DataBase &
                     exptActions[getCurrentVisitPath()] = choice;
                     setEventChoices(exptActions);
                 }
+                saveDirection(loothash, choice, "loot", json.loot, [
+                    "loot",
+                    "leave",
+                ]);
                 if (choice === "loot") {
                     printlog("========== LOOT CHANGE =======");
                     for (let [lname, lvalue] of loot) {
@@ -787,12 +826,20 @@ type GameData = DataBase &
                 }
 
                 printlog("Making choice", choiceID, " (", choice, ")");
+                saveDirection(
+                    code,
+                    choice,
+                    "event",
+                    json.event_data,
+                    Object.keys(choices),
+                );
                 send({ action: "event_choice", option: choiceID });
 
                 return;
             }
             if (json.state === "travel") {
                 setCurrentVisitPath("");
+                saveDirection("travel", "travel", "travel", {}, ["travel"]);
                 xpEstimate++;
 
                 if (

@@ -1,0 +1,12 @@
+{
+	"travel": {
+		"type": "travel",
+		"data": {},
+		"options": [
+			"travel"
+		],
+		"visits": {
+			"travel": "travel"
+		}
+	}
+}
