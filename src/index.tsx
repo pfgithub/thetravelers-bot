@@ -208,7 +208,7 @@ type EventMap = {
         type: string;
         data: any;
         options: string[];
-        visits: { [key: string]: string }; // button name -> map key
+        visits: { [key: string]: string[] }; // button name -> map key
     };
 };
 
@@ -221,6 +221,7 @@ function setEventMap(nec: EventMap) {
 }
 
 let prevLocationHash: string | undefined = undefined;
+let prevChoice: string | undefined = undefined;
 function saveDirection(
     currentLocationHash: string,
     choiceName: string,
@@ -229,8 +230,13 @@ function saveDirection(
     options: string[],
 ) {
     let evmap = getEventMap();
-    if (prevLocationHash !== undefined)
-        evmap[prevLocationHash].visits[choiceName] = currentLocationHash;
+    if (prevLocationHash !== undefined) {
+        if (!evmap[prevLocationHash].visits[prevChoice!])
+            evmap[prevLocationHash].visits[prevChoice!] = [];
+        let clist = evmap[prevLocationHash].visits[prevChoice!];
+        if (clist.indexOf(currentLocationHash) === -1)
+            clist.push(currentLocationHash);
+    }
     if (!evmap[currentLocationHash]) {
         evmap[currentLocationHash] = { type, data, options, visits: {} };
     } else {
@@ -239,6 +245,7 @@ function saveDirection(
         evmap[currentLocationHash].options = options;
     }
     prevLocationHash = currentLocationHash;
+    prevChoice = choiceName;
     setEventMap(evmap);
 }
 

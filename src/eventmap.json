@@ -6,7 +6,42 @@
 			"travel"
 		],
 		"visits": {
-			"travel": "travel"
+			"travel": [
+				"travel",
+				"Nr8eiv1"
+			]
+		}
+	},
+	"Nr8eiv1": {
+		"type": "loot",
+		"data": {
+			"title": "a hole in the ground",
+			"desc": "dug with haste.",
+			"visitdesc": "an old hole, covered by a light layer of ash.",
+			"items": {
+				"scrap_metal": {
+					"count": 2,
+					"data": {
+						"name": "scrap_metal",
+						"title": "scrap metal",
+						"type": "misc",
+						"weight": 2,
+						"icon": "ð",
+						"desc": "a few shards of metal. probably can be bent into useful shapes."
+					}
+				}
+			},
+			"item_limit": 75,
+			"visited": false
+		},
+		"options": [
+			"loot",
+			"leave"
+		],
+		"visits": {
+			"loot": [
+				"travel"
+			]
 		}
 	}
 }
