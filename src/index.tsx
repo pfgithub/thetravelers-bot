@@ -865,6 +865,7 @@ type GameData = DataBase &
                 ) {
                     printlog("metal detector");
                     send({ action: "equipment", option: "dig_with_shovel" });
+                    metalDetectorPing = undefined;
                 }
                 send({ action: "equipment", option: "find_all" });
 
