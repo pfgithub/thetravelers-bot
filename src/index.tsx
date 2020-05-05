@@ -859,30 +859,7 @@ type GameData = DataBase &
                     metalDetectorPing.y === json.y
                 ) {
                     printlog("metal detector");
-                    if (metalDetectorPing.stage === "equip") {
-                        metalDetectorPing.stage = "dig";
-                        send({
-                            action: "equip",
-                            item: "shovel",
-                        });
-                        return;
-                    }
-                    if (metalDetectorPing.stage === "dig") {
-                        metalDetectorPing.stage = "reset";
-                        send({
-                            action: "equipment",
-                            option: "dig",
-                        });
-                        return;
-                    }
-                    if (metalDetectorPing.stage === "reset") {
-                        metalDetectorPing = undefined;
-                        send({
-                            action: "equip",
-                            item: "metal_detector",
-                        });
-                        // return; // third stage can pass through
-                    }
+                    send({ action: "equipment", option: "dig_with_shovel" });
                 }
                 send({ action: "equipment", option: "find_all" });
 
@@ -1032,7 +1009,7 @@ type GameData = DataBase &
               }
             | {
                   action: "equipment";
-                  option: "find_all" | "dig";
+                  option: "find_all" | "dig" | "dig_with_shovel";
               }
             | { action: "equip"; item: "metal_detector" | "shovel" }
             | { action: "leave_int" },

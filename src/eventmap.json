@@ -34,7 +34,7 @@
 			"visitdesc": "an old hole, covered by a light layer of ash.",
 			"items": {
 				"scrap_metal": {
-					"count": 3,
+					"count": 4,
 					"data": {
 						"name": "scrap_metal",
 						"title": "scrap metal",
