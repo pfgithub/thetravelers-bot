@@ -62,18 +62,19 @@
 	"2d8gx5": {
 		"type": "event",
 		"data": {
-			"visited": true,
+			"visited": false,
 			"stage_data": {
-				"title": "a walled city",
-				"desc": "a majestic city enclosed in ancient stone rises out of the horizon, its innermost towers piercing the unending clouds. the portion of wall you've approached is dominating and unscathed, but a section a few kilometers to the east looks a little more weathered.",
 				"btns": {
-					"RoPAs04": {
+					"jTJwYz7": {
 						"text": "the eastern side"
 					},
 					"__leave__": {
 						"text": "leave"
 					}
-				}
+				},
+				"title": "a walled city",
+				"desc": "a majestic city enclosed in ancient stone rises out of the horizon, its innermost towers piercing the unending clouds. the portion of wall you've approached is dominating and unscathed, but a section a few kilometers to the east looks a little more weathered.",
+				"req_met_desc": null
 			}
 		},
 		"options": [
@@ -93,18 +94,19 @@
 	"Nrj1yat": {
 		"type": "event",
 		"data": {
-			"visited": true,
+			"visited": false,
 			"stage_data": {
-				"title": "the collapsed eastern wall",
-				"desc": "rubble is spread evenly, skewing far into the desert. whatever destroyed it must have come from inside. you can step delicately over the strewn cement and metal to get through. passing around the edge of the wall reveals the great city, its tall towers still relinquishing debris to the strong winds. the clouds are parted at the tip of the highest tower, revealing the slightest hint of blue sky. the ground lowers into a massive lake, the ashen waters covering the base of every tower. the closest structure to you appears to be an oil refinery, its maze of pipes surrounding the inner building.",
 				"btns": {
-					"ni1pQQD": {
+					"gyCNbnT": {
 						"text": "swim to the refinery"
 					},
 					"__leave__": {
 						"text": "leave"
 					}
-				}
+				},
+				"title": "the collapsed eastern wall",
+				"desc": "rubble is spread evenly, skewing far into the desert. whatever destroyed it must have come from inside. you can step delicately over the strewn cement and metal to get through. passing around the edge of the wall reveals the great city, its tall towers still relinquishing debris to the strong winds. the clouds are parted at the tip of the highest tower, revealing the slightest hint of blue sky. the ground lowers into a massive lake, the ashen waters covering the base of every tower. the closest structure to you appears to be an oil refinery, its maze of pipes surrounding the inner building.",
+				"req_met_desc": null
 			}
 		},
 		"options": [
@@ -120,16 +122,13 @@
 	"Ny87bbi": {
 		"type": "event",
 		"data": {
-			"visited": true,
+			"visited": false,
 			"stage_data": {
-				"title": "ashen waters",
-				"desc": "you descend into the water, submerging yourself almost entirely, and begin swimming toward the refinery. the water burns lightly, getting worse as you swim on. you can feel the stinging through your clothes, and just as you can feel your outer layer of skin begin withering, you arrive at the refinery. the wire fence that blocks it has mostly fallen, and after picking through it you find an exit from the building back here, chains and a warning sign blocking the way. there's probably another way in further around too.",
-				"req_met_desc": "you descend into the water, submerging yourself almost entirely, and begin swimming toward the refinery. the water burns lightly, getting worse as you swim on. you can feel the stinging through your clothes, and just as you can feel your outer layer of skin begin withering, you arrive at the refinery. the wire fence that blocks it has mostly fallen, and after picking through it you find an exit from the building back here. its chains have fallen to the ground, and the door swings loosely with the wind.",
 				"btns": {
-					"NmwTrak": {
+					"JsXrJ4X": {
 						"text": "circle the perimeter"
 					},
-					"t8fbENd": {
+					"mfHtKfd": {
 						"has_req": true,
 						"hide_req": false,
 						"req_for_all": false,
@@ -151,7 +150,10 @@
 					"__leave__": {
 						"text": "leave"
 					}
-				}
+				},
+				"title": "ashen waters",
+				"desc": "you descend into the water, submerging yourself almost entirely, and begin swimming toward the refinery. the water burns lightly, getting worse as you swim on. you can feel the stinging through your clothes, and just as you can feel your outer layer of skin begin withering, you arrive at the refinery. the wire fence that blocks it has mostly fallen, and after picking through it you find an exit from the building back here, chains and a warning sign blocking the way. there's probably another way in further around too.",
+				"req_met_desc": "you descend into the water, submerging yourself almost entirely, and begin swimming toward the refinery. the water burns lightly, getting worse as you swim on. you can feel the stinging through your clothes, and just as you can feel your outer layer of skin begin withering, you arrive at the refinery. the wire fence that blocks it has mostly fallen, and after picking through it you find an exit from the building back here. its chains have fallen to the ground, and the door swings loosely with the wind."
 			}
 		},
 		"options": [
@@ -168,21 +170,22 @@
 	"m15wlz": {
 		"type": "event",
 		"data": {
-			"visited": true,
+			"visited": false,
 			"stage_data": {
-				"title": "the perimeter",
-				"desc": "it's clear why the wire fence was here; climbing over all the intersecting pipes and machinery proves to be more difficult than it seemed. after a while you arrive at a road, pipes still reaching overhead. one path leads left to an opening in the fence, toward the city. to the right is what appears to be the main entrance.",
 				"btns": {
-					"khIFBG5": {
+					"TV6LGPa": {
 						"text": "the main entrance"
 					},
-					"A63j8xA": {
+					"ROaZ8v1": {
 						"text": "toward the city"
 					},
 					"__leave__": {
 						"text": "leave"
 					}
-				}
+				},
+				"title": "the perimeter",
+				"desc": "it's clear why the wire fence was here; climbing over all the intersecting pipes and machinery proves to be more difficult than it seemed. after a while you arrive at a road, pipes still reaching overhead. one path leads left to an opening in the fence, toward the city. to the right is what appears to be the main entrance.",
+				"req_met_desc": null
 			}
 		},
 		"options": [
