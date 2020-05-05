@@ -412,9 +412,11 @@ type GameData = DataBase &
         let xpfl = (m: number, l = m - 2) =>
             Math.ceil(2 * Math.pow(l, 2.75) + 20 * l + 20) * 3;
         // xp.js getNextLevelXP: function(l)
-        let xpGoal =
-            [xpfl(100), xpfl(200), Infinity].find(m => m > xpEstimate) ||
-            Infinity;
+        let xpGoalNumbers = [100, 200, 300, 400];
+        let xpGoalLvls = xpGoalNumbers.map(xpgn => xpfl(xpgn));
+        let xpGoalI = xpGoalLvls.findIndex(m => m > xpEstimate);
+        let xpGoal = xpGoalLvls[xpGoalI];
+        let xpGoalLvl = xpGoalNumbers[xpGoalI];
         let lv100sec = (xpGoal - xpEstimate) * 1;
         let lv100sec15 = Math.round((xpGoal - xpEstimate) * 1 * (1 / 1.5)); // 1.5xp/3s, linear estimate counting xp given from visiting houses and cities
         return (
@@ -472,7 +474,7 @@ type GameData = DataBase &
                     <Color blueBright>Search Radius:</Color> {searchRadius}
                 </Box>
                 <Box>
-                    <Color blueBright>Level 100: (1xp/3s)</Color>{" "}
+                    <Color blueBright>Level {xpGoalLvl}: (1xp/s)</Color>{" "}
                     {humanizeDuration((lv100sec - timeSinceLevelStart) * 1000)}{" "}
                     (
                     {(xpEstimate / xpGoal).toLocaleString("en-US", {
@@ -482,7 +484,7 @@ type GameData = DataBase &
                     )
                 </Box>
                 <Box>
-                    <Color blueBright>Goal {xpGoal} (1.5xp/3s):</Color>{" "}
+                    <Color blueBright>Level {xpGoalLvl} (1.5xp/s):</Color>{" "}
                     {humanizeDuration(
                         (lv100sec15 - timeSinceLevelStart) * 1000,
                     )}{" "}

@@ -33,15 +33,15 @@
 			"desc": "dug with haste.",
 			"visitdesc": "an old hole, covered by a light layer of ash.",
 			"items": {
-				"copper_ore": {
+				"scrap_metal": {
 					"count": 3,
 					"data": {
-						"name": "copper_ore",
-						"title": "copper ore",
+						"name": "scrap_metal",
+						"title": "scrap metal",
 						"type": "misc",
-						"weight": 6,
-						"icon": "&lt;c",
-						"desc": "contains pure copper."
+						"weight": 2,
+						"icon": "ð",
+						"desc": "a few shards of metal. probably can be bent into useful shapes."
 					}
 				}
 			},
@@ -1348,7 +1348,7 @@
 				"title": "a low home",
 				"desc": "the simple structure juts out of the landscape like a raw bone, short and worn by time. the door is chained shut, but the one window to the side is long shattered.",
 				"btns": {
-					"tRC3l5t": {
+					"J2gw3Ne": {
 						"text": "climb inside"
 					},
 					"__leave__": {
@@ -1761,7 +1761,7 @@
 				"title": "a church",
 				"desc": "a tall but thin building is just ahead, a cross atop its steeple and double doors shut tight.",
 				"btns": {
-					"rp8sSIZ": {
+					"Hy9s2Le": {
 						"text": "investigate"
 					},
 					"__leave__": {
@@ -2246,7 +2246,7 @@
 				"title": "rows of pews",
 				"desc": "long seats are covered in sheetrock and glass from the collapsed ceiling above. a wooden altar stands above the room with a big and withered book on it. behind this is a fixture of a starved man with his arms outstretched, his wrists and feet driven through with nails to crossed wooden beams.",
 				"btns": {
-					"IJ3VajD": {
+					"RoUfKxs": {
 						"text": "the book"
 					},
 					"__leave__": {
@@ -2273,10 +2273,10 @@
 				"title": "a withered book",
 				"desc": "after ascending the stairs, a dead man in white and gold robes is revealed, laying on his back with his arms outstretched. the book's pages have begun to rot, but the first sentence it's open to is clearly visible.<span class='doc'>for god so loved the world, that he gave his only begotten son, that whosoever believed in him should not perish, but have everlasting life</span>the words \"should not perish\" have been circled with a blue pen dozens of times, the page partially torn.",
 				"btns": {
-					"4Qjrt6r": {
+					"S47wsuQ": {
 						"text": "the back halls"
 					},
-					"JXZmOCB": {
+					"Jm5iZPP": {
 						"text": "the confession booth"
 					},
 					"__leave__": {
@@ -2304,7 +2304,7 @@
 				"title": "the back halls",
 				"desc": "the corridor is lined with strips of tape, their pictures having fallen to the floor long ago. the tiles are covered by colorful papers with depictions of ancient biblical events. the rooms have been cleared, only old plastic folding chairs and tables resting against the walls. there's a way to an electrical control room at the end of the hall, by the exit.",
 				"btns": {
-					"YxbOwDh": {
+					"hHFRvQ8": {
 						"text": "the control room"
 					},
 					"__leave__": {
@@ -2330,15 +2330,15 @@
 			"desc": "a few electrical parts are still laying around. some might be useful.",
 			"visitdesc": "",
 			"items": {
-				"scrap_metal": {
-					"count": 6,
+				"circuit_board": {
+					"count": 1,
 					"data": {
-						"name": "scrap_metal",
-						"title": "scrap metal",
+						"name": "circuit_board",
+						"title": "circuit board",
 						"type": "misc",
 						"weight": 2,
-						"icon": "ð",
-						"desc": "a few shards of metal. probably can be bent into useful shapes."
+						"icon": "▓",
+						"desc": "old and broken, but its electric components can still be used."
 					}
 				}
 			},
@@ -2362,7 +2362,7 @@
 				"title": "a home office",
 				"desc": "the back wall has been ripped from the rest of the room, resting in a pile of debris where the rest of the house used to be. there's a computer in here on a desk, still plugged into the wall. somehow it still receives power, the monitor lit and awake.",
 				"btns": {
-					"st1BuZa": {
+					"Fkzu14w": {
 						"text": "the computer"
 					},
 					"__leave__": {
@@ -2389,10 +2389,10 @@
 				"title": "the computer",
 				"desc": "the desktop is empty except for the recycle bin and one file, called \"found.txt\".",
 				"btns": {
-					"RrB5gIV": {
+					"p8mdjc6": {
 						"text": "found.txt"
 					},
-					"ECRmtSO": {
+					"yJQpypR": {
 						"has_req": true,
 						"hide_req": true,
 						"req_for_all": true,
@@ -2436,7 +2436,7 @@
 				"title": "a text file",
 				"desc": "the notepad program opens up and reveals a quick message.<span class='doc'>hello, whoever ends up reading this. at some point someone cleared this computer but i thought i'd leave a message anyway. i've been seeing these people... strange people walking around, as though in a trance. they move quickly, but without effort; i've watched one walk from horizon to horizon without stopping for even a second. i hide when i see them. i'm out of food and water, probably gonna die soon. maybe i'm just hallucinating.</span>the file's properties reveal it was written about thirty years ago. very recent, relatively.",
 				"btns": {
-					"ECRmtSO": {
+					"yJQpypR": {
 						"has_req": true,
 						"hide_req": true,
 						"req_for_all": true,
