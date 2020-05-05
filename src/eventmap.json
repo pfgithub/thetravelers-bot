@@ -9,7 +9,20 @@
 			"travel": [
 				"travel",
 				"Nr8eiv1",
-				"2d8gx5"
+				"2d8gx5",
+				"N97cep7",
+				"Nwbfckh",
+				"jpn4ox",
+				"Nyvba56",
+				"Npxhk2u",
+				"g1m70n",
+				"N86n0fb",
+				"Nkx66dg",
+				"N51ipt6",
+				"Nrokoq0",
+				"Nqiyaxk",
+				"N4euq5v",
+				"hbuavp"
 			]
 		}
 	},
@@ -20,15 +33,15 @@
 			"desc": "dug with haste.",
 			"visitdesc": "an old hole, covered by a light layer of ash.",
 			"items": {
-				"steel_shard": {
-					"count": 1,
+				"copper_ore": {
+					"count": 3,
 					"data": {
-						"name": "steel_shard",
-						"title": "steel shard",
+						"name": "copper_ore",
+						"title": "copper ore",
 						"type": "misc",
-						"weight": 5,
-						"icon": "¤",
-						"desc": "high quality steel that seems to have been ripped off some old machine."
+						"weight": 6,
+						"icon": "&lt;c",
+						"desc": "contains pure copper."
 					}
 				}
 			},
@@ -41,19 +54,20 @@
 		],
 		"visits": {
 			"loot": [
-				"travel"
+				"travel",
+				"Nr8eiv1"
 			]
 		}
 	},
 	"2d8gx5": {
 		"type": "event",
 		"data": {
-			"visited": false,
+			"visited": true,
 			"stage_data": {
 				"title": "a walled city",
 				"desc": "a majestic city enclosed in ancient stone rises out of the horizon, its innermost towers piercing the unending clouds. the portion of wall you've approached is dominating and unscathed, but a section a few kilometers to the east looks a little more weathered.",
 				"btns": {
-					"gjjgVUd": {
+					"RoPAs04": {
 						"text": "the eastern side"
 					},
 					"__leave__": {
@@ -69,18 +83,22 @@
 		"visits": {
 			"the eastern side": [
 				"Nrj1yat"
+			],
+			"leave": [
+				"travel",
+				"2d8gx5"
 			]
 		}
 	},
 	"Nrj1yat": {
 		"type": "event",
 		"data": {
-			"visited": false,
+			"visited": true,
 			"stage_data": {
 				"title": "the collapsed eastern wall",
 				"desc": "rubble is spread evenly, skewing far into the desert. whatever destroyed it must have come from inside. you can step delicately over the strewn cement and metal to get through. passing around the edge of the wall reveals the great city, its tall towers still relinquishing debris to the strong winds. the clouds are parted at the tip of the highest tower, revealing the slightest hint of blue sky. the ground lowers into a massive lake, the ashen waters covering the base of every tower. the closest structure to you appears to be an oil refinery, its maze of pipes surrounding the inner building.",
 				"btns": {
-					"ihJO1H3": {
+					"ni1pQQD": {
 						"text": "swim to the refinery"
 					},
 					"__leave__": {
@@ -102,16 +120,16 @@
 	"Ny87bbi": {
 		"type": "event",
 		"data": {
-			"visited": false,
+			"visited": true,
 			"stage_data": {
 				"title": "ashen waters",
 				"desc": "you descend into the water, submerging yourself almost entirely, and begin swimming toward the refinery. the water burns lightly, getting worse as you swim on. you can feel the stinging through your clothes, and just as you can feel your outer layer of skin begin withering, you arrive at the refinery. the wire fence that blocks it has mostly fallen, and after picking through it you find an exit from the building back here, chains and a warning sign blocking the way. there's probably another way in further around too.",
 				"req_met_desc": "you descend into the water, submerging yourself almost entirely, and begin swimming toward the refinery. the water burns lightly, getting worse as you swim on. you can feel the stinging through your clothes, and just as you can feel your outer layer of skin begin withering, you arrive at the refinery. the wire fence that blocks it has mostly fallen, and after picking through it you find an exit from the building back here. its chains have fallen to the ground, and the door swings loosely with the wind.",
 				"btns": {
-					"3huYTKt": {
+					"NmwTrak": {
 						"text": "circle the perimeter"
 					},
-					"0oeqYPU": {
+					"t8fbENd": {
 						"has_req": true,
 						"hide_req": false,
 						"req_for_all": false,
@@ -150,15 +168,15 @@
 	"m15wlz": {
 		"type": "event",
 		"data": {
-			"visited": false,
+			"visited": true,
 			"stage_data": {
 				"title": "the perimeter",
 				"desc": "it's clear why the wire fence was here; climbing over all the intersecting pipes and machinery proves to be more difficult than it seemed. after a while you arrive at a road, pipes still reaching overhead. one path leads left to an opening in the fence, toward the city. to the right is what appears to be the main entrance.",
 				"btns": {
-					"BMkJxXT": {
+					"khIFBG5": {
 						"text": "the main entrance"
 					},
-					"qkLAUjd": {
+					"A63j8xA": {
 						"text": "toward the city"
 					},
 					"__leave__": {
@@ -174,19 +192,20 @@
 		],
 		"visits": {
 			"the main entrance": [
-				"Nat5qsg"
+				"Nat5qsg",
+				"m15wlz"
 			]
 		}
 	},
 	"Nat5qsg": {
 		"type": "event",
 		"data": {
-			"visited": false,
+			"visited": true,
 			"stage_data": {
 				"title": "the main area",
 				"desc": "you slide the glass entrance open, and are greeted by deep darkness, broken only by some dim light escaping through the ceiling in the distance. running your hands along the wall, you find a switch and activate it. the lights overhead flicker on, washing the room in an eerie green, and the refinery comes to life as an emergency generator kicks on in the distance, humming intensely. there's a rotten wood desk in front of a wall that looks like it once held a logo; despite seeming to be the main entrance, the area is not grand or well-presented. this was a place for work, not grand advertising gestures. there's two staircases to either side, but both have withered over time, making the upper levels inaccessible. across the room from the main desk is a maintenance closet, and a door labeled with a hazard symbol. there's also an opening that leads to an area with many pipes and different machines.",
 				"btns": {
-					"3sPaL8a": {
+					"gdiQFIR": {
 						"has_req": true,
 						"hide_req": false,
 						"req_for_all": false,
@@ -205,10 +224,10 @@
 						"req_text": "unlock maintenance closet",
 						"text": "open maintenance closet"
 					},
-					"jkzWfPP": {
+					"4xgzfmP": {
 						"text": "the hazard door"
 					},
-					"ydiFrgc": {
+					"c0PvAfA": {
 						"text": "the machinery room"
 					}
 				}
@@ -221,22 +240,23 @@
 		],
 		"visits": {
 			"the machinery room": [
-				"kqozw3"
+				"kqozw3",
+				"Nat5qsg"
 			]
 		}
 	},
 	"kqozw3": {
 		"type": "event",
 		"data": {
-			"visited": false,
+			"visited": true,
 			"stage_data": {
 				"title": "the machinery room",
 				"desc": "without a city to deliver oil to, nothing in here is very useful. the pipes pump air and drops of forgotten liquids but otherwise stand by, ready for work that won't come. there's a catwalk leading to a door overhead, but its not accessible from down here. a hallway to the side is glowing red.",
 				"btns": {
-					"1oq9154": {
+					"wcYgal4": {
 						"text": "the red corridor"
 					},
-					"FCwd25q": {
+					"gV3Z4f0": {
 						"text": "the main area"
 					}
 				}
@@ -255,12 +275,12 @@
 	"Nfn7g21": {
 		"type": "event",
 		"data": {
-			"visited": false,
+			"visited": true,
 			"stage_data": {
 				"title": "the main area",
 				"desc": "the dusty tiles emit clouds as you step over them. there's a rotten wood desk in front of a wall that looks like it once held a logo; despite seeming to be the main entrance, the area is not grand or well-presented. this was a place for work, not grand advertising gestures. glass double doors leading out of the building let a little of the atmosphere's light in ahead. there's two staircases to either side, but both have withered over time, making the upper levels inaccessible. across the room from the main desk is a maintenance closet, and a door labeled with a hazard symbol.",
 				"btns": {
-					"3sPaL8a": {
+					"gdiQFIR": {
 						"has_req": true,
 						"hide_req": false,
 						"req_for_all": false,
@@ -279,10 +299,10 @@
 						"req_text": "unlock maintenance closet",
 						"text": "open maintenance closet"
 					},
-					"jkzWfPP": {
+					"4xgzfmP": {
 						"text": "the hazard door"
 					},
-					"qkLAUjd": {
+					"A63j8xA": {
 						"text": "out the entrance"
 					}
 				}
@@ -295,29 +315,31 @@
 		],
 		"visits": {
 			"the hazard door": [
-				"Nhv9ddj"
+				"Nhv9ddj",
+				"Nfn7g21"
 			],
 			"out the entrance": [
-				"Nq6j0lu"
+				"Nq6j0lu",
+				"Nfn7g21"
 			]
 		}
 	},
 	"Nhv9ddj": {
 		"type": "event",
 		"data": {
-			"visited": false,
+			"visited": true,
 			"stage_data": {
 				"title": "the hazard door",
 				"desc": "this door isn't locked, and creaks open to reveal a descending staircase. the metal steps ache as you go down, the light slowly being swallowed by the darkness. as you reach the bottom, the lights in this area flicker on as well, but these are a deep red. there's more intertwined pipes down here, most leaking black liquids onto the floor, pumping what little oil manages to run through them. the brick walls are shining with moisture, and to one side is a panel of machinery, its buttons lit and blinking. there's a door in the back corner, as well, labeled \"authorized personnel only\".",
 				"req_met_desc": "the metal steps ache as you go down, the light slowly being swallowed by the darkness. there's more intertwined pipes down here, most leaking black liquids onto the floor, pumping what little oil manages to run through them. in one corner is a gap in the wall, its bottom flooded with water. there's a door in the back corner, as well, labeled \"authorized personnel only\".",
 				"btns": {
-					"MZAmqSb": {
+					"oTy0xQY": {
 						"has_req": true,
 						"hide_req": false,
 						"req_for_all": false,
-						"req_met": false,
+						"req_met": true,
 						"req_has_lockout": true,
-						"req_is_now_locked": false,
+						"req_is_now_locked": true,
 						"req_will_hide": false,
 						"req_now_hidden": false,
 						"req_items": {},
@@ -325,10 +347,10 @@
 						"req_text": "the control panel",
 						"text": "the control panel"
 					},
-					"9NRXNeQ": {
+					"8qLL1Iw": {
 						"text": "the restricted access door"
 					},
-					"FCwd25q": {
+					"gV3Z4f0": {
 						"text": "back upstairs"
 					}
 				}
@@ -341,7 +363,11 @@
 		],
 		"visits": {
 			"the control panel": [
-				"boam7i"
+				"boam7i",
+				"Nhv9ddj"
+			],
+			"back upstairs": [
+				"Nfn7g21"
 			]
 		}
 	},
@@ -353,13 +379,13 @@
 				"title": "the control panel",
 				"desc": "you twist a few buttons and switch a few levers, and for a moment nothing happens, but suddenly the basement begins to rumble. a few of the pipes burst from the movement, and after a moment, the rumbling stops. you look around and notice that a section of the wall in the other corner of the room has slid away, revealing an area beyond.",
 				"btns": {
-					"9TQRaXq": {
+					"BQMBjnI": {
 						"text": "the gap in the wall"
 					},
-					"9NRXNeQ": {
+					"8qLL1Iw": {
 						"text": "the restricted access door"
 					},
-					"FCwd25q": {
+					"gV3Z4f0": {
 						"text": "back upstairs"
 					}
 				}
@@ -372,7 +398,8 @@
 		],
 		"visits": {
 			"the gap in the wall": [
-				"gfpekc"
+				"gfpekc",
+				"boam7i"
 			]
 		}
 	},
@@ -384,10 +411,10 @@
 				"title": "the gap",
 				"desc": "you're greeted by another staircase, and you descend far deeper than before. the new area is expansive and dark, so much so that you can't see more than a few meters around. after walking forward for several seconds, you can just barely make out a large lever against the wall. at its base is a rotten wooden box, its lid closed.",
 				"btns": {
-					"bkWfsbL": {
+					"5yZYDug": {
 						"text": "pull the lever"
 					},
-					"6bl3saa": {
+					"1kez4Yn": {
 						"text": "check wood box"
 					}
 				}
@@ -421,7 +448,7 @@
 					}
 				},
 				"wood_stick": {
-					"count": 1,
+					"count": 10,
 					"data": {
 						"name": "wood_stick",
 						"title": "wood plank",
@@ -453,7 +480,7 @@
 				"title": "the dark room",
 				"desc": "the lever protrudes from the wall unnaturally. it seems makeshift, like it wasn't designed with the rest of the building.",
 				"btns": {
-					"bkWfsbL": {
+					"5yZYDug": {
 						"text": "pull the lever"
 					}
 				}
@@ -464,7 +491,8 @@
 		],
 		"visits": {
 			"pull the lever": [
-				"qfppym"
+				"qfppym",
+				"cp85rn"
 			]
 		}
 	},
@@ -476,10 +504,10 @@
 				"title": "a flood of water",
 				"desc": "another secret door slides open in one side of the room, but your feet are suddenly soaked by a wash of cold water. it fills quickly, going past your knees in seconds.",
 				"btns": {
-					"r3LD1rC": {
+					"D834uwS": {
 						"text": "escape up the stairs"
 					},
-					"2D1x9Ci": {
+					"A6ersx8": {
 						"text": "swim to secret door"
 					}
 				}
@@ -503,10 +531,10 @@
 				"title": "a flood of water",
 				"desc": "there's plenty of time to escape up the stairs, and you wade through the water until you are back in the higher basement. the red glow shines on the rising water, bubbling and surging until it reaches the top stair and finally stopping. after a moment it grows still.",
 				"btns": {
-					"9NRXNeQ": {
+					"8qLL1Iw": {
 						"text": "the restricted access door"
 					},
-					"FCwd25q": {
+					"gV3Z4f0": {
 						"text": "back upstairs"
 					}
 				}
@@ -518,19 +546,20 @@
 		],
 		"visits": {
 			"back upstairs": [
-				"Nfn7g21"
+				"Nfn7g21",
+				"tj7qze"
 			]
 		}
 	},
 	"Nq6j0lu": {
 		"type": "event",
 		"data": {
-			"visited": false,
+			"visited": true,
 			"stage_data": {
 				"title": "the asphalt trail",
 				"desc": "you walk along the small road toward the city, underneath the dancing pipes, and are eventually met by a wide, empty parking lot. just past it is a bridge.",
 				"btns": {
-					"ItGsH21": {
+					"oahLApY": {
 						"text": "the bridge"
 					},
 					"__leave__": {
@@ -545,6 +574,2214 @@
 		],
 		"visits": {
 			"leave": [
+				"travel",
+				"Nq6j0lu"
+			]
+		}
+	},
+	"N97cep7": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "a run-down shack",
+				"desc": "a short structure stands ahead, and a pile of rubble rests near it. seems like the house this belonged to was destroyed.",
+				"btns": {
+					"makcaaO": {
+						"text": "check rubble"
+					},
+					"Bmyy8Yh": {
+						"text": "check shack"
+					},
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"check rubble",
+			"check shack",
+			"leave"
+		],
+		"visits": {
+			"check shack": [
+				"f3a6xw"
+			],
+			"leave": [
+				"travel",
+				"N97cep7"
+			]
+		}
+	},
+	"f3a6xw": {
+		"type": "loot",
+		"data": {
+			"title": "inside the shack",
+			"desc": "maybe there's some supplies inside.",
+			"visitdesc": "",
+			"items": {
+				"cloth": {
+					"count": 1,
+					"data": {
+						"name": "cloth",
+						"title": "cloth",
+						"type": "misc",
+						"weight": 1,
+						"icon": "c",
+						"desc": "tattered and partially rotted fabric, but combined with others like it, could still be put to use."
+					}
+				},
+				"crowbar": {
+					"count": 1,
+					"data": {
+						"name": "crowbar",
+						"title": "crowbar",
+						"type": "tool",
+						"weight": 6,
+						"icon": "{",
+						"desc": "a long, curved piece of steel, meant for prying things apart.",
+						"craft": true,
+						"craft_time": 30,
+						"craft_data": {
+							"scrap_metal": {
+								"count": 2,
+								"title": "scrap metal"
+							},
+							"steel_shard": {
+								"count": 5,
+								"title": "steel shard"
+							}
+						}
+					}
+				}
+			},
+			"visited": false
+		},
+		"options": [
+			"loot",
+			"leave"
+		],
+		"visits": {
+			"loot": [
+				"travel"
+			]
+		}
+	},
+	"Nwbfckh": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "a desolate city",
+				"desc": "red skyscrapers rise out of the wasteland, their strong metal beams exposed and oxidized. the soot-caked wasteland turns into hard asphalt, rising over slums that begin to poke out of the sand. an exit curves away to your right, but otherwise, the highway continues onward.",
+				"btns": {
+					"dCMB8K8": {
+						"text": "the slums"
+					},
+					"D1WHMaT": {
+						"text": "the highway"
+					},
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"the slums",
+			"the highway",
+			"leave"
+		],
+		"visits": {
+			"the highway": [
+				"lxsdpw"
+			],
+			"leave": [
+				"travel",
+				"Nwbfckh"
+			]
+		}
+	},
+	"lxsdpw": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "the midst of the towers",
+				"desc": "the buildings are unfathomably tall, cutting through the ashen atmosphere. their decorative exteriors have been worn away by something powerful; what was once colorful paint and detailed engravings are now simply blasted steel, leaving the skeletons bare and open. from certain angles you can see straight through each structure. you arrive at an intersection, where an entrance to a subway to your right leads underground. across the way is a large blue tent, pinned to the street, its opening flapping in the wind. to the left, you notice one of the bare skyscrapers has an intact staircase a few layers into its bones.",
+				"btns": {
+					"I2WjLpV": {
+						"text": "the subway"
+					},
+					"UGTnpCM": {
+						"text": "the tent"
+					},
+					"LIwX4mU": {
+						"text": "the skyscraper"
+					},
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"the subway",
+			"the tent",
+			"the skyscraper",
+			"leave"
+		],
+		"visits": {
+			"the skyscraper": [
+				"Nwvszfr"
+			],
+			"the tent": [
+				"2542cy"
+			],
+			"the subway": [
+				"lxsdpw",
+				"6u9okl"
+			]
+		}
+	},
+	"Nwvszfr": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "the tower's bones",
+				"desc": "you navigate through the building's supports and to the staircase, which leads to a bare second floor. soot cakes the beams of steel, and your footprints are quickly blown away by the soft breeze escaping from outside. in one corner of the structure, a wall hides the sky beyond.",
+				"btns": {
+					"3OkfMjd": {
+						"text": "the corner"
+					},
+					"D1WHMaT": {
+						"text": "go back"
+					}
+				}
+			}
+		},
+		"options": [
+			"the corner",
+			"go back"
+		],
+		"visits": {
+			"the corner": [
+				"Nnkh4ub"
+			]
+		}
+	},
+	"Nnkh4ub": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "the ruined office",
+				"desc": "an office room is covered in shards of glass, shattered inward from where windows used to be. blood coats the wall behind the desk, and a dead body, its flesh withered away, is sprawled against the chair without a head. in its limp arms, a shotgun rests, its wood rotted and metal rusted. on top of the desk is a short handwritten note.<span class='doc'>they found me. i see the lights of their cars outside my office. forgive me that i had to leave you all this way. i hope you can find someone else to supply you. don't let them win.</span>it might be worth a look around to see if anything is left.",
+				"btns": {
+					"EaN9Z4f": {
+						"text": "the body"
+					},
+					"T4cLGll": {
+						"text": "the desk"
+					},
+					"D1WHMaT": {
+						"text": "go back"
+					}
+				}
+			}
+		},
+		"options": [
+			"the body",
+			"the desk",
+			"go back"
+		],
+		"visits": {
+			"the body": [
+				"60k5um",
+				"Nnkh4ub"
+			],
+			"the desk": [
+				"jw4x17"
+			],
+			"go back": [
+				"lxsdpw",
+				"Nnkh4ub"
+			]
+		}
+	},
+	"60k5um": {
+		"type": "loot",
+		"data": {
+			"title": "a dead man",
+			"desc": "the shotgun is useless and has no bullets, but his form might conceal something.",
+			"items": {
+				"cloth": {
+					"count": 1,
+					"data": {
+						"name": "cloth",
+						"title": "cloth",
+						"type": "misc",
+						"weight": 1,
+						"icon": "c",
+						"desc": "tattered and partially rotted fabric, but combined with others like it, could still be put to use."
+					}
+				}
+			},
+			"item_limit": 50,
+			"visited": false
+		},
+		"options": [
+			"loot",
+			"leave"
+		],
+		"visits": {
+			"loot": [
+				"60k5um",
+				"Nnkh4ub"
+			]
+		}
+	},
+	"jw4x17": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "under the desk",
+				"desc": "the drawers have been cleared but beneath the desk is a small black safe, its paint slightly chipped with rust. there can't be much room for something inside.",
+				"req_met_desc": "beneath the desk is a small black safe, its paint slightly chipped with rust. a black hole has been seared through its small door, leaving it open on its hinges.",
+				"btns": {
+					"oesNKuh": {
+						"has_req": true,
+						"hide_req": false,
+						"req_for_all": false,
+						"req_met": false,
+						"req_has_lockout": false,
+						"req_is_now_locked": false,
+						"req_will_hide": false,
+						"req_now_hidden": false,
+						"req_items": {
+							"blowtorch": {
+								"count": 1,
+								"title": "powered blowtorch"
+							}
+						},
+						"req_break_items": false,
+						"req_text": "break it open",
+						"text": "look inside"
+					},
+					"3OkfMjd": {
+						"text": "the rest of the room"
+					},
+					"D1WHMaT": {
+						"text": "go back"
+					}
+				}
+			}
+		},
+		"options": [
+			"look inside",
+			"the rest of the room",
+			"go back"
+		],
+		"visits": {
+			"look inside": [
+				"j84kap"
+			]
+		}
+	},
+	"j84kap": {
+		"type": "loot",
+		"data": {
+			"title": "the safe",
+			"desc": "the hinges creak surprisingly loudly for such a small thing.",
+			"items": {
+				"keycard_a": {
+					"count": 1,
+					"data": {
+						"name": "keycard_a",
+						"title": "keycard type a",
+						"type": "rare",
+						"weight": 1,
+						"icon": "[a]",
+						"desc": "it describes itself as a security clearance card, with access limited to \"group a\"."
+					}
+				}
+			},
+			"item_limit": 0,
+			"visited": false
+		},
+		"options": [
+			"loot",
+			"leave"
+		],
+		"visits": {
+			"loot": [
+				"Nnkh4ub",
+				"j84kap"
+			]
+		}
+	},
+	"2542cy": {
+		"type": "loot",
+		"data": {
+			"title": "a camping tent",
+			"desc": "a skull pokes out of a sleeping bag, its body wrapped tightly for warmth.",
+			"items": {
+				"scrap_metal": {
+					"count": 4,
+					"data": {
+						"name": "scrap_metal",
+						"title": "scrap metal",
+						"type": "misc",
+						"weight": 2,
+						"icon": "ð",
+						"desc": "a few shards of metal. probably can be bent into useful shapes."
+					}
+				},
+				"cloth": {
+					"count": 2,
+					"data": {
+						"name": "cloth",
+						"title": "cloth",
+						"type": "misc",
+						"weight": 1,
+						"icon": "c",
+						"desc": "tattered and partially rotted fabric, but combined with others like it, could still be put to use."
+					}
+				}
+			},
+			"item_limit": 50,
+			"visited": false
+		},
+		"options": [
+			"loot",
+			"leave"
+		],
+		"visits": {
+			"loot": [
+				"lxsdpw"
+			]
+		}
+	},
+	"6u9okl": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "the subway",
+				"desc": "as you descend the staircase, you notice the air grow extremely still. the stale atmosphere feels almost like wading through a liquid. the tiles lining the walls and floor are filthy, and the path continues down until you arrive at a platform with a single subway track. the train is not here, and one side of the tunnel, the ceiling has caved in and blocked the way.",
+				"btns": {
+					"OX34n9b": {
+						"text": "the railway"
+					},
+					"D1WHMaT": {
+						"text": "go back"
+					}
+				}
+			}
+		},
+		"options": [
+			"the railway",
+			"go back"
+		],
+		"visits": {
+			"the railway": [
+				"Nub6xaj"
+			]
+		}
+	},
+	"Nub6xaj": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "the tunnel",
+				"desc": "it's now pitch black, the little existing light now totally absorbed. you trail a hand on the wall to keep track of where you are, rubbing mud off as you go. after a few minutes, your hand collides with a cold metal box fixed to the side of the tunnel. feeling at it, you realize it opens, and your hand rests on what feels like a lever.",
+				"req_met_desc": "it's now pitch black, the little existing light now totally absorbed. there's a strange scent in the air, one of burnt metal and concrete.",
+				"btns": {
+					"w4TvXYY": {
+						"has_req": true,
+						"hide_req": true,
+						"req_for_all": false,
+						"req_met": false,
+						"req_has_lockout": true,
+						"req_is_now_locked": false,
+						"req_will_hide": true,
+						"req_now_hidden": false,
+						"req_items": {},
+						"req_break_items": false,
+						"req_text": "activate lever",
+						"text": "activate lever"
+					},
+					"lfQ9oas": {
+						"text": "keep walking"
+					}
+				}
+			}
+		},
+		"options": [
+			"activate lever",
+			"keep walking"
+		],
+		"visits": {
+			"activate lever": [
+				"N4okwg9"
+			],
+			"keep walking": [
+				"Nub6xaj",
+				"2ozdt3"
+			]
+		}
+	},
+	"N4okwg9": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "the weakly lit tunnel",
+				"desc": "the lights flicker on, illuminating the black rails and tunnel. further ahead you see another subway platform, but beyond that, you see two bright beams activate, accompanied by the sound of screeching metal. watching for a moment, you realize they are approaching you at startling speed.",
+				"btns": {
+					"63oThw1": {
+						"text": "deactivate lever"
+					},
+					"szTSX84": {
+						"text": "run"
+					}
+				}
+			}
+		},
+		"options": [
+			"deactivate lever",
+			"run"
+		],
+		"visits": {
+			"run": [
+				"h502k5"
+			]
+		}
+	},
+	"h502k5": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "a screaming train",
+				"desc": "you turn heel and sprint, tearing down the tunnel as the subway speeds at you, and in the light of the overhead lamps, you spot a gap in the wall. ducking inside, you squeeze yourself against the tiny amount of extra room this gap affords you, before finally the train blows past. you step out, and looking back, and you watch as the train collides with the rubble at the original platform, an ear-shattering crash echoing through the dark tunnel before fading back to dead silence.",
+				"btns": {
+					"lfQ9oas": {
+						"text": "keep walking"
+					}
+				}
+			}
+		},
+		"options": [
+			"keep walking"
+		],
+		"visits": {
+			"keep walking": [
+				"2ozdt3"
+			]
+		}
+	},
+	"2ozdt3": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "another platform",
+				"desc": "you continue down the long tunnel and are greeted by an entrance to a new platform, filled with an orange flickering light. a trash can is aflame in the center, with corpses in warm clothes strewn around it. these bodies are fairly fresh, hidden away down here, not having succumbed to decomposition like the rest of the world.",
+				"btns": {
+					"f3pyqUy": {
+						"text": "check the bodies"
+					},
+					"M91BNXA": {
+						"text": "continue"
+					}
+				}
+			}
+		},
+		"options": [
+			"check the bodies",
+			"continue"
+		],
+		"visits": {
+			"check the bodies": [
+				"2ozdt3",
+				"N2dz1r5"
+			]
+		}
+	},
+	"N2dz1r5": {
+		"type": "loot",
+		"data": {
+			"title": "homeless bodies",
+			"desc": "in death, they can no longer hide and protect that which was theirs.",
+			"items": {
+				"wire": {
+					"count": 4,
+					"data": {
+						"name": "wire",
+						"title": "wire",
+						"type": "misc",
+						"weight": 1,
+						"icon": "s",
+						"desc": "a rubber wire with metal running through it to carry electricity."
+					}
+				},
+				"rope": {
+					"count": 4,
+					"data": {
+						"name": "rope",
+						"title": "rope",
+						"type": "misc",
+						"weight": 3,
+						"icon": "~",
+						"desc": "a small section of rope, its ends frayed."
+					}
+				}
+			},
+			"item_limit": 50,
+			"visited": false
+		},
+		"options": [
+			"loot",
+			"leave"
+		],
+		"visits": {
+			"loot": [
+				"N7cubv2",
+				"N2dz1r5"
+			]
+		}
+	},
+	"N7cubv2": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "the buried platform",
+				"desc": "the exits on this platform are buried in dirt, but the tunnel continues onward.",
+				"btns": {
+					"DPYPlCS": {
+						"text": "the tunnel"
+					}
+				}
+			}
+		},
+		"options": [
+			"the tunnel"
+		],
+		"visits": {
+			"the tunnel": [
+				"N7cubv2",
+				"Nsllj90"
+			]
+		}
+	},
+	"Nsllj90": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "the continuing dark tunnel",
+				"desc": "you walk another kilometer down the subway until the tunnel begins to curve upward. after several more minutes of travel, the ceiling opens to the sky, revealing the outside world. the tunnel might have led to more city in the past, but now its buried under sand and ash.",
+				"btns": {
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"leave"
+		],
+		"visits": {
+			"leave": [
+				"travel"
+			]
+		}
+	},
+	"jpn4ox": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "a childcare center",
+				"desc": "asphalt escapes beneath the ashen sand and leads to a single building, standing alone among a strip of collapsed structures. a sign over the glass doors indicates it was once a place where parents would leave their children during working hours. graffiti coats the walls, most of it too faded to read, but one mural states \"it was them all along\".",
+				"btns": {
+					"n8Jh7WZ": {
+						"text": "look inside"
+					},
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"look inside",
+			"leave"
+		],
+		"visits": {
+			"look inside": [
+				"xqyqbv"
+			],
+			"leave": [
+				"travel"
+			]
+		}
+	},
+	"xqyqbv": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "an empty waiting room",
+				"desc": "the glass door creaks open to reveal a colorful room, with posters of cartoon characters peeling off the walls. the chairs in the lobby are still aligned neatly, and papers still rest peacefully on the receptionist's desk. someone could have been here as recently as yesterday. there's a few doors against the walls, and a short hallway that leads to a kitchen and maintenance area.",
+				"btns": {
+					"oVR1mOX": {
+						"text": "the front desk"
+					},
+					"LUoLJNT": {
+						"text": "the other rooms"
+					},
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"the front desk",
+			"the other rooms",
+			"leave"
+		],
+		"visits": {
+			"the front desk": [
+				"ettm87",
+				"xqyqbv"
+			]
+		}
+	},
+	"ettm87": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "the front desk",
+				"desc": "the papers behind the desk are strewn wildly, as though someone left in a hurry. a light on the monitor is blinking softly, and tapping the keyboard wakes the computer up. an email is open on the screen, unfinished and unsent. there are about forty addresses this would be sent to.<span class='doc'>attention parents: due to the recent rioting and controversies, we have decided to close the business permanently. please keep your children safe at home, and don't let them leave until the public outcry starts to ...</span>the network connection is offline, the rest of the inbox is inaccessible.",
+				"btns": {
+					"LUoLJNT": {
+						"text": "the other rooms"
+					},
+					"D4oa7yv": {
+						"has_req": true,
+						"hide_req": true,
+						"req_for_all": true,
+						"req_met": false,
+						"req_has_lockout": false,
+						"req_is_now_locked": false,
+						"req_will_hide": false,
+						"req_now_hidden": false,
+						"req_items": {
+							"flash_drive": {
+								"count": 1,
+								"title": "flash drive"
+							}
+						},
+						"req_break_items": false,
+						"req_text": "connect drive",
+						"text": "connect drive"
+					},
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"the other rooms",
+			"connect drive",
+			"leave"
+		],
+		"visits": {
+			"the other rooms": [
+				"ettm87",
+				"gtytm1"
+			]
+		}
+	},
+	"gtytm1": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "the other rooms",
+				"desc": "each room is a different color, with walls plastered with historical facts, simple math, or english phrases. even in the dark, with little escaping through the windows, the bright colors are a stark contrast to the rest of the world. the desks are still organized, the chairs still in order. the boards on the walls have been wiped clean. there's still toys and instruments and writing utensils in these rooms, but otherwise nothing useful.",
+				"btns": {
+					"oVR1mOX": {
+						"text": "the front desk"
+					},
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"the front desk",
+			"leave"
+		],
+		"visits": {
+			"leave": [
+				"travel"
+			]
+		}
+	},
+	"Nyvba56": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "a low home",
+				"desc": "the simple structure juts out of the landscape like a raw bone, short and worn by time. the door is chained shut, but the one window to the side is long shattered.",
+				"btns": {
+					"tRC3l5t": {
+						"text": "climb inside"
+					},
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"climb inside",
+			"leave"
+		],
+		"visits": {
+			"leave": [
+				"travel"
+			],
+			"climb inside": [
+				"hbfou6"
+			]
+		}
+	},
+	"Npxhk2u": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "a ruined house",
+				"desc": "there's a unique odor in the air as you enter the house, the door clattering off its hinges. a once comfortable home has fallen to now-dead insects. all the furniture was removed from the living room, scrapes still marking the floor from when they were stolen. a light flickers in the kitchen.",
+				"visited": "a once comfortable home has fallen to now-dead insects. the door has fallen from its hinges and lays out in the open, covering the stairs. there is little ash settled on it compared to the rest of the structure; someone was here recently. after walking inside, you notice a light flickering in the kitchen.",
+				"btns": {
+					"ZV0PejT": {
+						"text": "the kitchen"
+					},
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"the kitchen",
+			"leave"
+		],
+		"visits": {
+			"leave": [
+				"travel",
+				"Npxhk2u"
+			],
+			"the kitchen": [
+				"4tv44d"
+			]
+		}
+	},
+	"g1m70n": {
+		"type": "event",
+		"data": {
+			"visited": true,
+			"stage_data": {
+				"title": "a withered city",
+				"desc": "sprawling skyscrapers tower overhead, triumphed only by the massive sinkhole that has swallowed every road in sight. smaller buildings have collapsed into it, spilling rubble everywhere, while the bigger ones' support beams are exposed to the open air. the hole is long and wide, encompassing most of the city from where you stand, but it doesn't seem to be too deep. as you walk forward, you can see a path is made through some cracked roads laying over the debris toward an underground tunnel.",
+				"btns": {
+					"LgXOAZa": {
+						"text": "the tunnel"
+					},
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"the tunnel",
+			"leave"
+		],
+		"visits": {
+			"the tunnel": [
+				"Ne68x5o",
+				"g1m70n"
+			]
+		}
+	},
+	"Ne68x5o": {
+		"type": "event",
+		"data": {
+			"visited": true,
+			"stage_data": {
+				"title": "the tunnel",
+				"desc": "you can see a murky liquid gently trickling out of the tunnel as you approach it, the towers rising higher overhead. the tunnel is rectangular, with an indent at the bottom to let the liquid leak out. it's the entry to a sewage system, its sparse fluorescent lights somehow still glowing despite the destruction.",
+				"btns": {
+					"hE6vvIT": {
+						"text": "enter sewage system"
+					},
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"enter sewage system",
+			"leave"
+		],
+		"visits": {
+			"enter sewage system": [
+				"Naecfdb",
+				"Ne68x5o"
+			]
+		}
+	},
+	"Naecfdb": {
+		"type": "event",
+		"data": {
+			"visited": true,
+			"stage_data": {
+				"title": "dark tunnels",
+				"desc": "despite being activated, the fluorescent bulbs do not give off much light. it's just enough to see the branching paths of the system, the dark tunnels breaking off in three different directions.",
+				"btns": {
+					"Mg46ybR": {
+						"has_req": true,
+						"hide_req": false,
+						"req_for_all": false,
+						"req_met": false,
+						"req_has_lockout": true,
+						"req_is_now_locked": false,
+						"req_will_hide": false,
+						"req_now_hidden": false,
+						"req_items": {},
+						"req_break_items": false,
+						"req_text": "go west",
+						"text": "blocked by rubble"
+					},
+					"5JV6jiB": {
+						"has_req": true,
+						"hide_req": false,
+						"req_for_all": false,
+						"req_met": false,
+						"req_has_lockout": true,
+						"req_is_now_locked": false,
+						"req_will_hide": false,
+						"req_now_hidden": false,
+						"req_items": {},
+						"req_break_items": false,
+						"req_text": "go north",
+						"text": "blocked by collapsed hole"
+					},
+					"y0MwDEi": {
+						"text": "go east"
+					},
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"blocked by rubble",
+			"blocked by collapsed hole",
+			"go east",
+			"leave"
+		],
+		"visits": {
+			"go east": [
+				"Nnhj3v9",
+				"Naecfdb"
+			]
+		}
+	},
+	"Nnhj3v9": {
+		"type": "event",
+		"data": {
+			"visited": true,
+			"stage_data": {
+				"title": "the east path",
+				"desc": "the tunnel bends down, the water flowing freely with it. it gradually becomes steeper, the air growing colder, and the smooth cement floor growing more slick. after a few more steps, your feet slip out from beneath you, sending you crashing to the floor and sliding for several seconds down the tube until it levels again, your body finally skidding to a stop. the ground is so slick with condensation that there would be no way back up.",
+				"btns": {
+					"d6S5rfp": {
+						"text": "continue"
+					}
+				}
+			}
+		},
+		"options": [
+			"continue"
+		],
+		"visits": {
+			"continue": [
+				"Ntmsnt3",
+				"Nnhj3v9"
+			]
+		}
+	},
+	"Ntmsnt3": {
+		"type": "event",
+		"data": {
+			"visited": true,
+			"stage_data": {
+				"title": "a frigid intersection",
+				"desc": "the tunnel diverges in three directions, the bitter light of the fluorescent tubes makes the sewer feel colder. a low-pitched hum comes from the north path.",
+				"btns": {
+					"VEOEkTi": {
+						"text": "north"
+					},
+					"uJXjZr7": {
+						"text": "east"
+					},
+					"ImIuhyT": {
+						"text": "south"
+					}
+				}
+			}
+		},
+		"options": [
+			"north",
+			"east",
+			"south"
+		],
+		"visits": {
+			"east": [
+				"5gc1l0",
+				"Ntmsnt3"
+			],
+			"north": [
+				"Nvcxier",
+				"Ntmsnt3"
+			],
+			"south": [
+				"Ntslvj2",
+				"Ntmsnt3"
+			]
+		}
+	},
+	"5gc1l0": {
+		"type": "event",
+		"data": {
+			"visited": true,
+			"stage_data": {
+				"title": "dead end",
+				"desc": "water gently spills out of a grate in the ceiling into a deeper pool at the end of the tunnel.",
+				"btns": {
+					"d6S5rfp": {
+						"text": "west"
+					}
+				}
+			}
+		},
+		"options": [
+			"west"
+		],
+		"visits": {
+			"west": [
+				"Ntmsnt3"
+			]
+		}
+	},
+	"Nvcxier": {
+		"type": "loot",
+		"data": {
+			"title": "a strange cube",
+			"desc": "a perfect cube, cut from some unknown material, juts out from the dead end ahead. it glows purple, its hue shifting slightly as your view of it changes angles, and it hums loudly.",
+			"items": {
+				"alien_fragment": {
+					"count": 1,
+					"data": {
+						"name": "alien_fragment",
+						"title": "unknown material fragment",
+						"type": "rare",
+						"weight": 7,
+						"icon": "O",
+						"desc": "a cold, heavy rock that gives off a unique smell. it glows bright purple, its hue shifting slightly when viewed from different angles. its surface, where not cracked, is extremely smooth."
+					}
+				}
+			},
+			"item_limit": 0,
+			"visited": true
+		},
+		"options": [
+			"loot",
+			"leave"
+		],
+		"visits": {
+			"loot": [
+				"Ntmsnt3",
+				"Nvcxier"
+			]
+		}
+	},
+	"Ntslvj2": {
+		"type": "event",
+		"data": {
+			"visited": true,
+			"stage_data": {
+				"title": "discolored liquid",
+				"desc": "the sewage here is tinted gray.",
+				"btns": {
+					"d6S5rfp": {
+						"text": "north"
+					},
+					"b8CR4Xg": {
+						"text": "east"
+					},
+					"prlJltf": {
+						"text": "south"
+					}
+				}
+			}
+		},
+		"options": [
+			"north",
+			"east",
+			"south"
+		],
+		"visits": {
+			"south": [
+				"gtiyc9"
+			]
+		}
+	},
+	"gtiyc9": {
+		"type": "event",
+		"data": {
+			"visited": true,
+			"stage_data": {
+				"title": "dim daylight",
+				"desc": "the west path curves away, but the walls reflect the dim light of the outer atmosphere. the water spilling in from that direction is thick with ash.",
+				"btns": {
+					"ImIuhyT": {
+						"text": "north"
+					},
+					"4qCpoCS": {
+						"text": "south"
+					},
+					"x5VCXrT": {
+						"text": "west"
+					}
+				}
+			}
+		},
+		"options": [
+			"north",
+			"south",
+			"west"
+		],
+		"visits": {
+			"south": [
+				"Ngwpcl3",
+				"gtiyc9"
+			],
+			"west": [
+				"7mofgw"
+			]
+		}
+	},
+	"Ngwpcl3": {
+		"type": "event",
+		"data": {
+			"visited": true,
+			"stage_data": {
+				"title": "piled brick and rock",
+				"desc": "the path ends with a mound of debris reaching the ceiling. water trickles softly somewhere between the cracks.",
+				"btns": {
+					"prlJltf": {
+						"text": "north"
+					}
+				}
+			}
+		},
+		"options": [
+			"north"
+		],
+		"visits": {
+			"north": [
+				"gtiyc9",
+				"Ngwpcl3"
+			]
+		}
+	},
+	"7mofgw": {
+		"type": "event",
+		"data": {
+			"visited": true,
+			"stage_data": {
+				"title": "outside",
+				"desc": "the tunnel curves upward and into the open air, at the edge of a road leading out of the city. the sinkhole has just barely permitted this exit to exist; it's surrounded neatly by tall piles of rock and brick. the road disappears under the sand in the distance, the wasteland welcoming you back.",
+				"btns": {
+					"prlJltf": {
+						"text": "east"
+					},
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"east",
+			"leave"
+		],
+		"visits": {
+			"leave": [
+				"travel",
+				"7mofgw"
+			]
+		}
+	},
+	"N86n0fb": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "a church",
+				"desc": "a tall but thin building is just ahead, a cross atop its steeple and double doors shut tight.",
+				"btns": {
+					"rp8sSIZ": {
+						"text": "investigate"
+					},
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"investigate",
+			"leave"
+		],
+		"visits": {
+			"leave": [
+				"travel",
+				"N86n0fb"
+			],
+			"investigate": [
+				"cxotkj"
+			]
+		}
+	},
+	"Nkx66dg": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "an old home",
+				"desc": "the house stands strong, despite the world's decay. the roof, though coated in the soot that layers everything, has no holes. someone could even be still living here.",
+				"btns": {
+					"VuRrqgk": {
+						"text": "enter"
+					},
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"enter",
+			"leave"
+		],
+		"visits": {
+			"leave": [
+				"travel",
+				"Nkx66dg"
+			],
+			"enter": [
+				"Ndng1cc",
+				"Nkx66dg"
+			]
+		}
+	},
+	"N51ipt6": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "a garage",
+				"desc": "a row of tall garage doors stand indented into the short building, boarded over by wood, chains, and threatening signs. the chains cover a glass door, but with the right tool, it might be possible to break through.",
+				"req_met_desc": "a row of tall garage doors stand indenting into a short building, boarded over by wood, chains, and threatening signs. the chains over the glass door have been snapped, leaving it wide open.",
+				"btns": {
+					"P4xQ9V5": {
+						"has_req": true,
+						"hide_req": false,
+						"req_for_all": false,
+						"req_met": false,
+						"req_has_lockout": false,
+						"req_is_now_locked": false,
+						"req_will_hide": false,
+						"req_now_hidden": false,
+						"req_items": {
+							"bolt_cutters": {
+								"count": 1,
+								"title": "bolt cutters"
+							}
+						},
+						"req_break_items": false,
+						"req_text": "break in",
+						"text": "go in"
+					},
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"go in",
+			"leave"
+		],
+		"visits": {
+			"leave": [
+				"travel"
+			]
+		}
+	},
+	"Nrokoq0": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "a humble residence",
+				"desc": "a short structure, weathered from time, is barely noticeable among the dead trees in the wasteland. the knob has been broken off the front door, leaving it to swing freely in the wind.",
+				"btns": {
+					"hFbJ3ZH": {
+						"text": "enter"
+					},
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"enter",
+			"leave"
+		],
+		"visits": {
+			"leave": [
+				"travel"
+			],
+			"enter": [
+				"h14h96",
+				"Nrokoq0"
+			]
+		}
+	},
+	"Nqiyaxk": {
+		"type": "event",
+		"data": {
+			"visited": true,
+			"stage_data": {
+				"title": "a cabin",
+				"desc": "a small cabin stands weak against the withered wasteland. termites have eaten the front wall away, rusted hinges the only thing that indicate a door was once here. the floor inside seems unstable.",
+				"visited": "a small cabin stands weak against the withered wasteland. termites have eaten the wall away, rusted hinges the only thing that indicate a door was once here. the floor inside has crashed away, revealing a dull concrete basement.",
+				"btns": {
+					"aX2SqDJ": {
+						"text": "enter"
+					},
+					"8uXzLD7": {
+						"text": "check the back"
+					},
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"enter",
+			"check the back",
+			"leave"
+		],
+		"visits": {
+			"leave": [
+				"travel",
+				"Nqiyaxk"
+			],
+			"check the back": [
+				"Njlha1w"
+			]
+		}
+	},
+	"N4euq5v": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "a barn",
+				"desc": "once used for housing farm supplies, a barn with chipping paint now rests with its large doors wide open. peering inside, it looks like someone is standing there, watching you as you walk closer.",
+				"btns": {
+					"5bmZn7L": {
+						"text": "enter"
+					},
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"enter",
+			"leave"
+		],
+		"visits": {
+			"leave": [
+				"travel",
+				"N4euq5v"
+			],
+			"enter": [
+				"m45mb0"
+			]
+		}
+	},
+	"Ndng1cc": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "the living room",
+				"desc": "passing through the threshold it becomes clear the family who once lived here is long gone. pictures of smiling people are partially covered by long-settled dust. down the hallway, a blue light paints the wall.",
+				"visited": "passing through the threshold it becomes clear the family who once lived here is long gone. pictures of smiling people are partially covered by long-settled dust. there's footprints in the dust on the floor, though. someone came through here not too long ago.",
+				"btns": {
+					"biJlMaQ": {
+						"text": "the back room"
+					},
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"the back room",
+			"leave"
+		],
+		"visits": {
+			"the back room": [
+				"nfdami"
+			]
+		}
+	},
+	"nfdami": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "the back room",
+				"desc": "there's a television hanging from the wall, and a video is displayed on it. the power source is indeterminable. the video is only a few seconds long, looping constantly, and features a human in a clean suit, standing behind a podium. he talks briefly before being cut off by the loop.<span class='doc'>... by them. children are a dangerous sink for valuable and limited resources, and cause the lower classes to suffer further when a baby is born. for many, a child is a curse, not a gift. due to the controversy behind ...</span>the video loops again. there's a closet in the corner of this room.",
+				"btns": {
+					"SPndVQZ": {
+						"text": "the closet"
+					},
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"the closet",
+			"leave"
+		],
+		"visits": {
+			"the closet": [
+				"N29f16l"
+			]
+		}
+	},
+	"N29f16l": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "the closet",
+				"desc": "there's a single cardboard box on the ground with some stuff inside.",
+				"btns": {
+					"ORBGuwP": {
+						"text": "search"
+					},
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"search",
+			"leave"
+		],
+		"visits": {
+			"search": [
+				"d01d6h"
+			]
+		}
+	},
+	"d01d6h": {
+		"type": "loot",
+		"data": {
+			"title": "a cardboard box",
+			"desc": "in spite of the dying world, the box is clean, and still might have something left.",
+			"visitdesc": "the box has been slightly folded with fresh creases. someone's looked inside already.",
+			"items": {
+				"scrap_metal": {
+					"count": 1,
+					"data": {
+						"name": "scrap_metal",
+						"title": "scrap metal",
+						"type": "misc",
+						"weight": 2,
+						"icon": "ð",
+						"desc": "a few shards of metal. probably can be bent into useful shapes."
+					}
+				}
+			},
+			"visited": false
+		},
+		"options": [
+			"loot",
+			"leave"
+		],
+		"visits": {
+			"loot": [
+				"travel",
+				"d01d6h"
+			]
+		}
+	},
+	"h14h96": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "the living room",
+				"desc": "cotton has been ripped from the furniture and spread across the floor, and nearby lays the rotting carcass of a small animal. there's a tiny kitchen to the side, stripped of its pottery and utensils, and in the back is a single door.",
+				"btns": {
+					"6ANhhD2": {
+						"text": "the bedroom"
+					},
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"the bedroom",
+			"leave"
+		],
+		"visits": {
+			"the bedroom": [
+				"Nl4j9da"
+			]
+		}
+	},
+	"Nl4j9da": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "in a noose",
+				"desc": "a human corpse hangs from the ceiling by a rope around its neck, ripped clothes hanging off its rotted skin. there's a bed in here as well, and next to it a nightstand with a dead clock and a small note. it reads:<span class='doc'>to whoever finds me, i'm sorry. i was weak. they took everything. they took our children from us. who could want to go on in a world like this? i just want to see the sky again. i'm out of food, and i can't even feed my dog. i'd rather take my own life before i grow hungry enough to consider eating her. if there's a light at the end of the tunnel, forgive me for running out of strength before i could find it.</span>there's nothing else in here.",
+				"btns": {
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"leave"
+		],
+		"visits": {
+			"leave": [
+				"travel"
+			]
+		}
+	},
+	"Njlha1w": {
+		"type": "event",
+		"data": {
+			"visited": true,
+			"stage_data": {
+				"title": "the backyard",
+				"desc": "you walk around the structure and find an air conditioner in the back, sucking in ash and blowing it into the cabin. its power source is unknown. to its side is a closed plastic container.",
+				"visited": "you walk around the structure and find an air conditioner in the back, sucking in ash and blowing it into the cabin. its power source is unknown. to its side is a plastic container, its lid leaning against its side.",
+				"btns": {
+					"sgUN5Ns": {
+						"text": "a plastic container"
+					},
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"a plastic container",
+			"leave"
+		],
+		"visits": {
+			"a plastic container": [
+				"Ns92lme"
+			]
+		}
+	},
+	"Ns92lme": {
+		"type": "loot",
+		"data": {
+			"title": "a plastic container",
+			"desc": "maybe something useful is inside.",
+			"visitdesc": "",
+			"items": {
+				"rope": {
+					"count": 1,
+					"data": {
+						"name": "rope",
+						"title": "rope",
+						"type": "misc",
+						"weight": 3,
+						"icon": "~",
+						"desc": "a small section of rope, its ends frayed."
+					}
+				},
+				"rusty_knife": {
+					"count": 1,
+					"data": {
+						"name": "rusty_knife",
+						"title": "rusty knife",
+						"type": "weap",
+						"weight": 4,
+						"icon": "4",
+						"desc": "an old butcher's knife, edge rusted away, but still capable of damage.",
+						"craft": true,
+						"craft_time": 15,
+						"craft_data": {
+							"wood_stick": {
+								"count": 1,
+								"title": "wood plank"
+							},
+							"scrap_metal": {
+								"count": 2,
+								"title": "scrap metal"
+							}
+						},
+						"weapon": true,
+						"weapon_data": {
+							"dmg": 7,
+							"sp": 5
+						}
+					}
+				}
+			},
+			"visited": true
+		},
+		"options": [
+			"loot",
+			"leave"
+		],
+		"visits": {
+			"loot": [
+				"travel",
+				"Ns92lme"
+			]
+		}
+	},
+	"m45mb0": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "a shadowy figure",
+				"desc": "the shadows shroud the figure as you draw nearer it. it is motionless, seeming to watch you carefully until you are close enough to touch.",
+				"btns": {
+					"DM66Poc": {
+						"text": "make contact"
+					},
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"make contact",
+			"leave"
+		],
+		"visits": {
+			"leave": [
+				"travel",
+				"m45mb0"
+			]
+		}
+	},
+	"cxotkj": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "rows of pews",
+				"desc": "long seats are covered in sheetrock and glass from the collapsed ceiling above. a wooden altar stands above the room with a big and withered book on it. behind this is a fixture of a starved man with his arms outstretched, his wrists and feet driven through with nails to crossed wooden beams.",
+				"btns": {
+					"IJ3VajD": {
+						"text": "the book"
+					},
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"the book",
+			"leave"
+		],
+		"visits": {
+			"the book": [
+				"nn8ete"
+			]
+		}
+	},
+	"nn8ete": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "a withered book",
+				"desc": "after ascending the stairs, a dead man in white and gold robes is revealed, laying on his back with his arms outstretched. the book's pages have begun to rot, but the first sentence it's open to is clearly visible.<span class='doc'>for god so loved the world, that he gave his only begotten son, that whosoever believed in him should not perish, but have everlasting life</span>the words \"should not perish\" have been circled with a blue pen dozens of times, the page partially torn.",
+				"btns": {
+					"4Qjrt6r": {
+						"text": "the back halls"
+					},
+					"JXZmOCB": {
+						"text": "the confession booth"
+					},
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"the back halls",
+			"the confession booth",
+			"leave"
+		],
+		"visits": {
+			"the back halls": [
+				"x57ii6"
+			]
+		}
+	},
+	"x57ii6": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "the back halls",
+				"desc": "the corridor is lined with strips of tape, their pictures having fallen to the floor long ago. the tiles are covered by colorful papers with depictions of ancient biblical events. the rooms have been cleared, only old plastic folding chairs and tables resting against the walls. there's a way to an electrical control room at the end of the hall, by the exit.",
+				"btns": {
+					"YxbOwDh": {
+						"text": "the control room"
+					},
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"the control room",
+			"leave"
+		],
+		"visits": {
+			"the control room": [
+				"lw3rip"
+			]
+		}
+	},
+	"lw3rip": {
+		"type": "loot",
+		"data": {
+			"title": "the control room",
+			"desc": "a few electrical parts are still laying around. some might be useful.",
+			"visitdesc": "",
+			"items": {
+				"scrap_metal": {
+					"count": 6,
+					"data": {
+						"name": "scrap_metal",
+						"title": "scrap metal",
+						"type": "misc",
+						"weight": 2,
+						"icon": "ð",
+						"desc": "a few shards of metal. probably can be bent into useful shapes."
+					}
+				}
+			},
+			"visited": false
+		},
+		"options": [
+			"loot",
+			"leave"
+		],
+		"visits": {
+			"loot": [
+				"travel"
+			]
+		}
+	},
+	"hbfou6": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "a home office",
+				"desc": "the back wall has been ripped from the rest of the room, resting in a pile of debris where the rest of the house used to be. there's a computer in here on a desk, still plugged into the wall. somehow it still receives power, the monitor lit and awake.",
+				"btns": {
+					"st1BuZa": {
+						"text": "the computer"
+					},
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"the computer",
+			"leave"
+		],
+		"visits": {
+			"the computer": [
+				"Nbqmiwv"
+			]
+		}
+	},
+	"Nbqmiwv": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "the computer",
+				"desc": "the desktop is empty except for the recycle bin and one file, called \"found.txt\".",
+				"btns": {
+					"RrB5gIV": {
+						"text": "found.txt"
+					},
+					"ECRmtSO": {
+						"has_req": true,
+						"hide_req": true,
+						"req_for_all": true,
+						"req_met": false,
+						"req_has_lockout": false,
+						"req_is_now_locked": false,
+						"req_will_hide": false,
+						"req_now_hidden": false,
+						"req_items": {
+							"flash_drive": {
+								"count": 1,
+								"title": "flash drive"
+							}
+						},
+						"req_break_items": false,
+						"req_text": "connect drive",
+						"text": "connect drive"
+					},
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"found.txt",
+			"connect drive",
+			"leave"
+		],
+		"visits": {
+			"found.txt": [
+				"Ndymrr5"
+			]
+		}
+	},
+	"Ndymrr5": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "a text file",
+				"desc": "the notepad program opens up and reveals a quick message.<span class='doc'>hello, whoever ends up reading this. at some point someone cleared this computer but i thought i'd leave a message anyway. i've been seeing these people... strange people walking around, as though in a trance. they move quickly, but without effort; i've watched one walk from horizon to horizon without stopping for even a second. i hide when i see them. i'm out of food and water, probably gonna die soon. maybe i'm just hallucinating.</span>the file's properties reveal it was written about thirty years ago. very recent, relatively.",
+				"btns": {
+					"ECRmtSO": {
+						"has_req": true,
+						"hide_req": true,
+						"req_for_all": true,
+						"req_met": false,
+						"req_has_lockout": false,
+						"req_is_now_locked": false,
+						"req_will_hide": false,
+						"req_now_hidden": false,
+						"req_items": {
+							"flash_drive": {
+								"count": 1,
+								"title": "flash drive"
+							}
+						},
+						"req_break_items": false,
+						"req_text": "connect drive",
+						"text": "connect drive"
+					},
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"connect drive",
+			"leave"
+		],
+		"visits": {
+			"leave": [
+				"travel"
+			]
+		}
+	},
+	"4tv44d": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "the kitchen",
+				"desc": "a small generator, powered by a solar panel, remits what power it gains from the darkened world into the bulb above. knives were stolen and used for weapons long ago. otherwise empty, the cracked counter has a decaying paper resting on it.",
+				"btns": {
+					"evhaxDw": {
+						"text": "an old note",
+						"option": "evhaxDw"
+					},
+					"__leave__": {
+						"text": "leave",
+						"option": "__leave__"
+					}
+				}
+			}
+		},
+		"options": [
+			"an old note",
+			"leave"
+		],
+		"visits": {
+			"an old note": [
+				"N4em7z0"
+			]
+		}
+	},
+	"N4em7z0": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "an old note",
+				"desc": "what's visible on the note reads:<span class='doc'>a pity to have been born so late. being forced to grow up at this point in history. humanity near its</span>maybe the upper floor has anything left.",
+				"btns": {
+					"d6Yl3G2": {
+						"text": "the top floor",
+						"option": "d6Yl3G2"
+					},
+					"__leave__": {
+						"text": "leave",
+						"option": "__leave__"
+					}
+				}
+			}
+		},
+		"options": [
+			"the top floor",
+			"leave"
+		],
+		"visits": {
+			"the top floor": [
+				"oo15x8"
+			]
+		}
+	},
+	"oo15x8": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "the top floor",
+				"desc": "the stairs creak loudly, echoing through the gaping hole in the roof. the walls separating the rooms have fallen away to mere rubble. there's a trash bag in the back corner of all the mess, covered in the ash that coats the rest of this area. maybe there's something someone didn't need.",
+				"btns": {
+					"mjYfebA": {
+						"text": "search"
+					},
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"search",
+			"leave"
+		],
+		"visits": {
+			"search": [
+				"oo15x8",
+				"hamcoi"
+			]
+		}
+	},
+	"hamcoi": {
+		"type": "loot",
+		"data": {
+			"title": "an old trash bag",
+			"desc": "there's some unknown liquid oozing off the plastic, but it's worth a look inside.",
+			"visitdesc": "the bag has been bent over and ripped. whoever was here has searched it already.",
+			"items": {
+				"shovel": {
+					"count": 1,
+					"data": {
+						"name": "shovel",
+						"title": "shovel",
+						"type": "tool",
+						"weight": 7,
+						"icon": "––D",
+						"desc": "digs holes. could also be used as a weapon in a pinch.",
+						"craft": true,
+						"craft_time": 20,
+						"craft_data": {
+							"wood_stick": {
+								"count": 1,
+								"title": "wood plank"
+							},
+							"shovel_head": {
+								"count": 1,
+								"title": "shovel head"
+							}
+						},
+						"weapon": true,
+						"weapon_data": {
+							"dmg": 21,
+							"sp": 20
+						},
+						"func": true,
+						"func_desc": "a simple shovel, capable of digging a few feet into the ground, or filling in a hole.",
+						"func_actions": {
+							"dig": {
+								"server": "dig",
+								"client": "ENGINE.log('digging...');",
+								"btn_text": "dig"
+							},
+							"fill": {
+								"server": "fill",
+								"client": "",
+								"btn_text": "fill"
+							}
+						}
+					}
+				}
+			},
+			"visited": false
+		},
+		"options": [
+			"loot",
+			"leave"
+		],
+		"visits": {
+			"loot": [
+				"travel"
+			]
+		}
+	},
+	"hbuavp": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "a pet store",
+				"desc": "a cracked building stands alone among a line of rubble, broken windows with peeling advertisements declaring this was a store for domestic animals. a dusty road emerges from the ash to lead up to what was once a bustling strip mall.",
+				"btns": {
+					"Ilklc7d": {
+						"text": "enter"
+					},
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"enter",
+			"leave"
+		],
+		"visits": {
+			"enter": [
+				"Nmvvdsm"
+			]
+		}
+	},
+	"Nmvvdsm": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "inside",
+				"desc": "the colorful walls have faded with time, the tiles cracked by whoever once made a stand here. barbed wire surrounds the entrance inside, but it's easy to pick through when there's no one actively defending it. a few starved corpses rest on the ground with rotted and rusted weapons over their chests, surrounded by empty canned goods.",
+				"btns": {
+					"ueNMaIn": {
+						"text": "the aisles"
+					},
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"the aisles",
+			"leave"
+		],
+		"visits": {
+			"the aisles": [
+				"pa1w3d"
+			]
+		}
+	},
+	"pa1w3d": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "the aisles",
+				"desc": "the metal cages are open, the glass cages shattered; the remains of the animals once inside are no longer here. aisles dedicated to pet food are empty, but those with toys or bedding are still fully stocked.",
+				"btns": {
+					"XSCigeg": {
+						"text": "the adoption center"
+					},
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"the adoption center",
+			"leave"
+		],
+		"visits": {
+			"the adoption center": [
+				"2wnaj1"
+			]
+		}
+	},
+	"2wnaj1": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "the adoption center",
+				"desc": "glass walls with holes for small dogs and cats to breathe through are intact, despite the surrounding disarray. behind the door that leads through are two more corpses, a few years more fresh than the previous ones. tiny bones litter the floor around them, picked clean.",
+				"btns": {
+					"yTm2gNQ": {
+						"text": "the stocking room"
+					},
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"the stocking room",
+			"leave"
+		],
+		"visits": {
+			"the stocking room": [
+				"tbnvf8",
+				"2wnaj1"
+			]
+		}
+	},
+	"tbnvf8": {
+		"type": "event",
+		"data": {
+			"visited": false,
+			"stage_data": {
+				"title": "the stocking room",
+				"desc": "the dull and dark gray of the maintenance room contrasts the main store area. the shelves here reflect the state of the main area as well. the back garage door is open, the black tendrils of ash leaking in. there might be something worth taking.",
+				"btns": {
+					"vJQIQ6x": {
+						"text": "look around"
+					},
+					"__leave__": {
+						"text": "leave"
+					}
+				}
+			}
+		},
+		"options": [
+			"look around",
+			"leave"
+		],
+		"visits": {
+			"look around": [
+				"wmgctr"
+			]
+		}
+	},
+	"wmgctr": {
+		"type": "loot",
+		"data": {
+			"title": "the shelves",
+			"desc": "a few cursory items are strewn about, some worth taking.",
+			"visitdesc": "",
+			"items": {
+				"scrap_metal": {
+					"count": 1,
+					"data": {
+						"name": "scrap_metal",
+						"title": "scrap metal",
+						"type": "misc",
+						"weight": 2,
+						"icon": "ð",
+						"desc": "a few shards of metal. probably can be bent into useful shapes."
+					}
+				}
+			},
+			"visited": false
+		},
+		"options": [
+			"loot",
+			"leave"
+		],
+		"visits": {
+			"loot": [
 				"travel"
 			]
 		}

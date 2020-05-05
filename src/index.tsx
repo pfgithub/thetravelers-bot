@@ -727,7 +727,8 @@ type GameData = DataBase &
                         }
                     }
                 } else if (choice === "leave") {
-                    send({ action: "loot_change", option: "leave" });
+                    //send({ action: "loot_change", option: "leave" });
+                    send({ action: "loot_next" });
                     return;
                 } else {
                     printlog("Error!");
@@ -743,6 +744,7 @@ type GameData = DataBase &
                     option: "change",
                     changes: csupl,
                 });
+                send({ action: "loot_next" });
                 return;
             }
 
@@ -1005,7 +1007,7 @@ type GameData = DataBase &
     conn.client.getGameObjectNoCountdown = (json: any) =>
         log("recvunknown", "ggonc", JSON.stringify(json));
     conn.client.raw = (js: any) =>
-        log("recvunknown", "RAW", JSON.stringify(js));
+        log("recvunknown", ".RAW", JSON.stringify(js));
 
     function send(
         msg:
@@ -1016,7 +1018,8 @@ type GameData = DataBase &
                   option: "change";
                   changes: LootContainer;
               }
-            | { action: "loot_change"; option: "leave" }
+            //| { action: "loot_change"; option: "leave" }
+            | { action: "loot_next" }
             | { action: "doublestep"; option: "add" }
             | {
                   action: "skill_upgrade";
