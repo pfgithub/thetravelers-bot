@@ -32,19 +32,7 @@
 			"title": "a hole in the ground",
 			"desc": "dug with haste.",
 			"visitdesc": "an old hole, covered by a light layer of ash.",
-			"items": {
-				"scrap_metal": {
-					"count": 4,
-					"data": {
-						"name": "scrap_metal",
-						"title": "scrap metal",
-						"type": "misc",
-						"weight": 2,
-						"icon": "ð",
-						"desc": "a few shards of metal. probably can be bent into useful shapes."
-					}
-				}
-			},
+			"items": {},
 			"item_limit": 75,
 			"visited": false
 		},
@@ -590,10 +578,10 @@
 				"title": "a run-down shack",
 				"desc": "a short structure stands ahead, and a pile of rubble rests near it. seems like the house this belonged to was destroyed.",
 				"btns": {
-					"makcaaO": {
+					"hExwloR": {
 						"text": "check rubble"
 					},
-					"Bmyy8Yh": {
+					"uRsLBEw": {
 						"text": "check shack"
 					},
 					"__leave__": {
@@ -624,38 +612,26 @@
 			"desc": "maybe there's some supplies inside.",
 			"visitdesc": "",
 			"items": {
-				"cloth": {
-					"count": 1,
+				"rope": {
+					"count": 2,
 					"data": {
-						"name": "cloth",
-						"title": "cloth",
+						"name": "rope",
+						"title": "rope",
 						"type": "misc",
-						"weight": 1,
-						"icon": "c",
-						"desc": "tattered and partially rotted fabric, but combined with others like it, could still be put to use."
+						"weight": 3,
+						"icon": "~",
+						"desc": "a small section of rope, its ends frayed."
 					}
 				},
-				"crowbar": {
-					"count": 1,
+				"wire": {
+					"count": 4,
 					"data": {
-						"name": "crowbar",
-						"title": "crowbar",
-						"type": "tool",
-						"weight": 6,
-						"icon": "{",
-						"desc": "a long, curved piece of steel, meant for prying things apart.",
-						"craft": true,
-						"craft_time": 30,
-						"craft_data": {
-							"scrap_metal": {
-								"count": 2,
-								"title": "scrap metal"
-							},
-							"steel_shard": {
-								"count": 5,
-								"title": "steel shard"
-							}
-						}
+						"name": "wire",
+						"title": "wire",
+						"type": "misc",
+						"weight": 1,
+						"icon": "s",
+						"desc": "a rubber wire with metal running through it to carry electricity."
 					}
 				}
 			},
@@ -1214,7 +1190,7 @@
 				"title": "a childcare center",
 				"desc": "asphalt escapes beneath the ashen sand and leads to a single building, standing alone among a strip of collapsed structures. a sign over the glass doors indicates it was once a place where parents would leave their children during working hours. graffiti coats the walls, most of it too faded to read, but one mural states \"it was them all along\".",
 				"btns": {
-					"n8Jh7WZ": {
+					"35Yd18b": {
 						"text": "look inside"
 					},
 					"__leave__": {
@@ -1244,10 +1220,10 @@
 				"title": "an empty waiting room",
 				"desc": "the glass door creaks open to reveal a colorful room, with posters of cartoon characters peeling off the walls. the chairs in the lobby are still aligned neatly, and papers still rest peacefully on the receptionist's desk. someone could have been here as recently as yesterday. there's a few doors against the walls, and a short hallway that leads to a kitchen and maintenance area.",
 				"btns": {
-					"oVR1mOX": {
+					"HCtauks": {
 						"text": "the front desk"
 					},
-					"LUoLJNT": {
+					"53ApIKM": {
 						"text": "the other rooms"
 					},
 					"__leave__": {
@@ -1276,10 +1252,10 @@
 				"title": "the front desk",
 				"desc": "the papers behind the desk are strewn wildly, as though someone left in a hurry. a light on the monitor is blinking softly, and tapping the keyboard wakes the computer up. an email is open on the screen, unfinished and unsent. there are about forty addresses this would be sent to.<span class='doc'>attention parents: due to the recent rioting and controversies, we have decided to close the business permanently. please keep your children safe at home, and don't let them leave until the public outcry starts to ...</span>the network connection is offline, the rest of the inbox is inaccessible.",
 				"btns": {
-					"LUoLJNT": {
+					"53ApIKM": {
 						"text": "the other rooms"
 					},
-					"D4oa7yv": {
+					"SDbwRVA": {
 						"has_req": true,
 						"hide_req": true,
 						"req_for_all": true,
@@ -1324,7 +1300,7 @@
 				"title": "the other rooms",
 				"desc": "each room is a different color, with walls plastered with historical facts, simple math, or english phrases. even in the dark, with little escaping through the windows, the bright colors are a stark contrast to the rest of the world. the desks are still organized, the chairs still in order. the boards on the walls have been wiped clean. there's still toys and instruments and writing utensils in these rooms, but otherwise nothing useful.",
 				"btns": {
-					"oVR1mOX": {
+					"HCtauks": {
 						"text": "the front desk"
 					},
 					"__leave__": {
@@ -1351,7 +1327,7 @@
 				"title": "a low home",
 				"desc": "the simple structure juts out of the landscape like a raw bone, short and worn by time. the door is chained shut, but the one window to the side is long shattered.",
 				"btns": {
-					"J2gw3Ne": {
+					"bh6JDpH": {
 						"text": "climb inside"
 					},
 					"__leave__": {
@@ -1382,7 +1358,7 @@
 				"desc": "there's a unique odor in the air as you enter the house, the door clattering off its hinges. a once comfortable home has fallen to now-dead insects. all the furniture was removed from the living room, scrapes still marking the floor from when they were stolen. a light flickers in the kitchen.",
 				"visited": "a once comfortable home has fallen to now-dead insects. the door has fallen from its hinges and lays out in the open, covering the stairs. there is little ash settled on it compared to the rest of the structure; someone was here recently. after walking inside, you notice a light flickering in the kitchen.",
 				"btns": {
-					"ZV0PejT": {
+					"YX19jcl": {
 						"text": "the kitchen"
 					},
 					"__leave__": {
@@ -2365,7 +2341,7 @@
 				"title": "a home office",
 				"desc": "the back wall has been ripped from the rest of the room, resting in a pile of debris where the rest of the house used to be. there's a computer in here on a desk, still plugged into the wall. somehow it still receives power, the monitor lit and awake.",
 				"btns": {
-					"Fkzu14w": {
+					"XgsI9IQ": {
 						"text": "the computer"
 					},
 					"__leave__": {
@@ -2392,10 +2368,10 @@
 				"title": "the computer",
 				"desc": "the desktop is empty except for the recycle bin and one file, called \"found.txt\".",
 				"btns": {
-					"p8mdjc6": {
+					"6HytTgM": {
 						"text": "found.txt"
 					},
-					"yJQpypR": {
+					"9JEpD5x": {
 						"has_req": true,
 						"hide_req": true,
 						"req_for_all": true,
@@ -2439,7 +2415,7 @@
 				"title": "a text file",
 				"desc": "the notepad program opens up and reveals a quick message.<span class='doc'>hello, whoever ends up reading this. at some point someone cleared this computer but i thought i'd leave a message anyway. i've been seeing these people... strange people walking around, as though in a trance. they move quickly, but without effort; i've watched one walk from horizon to horizon without stopping for even a second. i hide when i see them. i'm out of food and water, probably gonna die soon. maybe i'm just hallucinating.</span>the file's properties reveal it was written about thirty years ago. very recent, relatively.",
 				"btns": {
-					"yJQpypR": {
+					"9JEpD5x": {
 						"has_req": true,
 						"hide_req": true,
 						"req_for_all": true,
@@ -2482,9 +2458,9 @@
 				"title": "the kitchen",
 				"desc": "a small generator, powered by a solar panel, remits what power it gains from the darkened world into the bulb above. knives were stolen and used for weapons long ago. otherwise empty, the cracked counter has a decaying paper resting on it.",
 				"btns": {
-					"evhaxDw": {
+					"CXQknLP": {
 						"text": "an old note",
-						"option": "evhaxDw"
+						"option": "CXQknLP"
 					},
 					"__leave__": {
 						"text": "leave",
@@ -2511,9 +2487,9 @@
 				"title": "an old note",
 				"desc": "what's visible on the note reads:<span class='doc'>a pity to have been born so late. being forced to grow up at this point in history. humanity near its</span>maybe the upper floor has anything left.",
 				"btns": {
-					"d6Yl3G2": {
+					"mlfjBQP": {
 						"text": "the top floor",
-						"option": "d6Yl3G2"
+						"option": "mlfjBQP"
 					},
 					"__leave__": {
 						"text": "leave",
@@ -2540,7 +2516,7 @@
 				"title": "the top floor",
 				"desc": "the stairs creak loudly, echoing through the gaping hole in the roof. the walls separating the rooms have fallen away to mere rubble. there's a trash bag in the back corner of all the mess, covered in the ash that coats the rest of this area. maybe there's something someone didn't need.",
 				"btns": {
-					"mjYfebA": {
+					"rwwGG0v": {
 						"text": "search"
 					},
 					"__leave__": {
@@ -2567,46 +2543,15 @@
 			"desc": "there's some unknown liquid oozing off the plastic, but it's worth a look inside.",
 			"visitdesc": "the bag has been bent over and ripped. whoever was here has searched it already.",
 			"items": {
-				"shovel": {
+				"wood_stick": {
 					"count": 1,
 					"data": {
-						"name": "shovel",
-						"title": "shovel",
-						"type": "tool",
-						"weight": 7,
-						"icon": "––D",
-						"desc": "digs holes. could also be used as a weapon in a pinch.",
-						"craft": true,
-						"craft_time": 20,
-						"craft_data": {
-							"wood_stick": {
-								"count": 1,
-								"title": "wood plank"
-							},
-							"shovel_head": {
-								"count": 1,
-								"title": "shovel head"
-							}
-						},
-						"weapon": true,
-						"weapon_data": {
-							"dmg": 21,
-							"sp": 20
-						},
-						"func": true,
-						"func_desc": "a simple shovel, capable of digging a few feet into the ground, or filling in a hole.",
-						"func_actions": {
-							"dig": {
-								"server": "dig",
-								"client": "ENGINE.log('digging...');",
-								"btn_text": "dig"
-							},
-							"fill": {
-								"server": "fill",
-								"client": "",
-								"btn_text": "fill"
-							}
-						}
+						"name": "wood_stick",
+						"title": "wood plank",
+						"type": "misc",
+						"weight": 1,
+						"icon": "/",
+						"desc": "a plank of old wood. versatile and cheap."
 					}
 				}
 			},

@@ -696,15 +696,19 @@ type GameData = DataBase &
                                 "+ NEW! " +
                                     lvalue.count +
                                     " " +
-                                    lvalue.data.name,
+                                    lname,
                             );
-                            csupl[lname] = lvalue;
                         } else {
                             printlog(
-                                "+ " + lvalue.count + " " + lvalue.data.name,
+                                "+ " + lvalue.count + " " + lname,
                             );
-                            csupl[lname].count += lvalue.count;
                         }
+                        send({
+                            action: "loot_exchange",
+                            which: true,
+                            item: lname,
+                            amount: lvalue.count,
+                        });
                     }
                     printlog("========== DROPPING UNNEEDED ITEMS =======");
                     for (let [lname, lvalue] of Object.entries(csupl)) {
@@ -725,6 +729,12 @@ type GameData = DataBase &
                                         " " +
                                         lname,
                                 );
+                                send({
+                                    action: "loot_exchange",
+                                    which: false,
+                                    item: lname,
+                                    amount: lvalue.count,
+                                });
                             }
                         }
                     }
@@ -741,11 +751,6 @@ type GameData = DataBase &
                     process.exit(1);
                 }
                 printlog("==========================");
-                send({
-                    action: "loot_change",
-                    option: "change",
-                    changes: csupl,
-                });
                 send({ action: "loot_next" });
                 return;
             }
@@ -993,9 +998,10 @@ type GameData = DataBase &
             | { action: "setDir"; dir: string; autowalk: boolean }
             | { action: "event_choice"; option: string }
             | {
-                  action: "loot_change";
-                  option: "change";
-                  changes: LootContainer;
+                  action: "loot_exchange";
+                  which: true | false;
+                  item: string;
+                  amount: number;
               }
             //| { action: "loot_change"; option: "leave" }
             | { action: "loot_next" }
