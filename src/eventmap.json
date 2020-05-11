@@ -26,7 +26,7 @@
 				"Nmbh305"
 			]
 		},
-		"views": 511
+		"views": 550
 	},
 	"Nr8eiv1": {
 		"type": "loot",
@@ -35,15 +35,15 @@
 			"desc": "dug with haste.",
 			"visitdesc": "an old hole, covered by a light layer of ash.",
 			"items": {
-				"steel_shard": {
-					"count": 3,
+				"scrap_metal": {
+					"count": 2,
 					"data": {
-						"name": "steel_shard",
-						"title": "steel shard",
+						"name": "scrap_metal",
+						"title": "scrap metal",
 						"type": "misc",
-						"weight": 5,
-						"icon": "¤",
-						"desc": "high quality steel that seems to have been ripped off some old machine."
+						"weight": 2,
+						"icon": "ð",
+						"desc": "a few shards of metal. probably can be bent into useful shapes."
 					}
 				}
 			},
@@ -60,7 +60,7 @@
 				"Nr8eiv1"
 			]
 		},
-		"views": 24
+		"views": 25
 	},
 	"2d8gx5": {
 		"type": "event",
@@ -2568,7 +2568,7 @@
 				"title": "a pet store",
 				"desc": "a cracked building stands alone among a line of rubble, broken windows with peeling advertisements declaring this was a store for domestic animals. a dusty road emerges from the ash to lead up to what was once a bustling strip mall.",
 				"btns": {
-					"xGC7p3s": {
+					"yfcXGNL": {
 						"text": "enter"
 					},
 					"__leave__": {
@@ -2586,7 +2586,8 @@
 				"Nmvvdsm",
 				"hbuavp"
 			]
-		}
+		},
+		"views": 1
 	},
 	"Nmvvdsm": {
 		"type": "event",
@@ -2596,7 +2597,7 @@
 				"title": "inside",
 				"desc": "the colorful walls have faded with time, the tiles cracked by whoever once made a stand here. barbed wire surrounds the entrance inside, but it's easy to pick through when there's no one actively defending it. a few starved corpses rest on the ground with rotted and rusted weapons over their chests, surrounded by empty canned goods.",
 				"btns": {
-					"JaAFOcc": {
+					"0boeDGH": {
 						"text": "the aisles"
 					},
 					"__leave__": {
@@ -2613,7 +2614,8 @@
 			"the aisles": [
 				"pa1w3d"
 			]
-		}
+		},
+		"views": 1
 	},
 	"pa1w3d": {
 		"type": "event",
@@ -2623,7 +2625,7 @@
 				"title": "the aisles",
 				"desc": "the metal cages are open, the glass cages shattered; the remains of the animals once inside are no longer here. aisles dedicated to pet food are empty, but those with toys or bedding are still fully stocked.",
 				"btns": {
-					"xDsY53F": {
+					"oUNDtwG": {
 						"text": "the adoption center"
 					},
 					"__leave__": {
@@ -2640,7 +2642,8 @@
 			"the adoption center": [
 				"2wnaj1"
 			]
-		}
+		},
+		"views": 1
 	},
 	"2wnaj1": {
 		"type": "event",
@@ -2650,7 +2653,7 @@
 				"title": "the adoption center",
 				"desc": "glass walls with holes for small dogs and cats to breathe through are intact, despite the surrounding disarray. behind the door that leads through are two more corpses, a few years more fresh than the previous ones. tiny bones litter the floor around them, picked clean.",
 				"btns": {
-					"nDAP0PO": {
+					"ntcd4On": {
 						"text": "the stocking room"
 					},
 					"__leave__": {
@@ -2668,7 +2671,8 @@
 				"tbnvf8",
 				"2wnaj1"
 			]
-		}
+		},
+		"views": 1
 	},
 	"tbnvf8": {
 		"type": "event",
@@ -2678,7 +2682,7 @@
 				"title": "the stocking room",
 				"desc": "the dull and dark gray of the maintenance room contrasts the main store area. the shelves here reflect the state of the main area as well. the back garage door is open, the black tendrils of ash leaking in. there might be something worth taking.",
 				"btns": {
-					"QkegQ7T": {
+					"iU0XKz8": {
 						"text": "look around"
 					},
 					"__leave__": {
@@ -2695,7 +2699,8 @@
 			"look around": [
 				"wmgctr"
 			]
-		}
+		},
+		"views": 1
 	},
 	"wmgctr": {
 		"type": "loot",
@@ -2704,19 +2709,8 @@
 			"desc": "a few cursory items are strewn about, some worth taking.",
 			"visitdesc": "",
 			"items": {
-				"scrap_metal": {
-					"count": 4,
-					"data": {
-						"name": "scrap_metal",
-						"title": "scrap metal",
-						"type": "misc",
-						"weight": 2,
-						"icon": "ð",
-						"desc": "a few shards of metal. probably can be bent into useful shapes."
-					}
-				},
 				"rope": {
-					"count": 2,
+					"count": 1,
 					"data": {
 						"name": "rope",
 						"title": "rope",
@@ -2724,6 +2718,28 @@
 						"weight": 3,
 						"icon": "~",
 						"desc": "a small section of rope, its ends frayed."
+					}
+				},
+				"cloth": {
+					"count": 5,
+					"data": {
+						"name": "cloth",
+						"title": "cloth",
+						"type": "misc",
+						"weight": 1,
+						"icon": "c",
+						"desc": "tattered and partially rotted fabric, but combined with others like it, could still be put to use."
+					}
+				},
+				"wire": {
+					"count": 4,
+					"data": {
+						"name": "wire",
+						"title": "wire",
+						"type": "misc",
+						"weight": 1,
+						"icon": "s",
+						"desc": "a rubber wire with metal running through it to carry electricity."
 					}
 				}
 			},
@@ -2737,7 +2753,8 @@
 			"loot": [
 				"travel"
 			]
-		}
+		},
+		"views": 1
 	},
 	"Nmbh305": {
 		"type": "event",
