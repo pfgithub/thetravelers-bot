@@ -190,5 +190,12 @@
 	"hbuavp -> Nmvvdsm -> pa1w3d -> ": "the adoption center",
 	"hbuavp -> Nmvvdsm -> pa1w3d -> 2wnaj1 -> ": "the stocking room",
 	"hbuavp -> Nmvvdsm -> pa1w3d -> 2wnaj1 -> tbnvf8 -> ": "look around",
-	"hbuavp -> Nmvvdsm -> pa1w3d -> 2wnaj1 -> tbnvf8 -> [wmgctr] -> ": "loot"
+	"hbuavp -> Nmvvdsm -> pa1w3d -> 2wnaj1 -> tbnvf8 -> [wmgctr] -> ": "loot",
+	"Nmbh305 -> ": "the tunnel",
+	"Nmbh305 -> 7u1cex -> ": "exit event",
+	"Nqox1cn -> ": "descend",
+	"Nqox1cn -> Nxfi60l -> ": "the blast",
+	"Nqox1cn -> Nxfi60l -> kmepfl -> ": "the journal",
+	"Nqox1cn -> Nxfi60l -> kmepfl -> Ne415o3 -> ": "loot area",
+	"Nqox1cn -> Nxfi60l -> kmepfl -> Ne415o3 -> [5i87i4] -> ": "loot"
 }

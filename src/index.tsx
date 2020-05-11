@@ -205,6 +205,7 @@ function setEventNoLootChoices(nec: EventChoices) {
 }
 type EventMap = {
     [key: string]: {
+        views: number;
         type: string;
         data: any;
         options: string[];
@@ -238,11 +239,14 @@ function saveDirection(
             clist.push(currentLocationHash);
     }
     if (!evmap[currentLocationHash]) {
-        evmap[currentLocationHash] = { type, data, options, visits: {} };
+        evmap[currentLocationHash] = { views: 1, type, data, options, visits: {} };
     } else {
-        evmap[currentLocationHash].type = type;
-        evmap[currentLocationHash].data = data;
-        evmap[currentLocationHash].options = options;
+        let ev = evmap[currentLocationHash];
+        if(!ev.views) ev.views = 0;
+        ev.type = type;
+        ev.views += 1;
+        ev.data = data;
+        ev.options = options;
     }
     prevLocationHash = currentLocationHash;
     prevChoice = choiceName;
