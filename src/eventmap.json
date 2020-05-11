@@ -26,7 +26,7 @@
 				"Nmbh305"
 			]
 		},
-		"views": 39
+		"views": 511
 	},
 	"Nr8eiv1": {
 		"type": "loot",
@@ -35,15 +35,15 @@
 			"desc": "dug with haste.",
 			"visitdesc": "an old hole, covered by a light layer of ash.",
 			"items": {
-				"scrap_metal": {
-					"count": 2,
+				"steel_shard": {
+					"count": 3,
 					"data": {
-						"name": "scrap_metal",
-						"title": "scrap metal",
+						"name": "steel_shard",
+						"title": "steel shard",
 						"type": "misc",
-						"weight": 2,
-						"icon": "ð",
-						"desc": "a few shards of metal. probably can be bent into useful shapes."
+						"weight": 5,
+						"icon": "¤",
+						"desc": "high quality steel that seems to have been ripped off some old machine."
 					}
 				}
 			},
@@ -60,17 +60,17 @@
 				"Nr8eiv1"
 			]
 		},
-		"views": 1
+		"views": 24
 	},
 	"2d8gx5": {
 		"type": "event",
 		"data": {
-			"visited": false,
+			"visited": true,
 			"stage_data": {
 				"title": "a walled city",
 				"desc": "a majestic city enclosed in ancient stone rises out of the horizon, its innermost towers piercing the unending clouds. the portion of wall you've approached is dominating and unscathed, but a section a few kilometers to the east looks a little more weathered.",
 				"btns": {
-					"dzsG0NX": {
+					"GilDLmL": {
 						"text": "the eastern side"
 					},
 					"__leave__": {
@@ -91,7 +91,8 @@
 				"travel",
 				"2d8gx5"
 			]
-		}
+		},
+		"views": 2
 	},
 	"Nrj1yat": {
 		"type": "event",
@@ -592,10 +593,10 @@
 				"title": "a run-down shack",
 				"desc": "a short structure stands ahead, and a pile of rubble rests near it. seems like the house this belonged to was destroyed.",
 				"btns": {
-					"EQeqsJu": {
+					"ujUXblF": {
 						"text": "check rubble"
 					},
-					"Ut8EiZl": {
+					"pm8Vh0Y": {
 						"text": "check shack"
 					},
 					"__leave__": {
@@ -617,7 +618,8 @@
 				"travel",
 				"N97cep7"
 			]
-		}
+		},
+		"views": 1
 	},
 	"f3a6xw": {
 		"type": "loot",
@@ -653,15 +655,15 @@
 	"Nwbfckh": {
 		"type": "event",
 		"data": {
-			"visited": true,
+			"visited": false,
 			"stage_data": {
 				"title": "a desolate city",
 				"desc": "red skyscrapers rise out of the wasteland, their strong metal beams exposed and oxidized. the soot-caked wasteland turns into hard asphalt, rising over slums that begin to poke out of the sand. an exit curves away to your right, but otherwise, the highway continues onward.",
 				"btns": {
-					"HodoUas": {
+					"lGIjpBS": {
 						"text": "the slums"
 					},
-					"GUFam4b": {
+					"VOtrsPw": {
 						"text": "the highway"
 					},
 					"__leave__": {
@@ -683,7 +685,8 @@
 				"travel",
 				"Nwbfckh"
 			]
-		}
+		},
+		"views": 1
 	},
 	"lxsdpw": {
 		"type": "event",
@@ -1749,12 +1752,12 @@
 	"N86n0fb": {
 		"type": "event",
 		"data": {
-			"visited": true,
+			"visited": false,
 			"stage_data": {
 				"title": "a church",
 				"desc": "a tall but thin building is just ahead, a cross atop its steeple and double doors shut tight.",
 				"btns": {
-					"46Tm5NE": {
+					"CiPsT2B": {
 						"text": "investigate"
 					},
 					"__leave__": {
@@ -1775,7 +1778,8 @@
 			"investigate": [
 				"cxotkj"
 			]
-		}
+		},
+		"views": 1
 	},
 	"Nkx66dg": {
 		"type": "event",
@@ -1785,7 +1789,7 @@
 				"title": "an old home",
 				"desc": "the house stands strong, despite the world's decay. the roof, though coated in the soot that layers everything, has no holes. someone could even be still living here.",
 				"btns": {
-					"cA67oiv": {
+					"Vj7MwTI": {
 						"text": "enter"
 					},
 					"__leave__": {
@@ -1807,7 +1811,8 @@
 				"Ndng1cc",
 				"Nkx66dg"
 			]
-		}
+		},
+		"views": 1
 	},
 	"N51ipt6": {
 		"type": "event",
@@ -1818,7 +1823,7 @@
 				"desc": "a row of tall garage doors stand indented into the short building, boarded over by wood, chains, and threatening signs. the chains cover a glass door, but with the right tool, it might be possible to break through.",
 				"req_met_desc": "a row of tall garage doors stand indenting into a short building, boarded over by wood, chains, and threatening signs. the chains over the glass door have been snapped, leaving it wide open.",
 				"btns": {
-					"v0BhSGl": {
+					"cYWkK0A": {
 						"has_req": true,
 						"hide_req": false,
 						"req_for_all": false,
@@ -1851,7 +1856,8 @@
 			"leave": [
 				"travel"
 			]
-		}
+		},
+		"views": 2
 	},
 	"Nrokoq0": {
 		"type": "event",
@@ -1893,10 +1899,10 @@
 				"desc": "a small cabin stands weak against the withered wasteland. termites have eaten the front wall away, rusted hinges the only thing that indicate a door was once here. the floor inside seems unstable.",
 				"visited": "a small cabin stands weak against the withered wasteland. termites have eaten the wall away, rusted hinges the only thing that indicate a door was once here. the floor inside has crashed away, revealing a dull concrete basement.",
 				"btns": {
-					"eI1Z1f4": {
+					"xMKcCdZ": {
 						"text": "enter"
 					},
-					"gYdqqhD": {
+					"BfSvCb3": {
 						"text": "check the back"
 					},
 					"__leave__": {
@@ -1918,7 +1924,8 @@
 			"check the back": [
 				"Njlha1w"
 			]
-		}
+		},
+		"views": 1
 	},
 	"N4euq5v": {
 		"type": "event",
@@ -2740,7 +2747,7 @@
 				"title": "a governing city",
 				"desc": "rather than towering skyscrapers, the city ahead is comprised of massive structures that stay low to the ground. separated by many long fields and pits in the earth that must have once been lakes, the old buildings are supported by numerous columns, with highly detailed decorations sculpted into every inch of the stone they're built from. none are more than a few stories tall, but they bear an ancient strength, resisting the powerful winds that would wither a more modern tower. the path ahead leads to one of the great stone edifices, punctured by a tunnel straight through the center, continuing toward the sprawling fields beyond. there's a flicker of movement behind one of the many windows, but after focusing on it for a few minutes, nothing further happens.",
 				"btns": {
-					"OELotML": {
+					"s12tW5R": {
 						"text": "the tunnel"
 					},
 					"__leave__": {
@@ -2757,7 +2764,8 @@
 			"the tunnel": [
 				"7u1cex"
 			]
-		}
+		},
+		"views": 1
 	},
 	"7u1cex": {
 		"type": "event",
@@ -2767,10 +2775,10 @@
 				"title": "strong stone",
 				"desc": "the tunnel is decorated by sculptures of ancient humans in disorderly robes, its walls carved with flowers and nature. the ash hasn't reached too far into this tunnel, preserving a lot of the decor. at the center of the tunnel are two staircases leading high into the building. the one on the left is broken and covered in debris, but the one on the right is intact.",
 				"btns": {
-					"8UGOlhp": {
+					"tkVWrz2": {
 						"text": "the staircase"
 					},
-					"EsitqJr": {
+					"SSt7xvI": {
 						"text": "continue"
 					},
 					"__leave__": {
@@ -2788,7 +2796,8 @@
 			"exit event": [
 				"travel"
 			]
-		}
+		},
+		"views": 1
 	},
 	"Nqox1cn": {
 		"type": "event",
