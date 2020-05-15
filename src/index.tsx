@@ -832,6 +832,7 @@ type GameData = DataBase &
                     setEventChoices(choicemaker);
                 }
                 let choiceID = choices[choice];
+                if(choice == "__leave__") choiceID = choice;
                 if (!choiceID) {
                     printlog("Error!");
                     printlog("Choice does not exist here");
