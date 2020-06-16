@@ -197,5 +197,21 @@
 	"Nqox1cn -> Nxfi60l -> ": "the blast",
 	"Nqox1cn -> Nxfi60l -> kmepfl -> ": "the journal",
 	"Nqox1cn -> Nxfi60l -> kmepfl -> Ne415o3 -> ": "loot area",
-	"Nqox1cn -> Nxfi60l -> kmepfl -> Ne415o3 -> [5i87i4] -> ": "loot"
+	"Nqox1cn -> Nxfi60l -> kmepfl -> Ne415o3 -> [5i87i4] -> ": "loot",
+	"Natz9b1 -> ": "enter",
+	"Natz9b1 -> Nx0mvfh -> ": "the kitchen",
+	"Natz9b1 -> Nx0mvfh -> 65tb7d -> ": "the backyard",
+	"Natz9b1 -> Nx0mvfh -> 65tb7d -> [N8zeuzw] -> ": "loot",
+	"Nwbfckh -> lxsdpw -> Nwvszfr -> Nnkh4ub -> [N1fxbts] -> ": "loot",
+	"Nwbfckh -> lxsdpw -> Nwvszfr -> Nnkh4ub -> [N1fxbts] -> Nnkh4ub -> ": "the body",
+	"Nwbfckh -> lxsdpw -> Nwvszfr -> Nnkh4ub -> [N1fxbts] -> Nnkh4ub -> [N1fxbts] -> ": "loot",
+	"Nwbfckh -> lxsdpw -> Nwvszfr -> Nnkh4ub -> [N1fxbts] -> Nnkh4ub -> [N1fxbts] -> Nnkh4ub -> ": "the desk",
+	"Nwbfckh -> lxsdpw -> Nwvszfr -> Nnkh4ub -> [N1fxbts] -> Nnkh4ub -> [N1fxbts] -> Nnkh4ub -> jw4x17 -> ": "look inside",
+	"Nwbfckh -> lxsdpw -> Nwvszfr -> Nnkh4ub -> [N1fxbts] -> Nnkh4ub -> [N1fxbts] -> Nnkh4ub -> jw4x17 -> lockedoutjw4x17 -> ": "the rest of the room",
+	"Nwbfckh -> lxsdpw -> Nwvszfr -> Nnkh4ub -> [N1fxbts] -> Nnkh4ub -> [N1fxbts] -> Nnkh4ub -> jw4x17 -> lockedoutjw4x17 -> Nnkh4ub -> ": "go back",
+	"Nwbfckh -> lxsdpw -> Nwvszfr -> Nnkh4ub -> [N1fxbts] -> Nnkh4ub -> [N1fxbts] -> Nnkh4ub -> jw4x17 -> lockedoutjw4x17 -> Nnkh4ub -> lxsdpw -> ": "leave",
+	"Nus3yqr -> ": "the road",
+	"Nus3yqr -> to3ylz -> ": "the tower",
+	"Nus3yqr -> to3ylz -> 304ldl -> ": "exit event",
+	"Nus3yqr -> to3ylz -> 304ldl -> Nus3yqr -> ": "leave"
 }

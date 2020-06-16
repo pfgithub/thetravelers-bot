@@ -1,7 +1,7 @@
 var WORLD = {
     seed: 20171007,
     gridRadius: 15,
-    edgeDist: 50000,
+    edgeDist: 500000,
     TILES: {
         traveler: "?",
         sand: "s",

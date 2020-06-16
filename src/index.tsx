@@ -89,7 +89,7 @@ function setCurrentVisitPath(newPath: string) {
     fs.writeFileSync(path.join(basedir, "data/currentvisit"), newPath, "utf-8");
 }
 
-type HouseVisitState = "cannot_reach" | "visited" | "looted" | true;
+type HouseVisitState = "cannot_reach" | "visited" | "looted" | "unavailable" | true;
 
 function getVisitedHouses() {
     return JSON.parse(
@@ -933,6 +933,11 @@ type GameData = DataBase &
                 }
                 let target = houses[0];
                 if (target.dist === 0) {
+                    markVisited(
+                        json.x,
+                        json.y,
+                        "unavailable",
+                    );
                     printlog("standing on house. moving off.");
                     send({
                         action: "setDir",
@@ -994,8 +999,10 @@ type GameData = DataBase &
             process.exit(1);
         }
     };
-    conn.client.getGameObjectNoCountdown = (json: any) =>
+    conn.client.getGameObjectNoCountdown = (json: any) => {
+        if(json.loot_change) return;
         log("recvunknown", "ggonc", JSON.stringify(json));
+    };
     conn.client.raw = (js: any) =>
         log("recvunknown", ".RAW", JSON.stringify(js));
 
