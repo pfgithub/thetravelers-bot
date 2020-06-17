@@ -834,10 +834,14 @@ type GameData = DataBase &
                 let choiceID = choices[choice];
                 if(choice == "__leave__") choiceID = choice;
                 if (!choiceID) {
-                    printlog("Error!");
-                    printlog("Choice does not exist here");
-                    printlog("Error!");
-                    process.exit(1);
+                    if(choices["leave"]) choiceID = choices["leave"];
+                    else if(choices["exit event"]) choiceID = choices["exit event"];
+                    else {
+                        printlog("Error!");
+                        printlog("Choice does not exist here");
+                        printlog("Error!");
+                        process.exit(1);
+                    }
                 }
                 if (
                     sd.btns[choiceID].req_met === false ||
