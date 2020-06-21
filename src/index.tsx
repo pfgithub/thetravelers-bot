@@ -89,7 +89,12 @@ function setCurrentVisitPath(newPath: string) {
     fs.writeFileSync(path.join(basedir, "data/currentvisit"), newPath, "utf-8");
 }
 
-type HouseVisitState = "cannot_reach" | "visited" | "looted" | "unavailable" | true;
+type HouseVisitState =
+    | "cannot_reach"
+    | "visited"
+    | "looted"
+    | "unavailable"
+    | true;
 
 function getVisitedHouses() {
     return JSON.parse(
@@ -211,6 +216,8 @@ type EventMap = {
         data: any;
         options: string[];
         visits: { [key: string]: string[] }; // button name -> map key
+        loot?: { id: string; name: string; total: number; views: number }[];
+        latestView: number;
     };
 };
 
@@ -230,6 +237,7 @@ function saveDirection(
     type: string,
     data: any,
     options: string[],
+    loot: { id: string; name: string; count: number }[],
 ) {
     let evmap = getEventMap();
     if (prevLocationHash !== undefined) {
@@ -240,15 +248,40 @@ function saveDirection(
             clist.push(currentLocationHash);
     }
     if (!evmap[currentLocationHash]) {
-        evmap[currentLocationHash] = { views: 1, type, data, options, visits: {} };
+        evmap[currentLocationHash] = {
+            views: 1,
+            type,
+            data,
+            options,
+            visits: {},
+            latestView: new Date().getTime(),
+        };
     } else {
         let ev = evmap[currentLocationHash];
-        if(!ev.views) ev.views = 0;
+        if (!ev.views) ev.views = 0;
         ev.type = type;
         ev.views += 1;
         ev.data = data;
         ev.options = options;
+        ev.latestView = new Date().getTime();
     }
+    let ev = evmap[currentLocationHash];
+    for (let item of loot) {
+        let existingItem = ev.loot && ev.loot.find(itm => itm.id === item.id);
+        if (existingItem) {
+            existingItem.name = item.name;
+            existingItem.total += item.count;
+        }else{
+            if(!ev.loot) ev.loot = [];
+            ev.loot.push({id: item.id, name: item.name, total: item.count, views: 1});
+        }
+        if(ev.loot) {
+            for(let lootItem of ev.loot) {
+                lootItem.views += 1;
+            }
+        }
+    }
+
     prevLocationHash = currentLocationHash;
     prevChoice = choiceName;
     setEventMap(evmap);
@@ -690,24 +723,25 @@ type GameData = DataBase &
                     exptActions[getCurrentVisitPath()] = choice;
                     setEventChoices(exptActions);
                 }
-                saveDirection(loothash, choice, "loot", json.loot, [
+                saveDirection(
+                    loothash,
+                    choice,
                     "loot",
-                    "leave",
-                ]);
+                    json.loot,
+                    ["loot", "leave"],
+                    loot.map(([lname, lvalue]) => ({
+                        id: lname,
+                        name: lvalue.data.name,
+                        count: lvalue.count
+                    })),
+                );
                 if (choice === "loot") {
                     printlog("========== LOOT CHANGE =======");
                     for (let [lname, lvalue] of loot) {
                         if (!csupl[lname]) {
-                            printlog(
-                                "+ NEW! " +
-                                    lvalue.count +
-                                    " " +
-                                    lname,
-                            );
+                            printlog("+ NEW! " + lvalue.count + " " + lname);
                         } else {
-                            printlog(
-                                "+ " + lvalue.count + " " + lname,
-                            );
+                            printlog("+ " + lvalue.count + " " + lname);
                         }
                         send({
                             action: "loot_exchange",
@@ -834,10 +868,11 @@ type GameData = DataBase &
                     setEventChoices(choicemaker);
                 }
                 let choiceID = choices[choice];
-                if(choice == "__leave__") choiceID = choice;
+                if (choice == "__leave__") choiceID = choice;
                 if (!choiceID) {
-                    if(choices["leave"]) choiceID = choices["leave"];
-                    else if(choices["exit event"]) choiceID = choices["exit event"];
+                    if (choices["leave"]) choiceID = choices["leave"];
+                    else if (choices["exit event"])
+                        choiceID = choices["exit event"];
                     else {
                         printlog("Error!");
                         printlog("Choice does not exist here");
@@ -859,6 +894,7 @@ type GameData = DataBase &
                     "event",
                     json.event_data,
                     Object.keys(choices),
+                    [],
                 );
                 send({ action: "event_choice", option: choiceID });
 
@@ -866,7 +902,7 @@ type GameData = DataBase &
             }
             if (json.state === "travel") {
                 setCurrentVisitPath("");
-                saveDirection("travel", "travel", "travel", {}, ["travel"]);
+                saveDirection("travel", "travel", "travel", {}, ["travel"], []);
                 xpEstimate++;
 
                 if (
@@ -939,11 +975,7 @@ type GameData = DataBase &
                 }
                 let target = houses[0];
                 if (target.dist === 0) {
-                    markVisited(
-                        json.x,
-                        json.y,
-                        "unavailable",
-                    );
+                    markVisited(json.x, json.y, "unavailable");
                     printlog("standing on house. moving off.");
                     send({
                         action: "setDir",
@@ -1006,7 +1038,7 @@ type GameData = DataBase &
         }
     };
     conn.client.getGameObjectNoCountdown = (json: any) => {
-        if(json.loot_change) return;
+        if (json.loot_change) return;
         log("recvunknown", "ggonc", JSON.stringify(json));
     };
     conn.client.raw = (js: any) =>

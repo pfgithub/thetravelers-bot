@@ -29,7 +29,8 @@
 				"Nqox1cn"
 			]
 		},
-		"views": 3289128
+		"views": 3290010,
+		"latestView": 1592765472164
 	},
 	"Nr8eiv1": {
 		"type": "loot",
@@ -39,7 +40,7 @@
 			"visitdesc": "an old hole, covered by a light layer of ash.",
 			"items": {
 				"scrap_metal": {
-					"count": 2,
+					"count": 3,
 					"data": {
 						"name": "scrap_metal",
 						"title": "scrap metal",
@@ -63,7 +64,8 @@
 				"Nr8eiv1"
 			]
 		},
-		"views": 130884
+		"views": 130917,
+		"latestView": 1592765460380
 	},
 	"2d8gx5": {
 		"type": "event",
@@ -623,10 +625,10 @@
 				"title": "a run-down shack",
 				"desc": "a short structure stands ahead, and a pile of rubble rests near it. seems like the house this belonged to was destroyed.",
 				"btns": {
-					"hAnKgXd": {
+					"LOq4auw": {
 						"text": "check rubble"
 					},
-					"4fk32k1": {
+					"08DwfMq": {
 						"text": "check shack"
 					},
 					"__leave__": {
@@ -649,7 +651,7 @@
 				"N97cep7"
 			]
 		},
-		"views": 3001
+		"views": 3002
 	},
 	"f3a6xw": {
 		"type": "loot",
@@ -1271,7 +1273,7 @@
 				"title": "a childcare center",
 				"desc": "asphalt escapes beneath the ashen sand and leads to a single building, standing alone among a strip of collapsed structures. a sign over the glass doors indicates it was once a place where parents would leave their children during working hours. graffiti coats the walls, most of it too faded to read, but one mural states \"it was them all along\".",
 				"btns": {
-					"3V3jwf4": {
+					"Bm80F5Z": {
 						"text": "look inside"
 					},
 					"__leave__": {
@@ -1293,7 +1295,8 @@
 				"jpn4ox"
 			]
 		},
-		"views": 3016
+		"views": 3017,
+		"latestView": 1592765419036
 	},
 	"xqyqbv": {
 		"type": "event",
@@ -1477,7 +1480,7 @@
 				"title": "a withered city",
 				"desc": "sprawling skyscrapers tower overhead, triumphed only by the massive sinkhole that has swallowed every road in sight. smaller buildings have collapsed into it, spilling rubble everywhere, while the bigger ones' support beams are exposed to the open air. the hole is long and wide, encompassing most of the city from where you stand, but it doesn't seem to be too deep. as you walk forward, you can see a path is made through some cracked roads laying over the debris toward an underground tunnel.",
 				"btns": {
-					"9u2C11v": {
+					"JumVaCD": {
 						"text": "the tunnel"
 					},
 					"__leave__": {
@@ -1499,7 +1502,7 @@
 				"travel"
 			]
 		},
-		"views": 3130
+		"views": 3132
 	},
 	"Ne68x5o": {
 		"type": "event",
@@ -1851,7 +1854,7 @@
 				"title": "a church",
 				"desc": "a tall but thin building is just ahead, a cross atop its steeple and double doors shut tight.",
 				"btns": {
-					"sQjjREM": {
+					"oN5I8kK": {
 						"text": "investigate"
 					},
 					"__leave__": {
@@ -1873,7 +1876,7 @@
 				"cxotkj"
 			]
 		},
-		"views": 3057
+		"views": 3059
 	},
 	"Nkx66dg": {
 		"type": "event",
@@ -1961,7 +1964,7 @@
 				"title": "a humble residence",
 				"desc": "a short structure, weathered from time, is barely noticeable among the dead trees in the wasteland. the knob has been broken off the front door, leaving it to swing freely in the wind.",
 				"btns": {
-					"bzoHkJO": {
+					"S4nqmpH": {
 						"text": "enter"
 					},
 					"__leave__": {
@@ -1984,7 +1987,7 @@
 				"Nrokoq0"
 			]
 		},
-		"views": 3037
+		"views": 3038
 	},
 	"Nqiyaxk": {
 		"type": "event",
@@ -2808,7 +2811,7 @@
 				"title": "a pet store",
 				"desc": "a cracked building stands alone among a line of rubble, broken windows with peeling advertisements declaring this was a store for domestic animals. a dusty road emerges from the ash to lead up to what was once a bustling strip mall.",
 				"btns": {
-					"iUSfYaa": {
+					"3LPid4p": {
 						"text": "enter"
 					},
 					"__leave__": {
@@ -2830,7 +2833,8 @@
 				"travel"
 			]
 		},
-		"views": 2894
+		"views": 2896,
+		"latestView": 1592765448612
 	},
 	"Nmvvdsm": {
 		"type": "event",
@@ -2989,7 +2993,7 @@
 				"title": "a governing city",
 				"desc": "rather than towering skyscrapers, the city ahead is comprised of massive structures that stay low to the ground. separated by many long fields and pits in the earth that must have once been lakes, the old buildings are supported by numerous columns, with highly detailed decorations sculpted into every inch of the stone they're built from. none are more than a few stories tall, but they bear an ancient strength, resisting the powerful winds that would wither a more modern tower. the path ahead leads to one of the great stone edifices, punctured by a tunnel straight through the center, continuing toward the sprawling fields beyond. there's a flicker of movement behind one of the many windows, but after focusing on it for a few minutes, nothing further happens.",
 				"btns": {
-					"sRPNa4L": {
+					"PtG0vw1": {
 						"text": "the tunnel"
 					},
 					"__leave__": {
@@ -3017,7 +3021,7 @@
 				"Nmbh305"
 			]
 		},
-		"views": 3026
+		"views": 3027
 	},
 	"7u1cex": {
 		"type": "event",
@@ -3245,7 +3249,7 @@
 		}
 	},
 	"Natz9b1": {
-		"views": 395,
+		"views": 396,
 		"type": "event",
 		"data": {
 			"visited": false,
@@ -3253,7 +3257,7 @@
 				"title": "a weathered house",
 				"desc": "a yellow home sticks out of the ground like a stain in the landscape, no accompanying road or houses nearby to indicate it as part of a neighborhood. the siding is peeling, the windows are broken, and the door hangs open, unmoving in the dead atmosphere.",
 				"btns": {
-					"zmpZAa6": {
+					"CyA9yWJ": {
 						"text": "enter"
 					},
 					"__leave__": {
@@ -3273,7 +3277,7 @@
 		}
 	},
 	"Nx0mvfh": {
-		"views": 395,
+		"views": 396,
 		"type": "event",
 		"data": {
 			"visited": false,
@@ -3281,10 +3285,10 @@
 				"title": "the entrance hall",
 				"desc": "the front door opens into a hallway, with an entrance to either side for a moldy bathroom and a living room. old photos and paintings hang in the hallway, which leads to a kitchen.",
 				"btns": {
-					"xVrUJOQ": {
+					"6SpCLO0": {
 						"text": "the living room"
 					},
-					"sz64Kmv": {
+					"2Yl3Xa5": {
 						"text": "the kitchen"
 					},
 					"__leave__": {
@@ -3305,7 +3309,7 @@
 		}
 	},
 	"65tb7d": {
-		"views": 395,
+		"views": 396,
 		"type": "event",
 		"data": {
 			"visited": false,
@@ -3313,7 +3317,7 @@
 				"title": "the kitchen",
 				"desc": "the kitchen is small, complete with only a few rotted chairs around a fallen table and a refrigerator. it's still humming, power somehow still reaching it after all this time, but the door hangs open, revealing an empty interior. the freezer door has alphabet magnets on it, a few of them spelling \"we miss you mom\". there's a door leading to the backyard.",
 				"btns": {
-					"hXcv7uP": {
+					"FxIwvh6": {
 						"text": "the backyard"
 					},
 					"__leave__": {
@@ -3333,7 +3337,7 @@
 		}
 	},
 	"N8zeuzw": {
-		"views": 395,
+		"views": 396,
 		"type": "loot",
 		"data": {
 			"title": "the backyard",
@@ -3349,33 +3353,6 @@
 						"weight": 2,
 						"icon": "ð",
 						"desc": "a few shards of metal. probably can be bent into useful shapes."
-					}
-				},
-				"cloth": {
-					"count": 2,
-					"data": {
-						"name": "cloth",
-						"title": "cloth",
-						"type": "misc",
-						"weight": 1,
-						"icon": "c",
-						"desc": "tattered and partially rotted fabric, but combined with others like it, could still be put to use."
-					}
-				},
-				"fire_extinguisher": {
-					"count": 1,
-					"data": {
-						"name": "fire_extinguisher",
-						"title": "fire extinguisher",
-						"type": "weap",
-						"weight": 11,
-						"icon": "Û",
-						"desc": "an empty metal can, once capable of saving lives, is now used to inflict pain.",
-						"weapon": true,
-						"weapon_data": {
-							"dmg": 11,
-							"sp": 11
-						}
 					}
 				}
 			},
@@ -3412,7 +3389,7 @@
 		}
 	},
 	"Nus3yqr": {
-		"views": 308,
+		"views": 309,
 		"type": "event",
 		"data": {
 			"visited": false,
@@ -3420,7 +3397,7 @@
 				"title": "a blasted city",
 				"desc": "the asphalt leading to the red towers ahead is smoothed over, as though it had been fiercely melted into uniformity. the edges of the road are tinged with glass, hiding beneath the ash and sand. the skyscrapers have had their windows and walls blasted off, exposing their rusted skeletons of steel. one tower pierces the black clouds in the atmosphere, but the rest fall short. the ash floating in the air is joined by the tangy smell of metallic dust, gently raining from the city's bones. the flat road leads deep inside the city.",
 				"btns": {
-					"qivXvlD": {
+					"aM3yS66": {
 						"text": "the road"
 					},
 					"__leave__": {
@@ -3443,7 +3420,7 @@
 		}
 	},
 	"to3ylz": {
-		"views": 307,
+		"views": 308,
 		"type": "event",
 		"data": {
 			"visited": false,
@@ -3451,7 +3428,7 @@
 				"title": "black and red",
 				"desc": "the smaller buildings are entirely burnt out, brick and rusted steel the only indicator that they once existed. what isn't caked in ash is glaring in angry red, like an ancient fiery beast. the road continues deeper, but even as the remains of the structures grow taller, the debris grows thicker, crowding the flat street and making your travel slower. you climb atop the rubble and continue on, the flat road disappearing underneath the wreckage. the path continues into the heart of the city, until you reach the foot of the tallest tower, the one you saw from the outside. what once were grand double doors welcome you inside, but you could get in through any of the numerous broken windows at ground level anyway. this tower isn't as skeletal as the others; some walls are still intact, and many patches of concrete indicate that floors higher up are still stable.",
 				"btns": {
-					"p7BmxTg": {
+					"WTVVFTa": {
 						"text": "the tower"
 					},
 					"__leave__": {
@@ -3471,7 +3448,7 @@
 		}
 	},
 	"304ldl": {
-		"views": 306,
+		"views": 307,
 		"type": "event",
 		"data": {
 			"visited": false,
@@ -3479,13 +3456,13 @@
 				"title": "the tower lobby",
 				"desc": "the rusted steel beams imply a grand and tall lobby, with many directions to go and floors to explore, but the blasted rubble covers the floor and most of the halls. anything that could have been wood or paper is now just charred husk. the area is well-lit, light flowing in from the many gaps in the walls. from here, there's an elevator shaft, a hall with a symbol indicating a staircase, and a door with an \"exit\" sign over it.",
 				"btns": {
-					"KAQeyQq": {
+					"ahg1tMp": {
 						"text": "the elevator"
 					},
-					"BI3Chtu": {
+					"jQdYcn3": {
 						"text": "the staircase"
 					},
-					"M7w8K18": {
+					"5bKfcaT": {
 						"text": "the exit sign"
 					},
 					"__leave__": {
