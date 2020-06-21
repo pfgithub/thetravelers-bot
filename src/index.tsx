@@ -115,6 +115,7 @@ type Logfiles =
     | "unusualproximity"
     | "xperror"
     | "exejs"
+    | "loginjson"
     | "gainxp";
 function log(logfile: Logfiles, ...message: any[]) {
     fs.appendFileSync(
@@ -389,6 +390,7 @@ type GameData = DataBase &
     gamedata = JSON.parse(reqres);
     log("general", "Game started.");
     //console.log(JSON.stringify(gamedata, null, "\t"));
+    log("loginjson", JSON.stringify(gamedata, null, "\t"));
 
     // @ts-ignore
     const $ = window.$;

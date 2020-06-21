@@ -193,7 +193,7 @@
 	"hbuavp -> Nmvvdsm -> pa1w3d -> 2wnaj1 -> tbnvf8 -> [wmgctr] -> ": "loot",
 	"Nmbh305 -> ": "__leave__",
 	"Nmbh305 -> 7u1cex -> ": "exit event",
-	"Nqox1cn -> ": "descend",
+    "Nqox1cn -> ": "descend",
 	"Nqox1cn -> Nxfi60l -> ": "the blast",
 	"Nqox1cn -> Nxfi60l -> kmepfl -> ": "the journal",
 	"Nqox1cn -> Nxfi60l -> kmepfl -> Ne415o3 -> ": "loot area",
@@ -215,5 +215,7 @@
 	"Nus3yqr -> to3ylz -> 304ldl -> ": "exit event",
 	"Nus3yqr -> to3ylz -> 304ldl -> Nus3yqr -> ": "leave",
 	"Nqox1cn -> ozrn5l -> ": "the blast",
-	"Nqox1cn -> ozrn5l -> kmepfl -> ": "leave"
+	"Nqox1cn -> ozrn5l -> kmepfl -> ": "leave",
+	"2d8gx5 -> Nrj1yat -> Ny87bbi -> m15wlz -> Nat5qsg -> kqozw3 -> Nat5qsg -> ": "back out toward the city",
+	"2d8gx5 -> Nrj1yat -> Ny87bbi -> m15wlz -> Nat5qsg -> kqozw3 -> Nat5qsg -> Nq6j0lu -> ": "leave"
 }
