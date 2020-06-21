@@ -29,8 +29,11 @@
 				"Nqox1cn"
 			]
 		},
-		"views": 3290010,
-		"latestView": 1592765472164
+		"views": 3290112,
+		"latestView": 1592765736497,
+		"loot": {
+			"[]": 102
+		}
 	},
 	"Nr8eiv1": {
 		"type": "loot",
@@ -40,7 +43,7 @@
 			"visitdesc": "an old hole, covered by a light layer of ash.",
 			"items": {
 				"scrap_metal": {
-					"count": 3,
+					"count": 2,
 					"data": {
 						"name": "scrap_metal",
 						"title": "scrap metal",
@@ -64,8 +67,12 @@
 				"Nr8eiv1"
 			]
 		},
-		"views": 130917,
-		"latestView": 1592765460380
+		"views": 130919,
+		"latestView": 1592765706932,
+		"loot": {
+			"[{\"id\":\"steel_shard\",\"name\":\"steel_shard\",\"count\":2}]": 1,
+			"[{\"id\":\"scrap_metal\",\"name\":\"scrap_metal\",\"count\":2}]": 1
+		}
 	},
 	"2d8gx5": {
 		"type": "event",
@@ -711,22 +718,21 @@
 	"Nwbfckh": {
 		"type": "event",
 		"data": {
-			"visited": true,
+			"visited": false,
 			"stage_data": {
+				"title": "a desolate city",
+				"desc": "red skyscrapers rise out of the wasteland, their strong metal beams exposed and oxidized. the soot-caked wasteland turns into hard asphalt, rising over slums that begin to poke out of the sand. an exit curves away to your right, but otherwise, the highway continues onward.",
 				"btns": {
-					"bKKAE0K": {
+					"t6LBMag": {
 						"text": "the slums"
 					},
-					"KpULk3x": {
+					"oxIAXY2": {
 						"text": "the highway"
 					},
 					"__leave__": {
 						"text": "leave"
 					}
-				},
-				"title": "a desolate city",
-				"desc": "red skyscrapers rise out of the wasteland, their strong metal beams exposed and oxidized. the soot-caked wasteland turns into hard asphalt, rising over slums that begin to poke out of the sand. an exit curves away to your right, but otherwise, the highway continues onward.",
-				"req_met_desc": null
+				}
 			}
 		},
 		"options": [
@@ -743,7 +749,11 @@
 				"Nwbfckh"
 			]
 		},
-		"views": 3063
+		"views": 3064,
+		"latestView": 1592765686226,
+		"loot": {
+			"[]": 1
+		}
 	},
 	"lxsdpw": {
 		"type": "event",
@@ -1854,7 +1864,7 @@
 				"title": "a church",
 				"desc": "a tall but thin building is just ahead, a cross atop its steeple and double doors shut tight.",
 				"btns": {
-					"oN5I8kK": {
+					"nP4EqUU": {
 						"text": "investigate"
 					},
 					"__leave__": {
@@ -1876,7 +1886,11 @@
 				"cxotkj"
 			]
 		},
-		"views": 3059
+		"views": 3060,
+		"latestView": 1592765648764,
+		"loot": {
+			"[]": 1
+		}
 	},
 	"Nkx66dg": {
 		"type": "event",
@@ -1886,7 +1900,7 @@
 				"title": "an old home",
 				"desc": "the house stands strong, despite the world's decay. the roof, though coated in the soot that layers everything, has no holes. someone could even be still living here.",
 				"btns": {
-					"HLVd7s5": {
+					"CfLZb60": {
 						"text": "enter"
 					},
 					"__leave__": {
@@ -1909,7 +1923,11 @@
 				"Nkx66dg"
 			]
 		},
-		"views": 2923
+		"views": 2924,
+		"latestView": 1592765640913,
+		"loot": {
+			"[]": 1
+		}
 	},
 	"N51ipt6": {
 		"type": "event",
@@ -3389,7 +3407,7 @@
 		}
 	},
 	"Nus3yqr": {
-		"views": 309,
+		"views": 310,
 		"type": "event",
 		"data": {
 			"visited": false,
@@ -3397,7 +3415,7 @@
 				"title": "a blasted city",
 				"desc": "the asphalt leading to the red towers ahead is smoothed over, as though it had been fiercely melted into uniformity. the edges of the road are tinged with glass, hiding beneath the ash and sand. the skyscrapers have had their windows and walls blasted off, exposing their rusted skeletons of steel. one tower pierces the black clouds in the atmosphere, but the rest fall short. the ash floating in the air is joined by the tangy smell of metallic dust, gently raining from the city's bones. the flat road leads deep inside the city.",
 				"btns": {
-					"aM3yS66": {
+					"TyCVcou": {
 						"text": "the road"
 					},
 					"__leave__": {
@@ -3417,10 +3435,14 @@
 			"leave": [
 				"travel"
 			]
+		},
+		"latestView": 1592765709989,
+		"loot": {
+			"[]": 1
 		}
 	},
 	"to3ylz": {
-		"views": 308,
+		"views": 309,
 		"type": "event",
 		"data": {
 			"visited": false,
@@ -3428,7 +3450,7 @@
 				"title": "black and red",
 				"desc": "the smaller buildings are entirely burnt out, brick and rusted steel the only indicator that they once existed. what isn't caked in ash is glaring in angry red, like an ancient fiery beast. the road continues deeper, but even as the remains of the structures grow taller, the debris grows thicker, crowding the flat street and making your travel slower. you climb atop the rubble and continue on, the flat road disappearing underneath the wreckage. the path continues into the heart of the city, until you reach the foot of the tallest tower, the one you saw from the outside. what once were grand double doors welcome you inside, but you could get in through any of the numerous broken windows at ground level anyway. this tower isn't as skeletal as the others; some walls are still intact, and many patches of concrete indicate that floors higher up are still stable.",
 				"btns": {
-					"WTVVFTa": {
+					"3O17Lk0": {
 						"text": "the tower"
 					},
 					"__leave__": {
@@ -3445,10 +3467,14 @@
 			"the tower": [
 				"304ldl"
 			]
+		},
+		"latestView": 1592765710925,
+		"loot": {
+			"[]": 1
 		}
 	},
 	"304ldl": {
-		"views": 307,
+		"views": 308,
 		"type": "event",
 		"data": {
 			"visited": false,
@@ -3456,13 +3482,13 @@
 				"title": "the tower lobby",
 				"desc": "the rusted steel beams imply a grand and tall lobby, with many directions to go and floors to explore, but the blasted rubble covers the floor and most of the halls. anything that could have been wood or paper is now just charred husk. the area is well-lit, light flowing in from the many gaps in the walls. from here, there's an elevator shaft, a hall with a symbol indicating a staircase, and a door with an \"exit\" sign over it.",
 				"btns": {
-					"ahg1tMp": {
+					"Vm2tNGf": {
 						"text": "the elevator"
 					},
-					"jQdYcn3": {
+					"hbo0qmn": {
 						"text": "the staircase"
 					},
-					"5bKfcaT": {
+					"adUiANT": {
 						"text": "the exit sign"
 					},
 					"__leave__": {
@@ -3484,6 +3510,10 @@
 			"exit event": [
 				"travel"
 			]
+		},
+		"latestView": 1592765711915,
+		"loot": {
+			"[]": 1
 		}
 	},
 	"ozrn5l": {

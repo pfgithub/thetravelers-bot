@@ -216,7 +216,7 @@ type EventMap = {
         data: any;
         options: string[];
         visits: { [key: string]: string[] }; // button name -> map key
-        loot?: { id: string; name: string; total: number; views: number }[];
+        loot?: { [key: string]: number };
         latestView: number;
     };
 };
@@ -266,21 +266,11 @@ function saveDirection(
         ev.latestView = new Date().getTime();
     }
     let ev = evmap[currentLocationHash];
-    for (let item of loot) {
-        let existingItem = ev.loot && ev.loot.find(itm => itm.id === item.id);
-        if (existingItem) {
-            existingItem.name = item.name;
-            existingItem.total += item.count;
-        }else{
-            if(!ev.loot) ev.loot = [];
-            ev.loot.push({id: item.id, name: item.name, total: item.count, views: 1});
-        }
-        if(ev.loot) {
-            for(let lootItem of ev.loot) {
-                lootItem.views += 1;
-            }
-        }
-    }
+    let lootJStr = JSON.stringify(loot);
+
+    if (!ev.loot) ev.loot = {};
+    if (ev.loot[lootJStr]) ev.loot[lootJStr] += 1;
+    else ev.loot[lootJStr] = 1;
 
     prevLocationHash = currentLocationHash;
     prevChoice = choiceName;
@@ -732,7 +722,7 @@ type GameData = DataBase &
                     loot.map(([lname, lvalue]) => ({
                         id: lname,
                         name: lvalue.data.name,
-                        count: lvalue.count
+                        count: lvalue.count,
                     })),
                 );
                 if (choice === "loot") {
