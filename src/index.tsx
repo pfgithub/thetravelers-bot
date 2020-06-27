@@ -340,7 +340,7 @@ function appendCurrentVisitPath(pv: string) {
     setCurrentVisitPath(cvpath);
 }
 
-type LootItem = { count: number; data: { name: string } };
+type LootItem = { count: number; data: { name: string, title: string } };
 type LootContainer = { [key: string]: LootItem };
 type DataBase = {
     username: string;
@@ -497,7 +497,7 @@ type GameData = DataBase &
                 </Box>
                 <Box>
                     <Color blueBright>Looting:</Color>{" "}
-                    {util.format(shouldAttemptLoot, false, null, true)}
+                    {util.format(shouldAttemptLoot)}
                 </Box>
                 <Box>
                     <Color blueBright>Search Radius:</Color> {searchRadius}
@@ -647,6 +647,8 @@ type GameData = DataBase &
             currentXY = json.x + "|" + json.y;
 
             shouldAttemptLoot = json.skills.max_carry - json.skills.carry >= 25;
+            /// TEMPORARY. switch to /**/
+            // shouldAttemptLoot = true;
 
             logdata = [];
             timeSinceLevelStart = 0;
@@ -721,7 +723,7 @@ type GameData = DataBase &
                     ["loot", "leave"],
                     loot.map(([lname, lvalue]) => ({
                         id: lname,
-                        name: lvalue.data.name,
+                        name: lvalue.data.title,
                         count: lvalue.count,
                     })),
                 );
