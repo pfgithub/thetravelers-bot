@@ -2,12 +2,8 @@
     "dependencies": {
         "humanize-duration": "^3.21.0",
         "ink": "^2.6.0",
-        "jquery": "^3.4.1",
-        "jsdom": "^15.2.1",
-        "node-fetch": "^2.6.0",
         "react": "^16.12.0",
-        "signalr": "^2.4.1",
-        "websocket": "^1.0.31"
+        "travelersapi": "^1.3.0"
     },
     "devDependencies": {
         "@types/humanize-duration": "^3.18.0",

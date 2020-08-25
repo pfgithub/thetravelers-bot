@@ -9,78 +9,12 @@ let basedir = path.join(__dirname, "../accounts/", process.argv[2]);
 import * as React from "react";
 import { render, Box, useInput, Color, Text } from "ink";
 
-declare global {
-    namespace NodeJS {
-        interface Global {
-            window: DOMWindow & {
-                jQuery?: JQueryStatic;
-                $?: JQueryStatic;
-            };
-        }
-    }
-}
+import { createBot, generateWorldTileAt } from "travelersapi";
 
-// jsdom setup
-import { JSDOM, CookieJar, DOMWindow } from "jsdom";
-import { Cookie } from "tough-cookie";
-const cookieJar = new CookieJar();
+const token = fs.readFileSync(path.join(basedir, "data/token.txt"), "utf-8");
 
-const header = Cookie.parse(
-    fs.readFileSync(path.join(basedir, "data/cookie.txt"), "utf-8"),
-)!;
-
-cookieJar.setCookie(header, "https://thetravelers.online/", (...a) =>
-    console.log(...a),
-);
-
-console.log(cookieJar);
-let { window: gwindow } = new JSDOM(
-    `<!DOCTYPE html><html><head></head><body></body></html>i`,
-    {
-        url: "https://thetravelers.online/",
-        cookieJar,
-    },
-);
-global.window = gwindow;
-Object.assign(global.window, {
-    JSON,
-    encodeURIComponent,
-    decodeURIComponent,
-});
-
-//console.log(Object.keys(global.window).sort().join(", "));
-
-import * as jQuery from "jquery";
-global.window.jQuery = jQuery;
-global.window.$ = jQuery;
-import "signalr";
-// @ts-ignore
-import * as generateWorldTile from "./worldgen";
 // @ts-ignore
 import * as makeBoard from "./board";
-
-require("../data/hubs");
-// or fetch and eval but that seems scary
-
-async function request(url: string, args: any = {}): Promise<string> {
-    // @ts-ignore
-    let request = new window.XMLHttpRequest();
-    request.open("POST", url, true);
-    request.setRequestHeader("Content-Type", "application/json");
-    request.send(JSON.stringify(args));
-
-    return new Promise((success, error) => {
-        request.onreadystatechange = () => {
-            if (request.readyState === 4 && request.statusText === "OK") {
-                success(JSON.parse(request.responseText).d);
-            } else if (request.readyState === 4 && request.status === 200) {
-                success(JSON.parse(request.responseText).d);
-            } else if (request.readyState === 4) {
-                error(JSON.parse(request.responseText));
-            }
-        };
-    });
-}
 
 function getCurrentVisitPath() {
     return fs.readFileSync(path.join(basedir, "data/currentvisit"), "utf-8");
@@ -155,7 +89,7 @@ function searchForHouse(sx: number, sy: number, searchRadius: number) {
             if (Math.abs(x) - 20000 + 10 > 0) continue;
             if (Math.abs(y) - 20000 + 10 > 0) continue;
             if (gameBoard.get(x, -y) !== "#") continue;
-            let tile = generateWorldTile(x, y);
+            let tile = generateWorldTileAt(x, y);
             gameBoard.set(x, -y, tile);
             if (tile === "H" || tile === "C") {
                 knownHouses[x + "|" + y] = { x, y, tile };
@@ -340,7 +274,7 @@ function appendCurrentVisitPath(pv: string) {
     setCurrentVisitPath(cvpath);
 }
 
-type LootItem = { count: number; data: { name: string, title: string } };
+type LootItem = { count: number; data: { name: string; title: string } };
 type LootContainer = { [key: string]: LootItem };
 type DataBase = {
     username: string;
@@ -408,18 +342,30 @@ type GameData = DataBase &
         | GameIntData
     );
 
+const traveler = createBot();
+
+import * as rl from "readline";
+
+async function readline(question: string): Promise<string> {
+    const r = rl.createInterface({
+        input: process.stdin,
+        output: process.stdout,
+    });
+    return await new Promise(rslv =>
+        r.question(question, answer => {
+            rslv(answer);
+            r.close();
+        }),
+    );
+}
+
 (async () => {
-    let reqres = await request("/default.aspx/GetAutoLog");
-    gamedata = JSON.parse(reqres);
+    const captcha = await readline("SOCKET.captcha = ");
+    gamedata = (await traveler.login(token, captcha)) as any;
+
     log("general", "Game started.");
     //console.log(JSON.stringify(gamedata, null, "\t"));
     log("loginjson", JSON.stringify(gamedata, null, "\t"));
-
-    // @ts-ignore
-    const $ = window.$;
-    let conn = $.connection.logHub;
-    let hub = $.connection.hub;
-    // console.log(conn, hub);
 
     let eventIgnore = false;
     let afkWalkDir: "n" | "s" | "nw" | undefined = undefined;
@@ -590,7 +536,8 @@ type GameData = DataBase &
         | { x: number; y: number; stage: "equip" | "dig" | "reset" }
         | undefined;
 
-    conn.client.getGameObject = async (jsonv: GameData) => {
+    traveler.on.update = async jsonva => {
+        const jsonv = jsonva as GameData;
         if (eventIgnore) {
             return;
         }
@@ -744,7 +691,7 @@ type GameData = DataBase &
                     }
                     printlog("========== DROPPING UNNEEDED ITEMS =======");
                     for (let [lname, lvalue] of Object.entries(csupl)) {
-                        const unneededs: {[key: string]: number} = {
+                        const unneededs: { [key: string]: number } = {
                             bp_metal_detector: 1,
                             keycard_a: 1,
                             shovel_head: 1,
@@ -772,7 +719,6 @@ type GameData = DataBase &
                             blowtorch: 1,
                             metal_detector: 1,
                             shovel: 1,
-
                         };
                         if (unneededs[lname]) {
                             if (csupl[lname].count > unneededs[lname]) {
@@ -1051,11 +997,11 @@ type GameData = DataBase &
             process.exit(1);
         }
     };
-    conn.client.getGameObjectNoCountdown = (json: any) => {
+    traveler.on.updateImmediate = (json: any) => {
         if (json.loot_change) return;
         log("recvunknown", "ggonc", JSON.stringify(json));
     };
-    conn.client.raw = (js: any) =>
+    traveler.on.evalJS = (js: any) =>
         log("recvunknown", ".RAW", JSON.stringify(js));
 
     function send(
@@ -1087,10 +1033,8 @@ type GameData = DataBase &
     ) {
         log("sendrecv", "i> \n" + JSON.stringify(msg));
         printlog("(sent)");
-        conn.server.fromClient(msg);
+        traveler.send(msg);
     }
-
-    await new Promise(r => hub.start().done(r));
 
     // send({ action: "setDir", dir: nxtdir, autowalk: false });
 
@@ -1100,4 +1044,4 @@ type GameData = DataBase &
     });
 })();
 
-setTimeout(() => process.exit(0), 1000 * 60 * 60); // every 1h
+setTimeout(() => process.exit(0), 1000 * 60 * 60 * 24 * 10); // every 10d

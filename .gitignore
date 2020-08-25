@@ -1,4 +1,6 @@
-node_modules
-data
-accounts
-logs
+node_modules/
+data/
+logs/
+accounts/*
+!accounts/example
+!accounts/example/*
