@@ -175,11 +175,13 @@ function saveDirection(
 ) {
     let evmap = getEventMap();
     if (prevLocationHash !== undefined) {
-        if (!evmap[prevLocationHash].visits[prevChoice!])
-            evmap[prevLocationHash].visits[prevChoice!] = [];
-        let clist = evmap[prevLocationHash].visits[prevChoice!];
-        if (clist.indexOf(currentLocationHash) === -1)
-            clist.push(currentLocationHash);
+        if (evmap[prevLocationHash]) {
+            if (!evmap[prevLocationHash].visits[prevChoice!])
+                evmap[prevLocationHash].visits[prevChoice!] = [];
+            let clist = evmap[prevLocationHash].visits[prevChoice!];
+            if (clist.indexOf(currentLocationHash) === -1)
+                clist.push(currentLocationHash);
+        }
     }
     if (!evmap[currentLocationHash]) {
         evmap[currentLocationHash] = {
@@ -362,6 +364,7 @@ async function readline(question: string): Promise<string> {
 (async () => {
     const captcha = await readline("SOCKET.captcha = ");
     gamedata = (await traveler.login(token, captcha)) as any;
+    console.log("gamedata: ", gamedata);
 
     log("general", "Game started.");
     //console.log(JSON.stringify(gamedata, null, "\t"));
