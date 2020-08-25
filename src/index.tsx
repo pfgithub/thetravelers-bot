@@ -424,7 +424,7 @@ type GameData = DataBase &
     let eventIgnore = false;
     let afkWalkDir: "n" | "s" | "nw" | undefined = undefined;
 
-    let searchRadius = 100;
+    let searchRadius = 50;
     let shouldAttemptLoot: boolean = true;
     let timeSinceLevelStart = 0;
 
@@ -744,17 +744,39 @@ type GameData = DataBase &
                     }
                     printlog("========== DROPPING UNNEEDED ITEMS =======");
                     for (let [lname, lvalue] of Object.entries(csupl)) {
-                        if (
-                            [
-                                "bp_metal_detector",
-                                "keycard_a",
-                                "shovel",
-                                "shovel_head",
-                                "rusty_knife",
-                            ].indexOf(lname) > -1
-                        ) {
-                            if (csupl[lname].count > 1) {
-                                csupl[lname].count = 1;
+                        const unneededs: {[key: string]: number} = {
+                            bp_metal_detector: 1,
+                            keycard_a: 1,
+                            shovel_head: 1,
+                            scrap_metal: 100,
+                            steel_shard: 100,
+                            copper_ore: 100,
+                            cloth: 100,
+                            rope: 100,
+                            wood_stick: 100,
+                            copper_coil: 100,
+                            wire: 100,
+                            battery: 100,
+                            circuit_board: 100,
+                            plastic: 100,
+                            shotgun_shell: 100,
+                            alien_fragment: 100,
+                            soda_bottle: 1,
+                            fire_extinguisher: 1,
+                            baseball_bat: 1,
+                            machete: 1,
+                            rusty_knife: 1,
+                            crowbar: 1,
+                            bolt_cutters: 1,
+                            axe: 1,
+                            blowtorch: 1,
+                            metal_detector: 1,
+                            shovel: 1,
+
+                        };
+                        if (unneededs[lname]) {
+                            if (csupl[lname].count > unneededs[lname]) {
+                                csupl[lname].count = unneededs[lname];
                                 printlog(
                                     "Dropping down to " +
                                         lvalue.count +
@@ -788,7 +810,7 @@ type GameData = DataBase &
             }
 
             if (json.state === "event") {
-                searchRadius = 100;
+                searchRadius = 50;
                 markVisited(
                     json.x,
                     json.y,
@@ -976,7 +998,7 @@ type GameData = DataBase &
                     });
                     return;
                 }
-                searchRadius = 100;
+                searchRadius = 50;
 
                 if (lastXY === currentXY) {
                     walkFailedCount++;
